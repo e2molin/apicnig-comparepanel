@@ -7,6 +7,7 @@ M.language.setLang('es');//Español
 /**
  * Definimos las capas con notación MAPEA
  */
+
 const capasPNOA = [
   'WMS*PNOA 2004*https://www.ign.es/wms/pnoa-historico*PNOA2004',
   'WMS*PNOA 2005*https://www.ign.es/wms/pnoa-historico*PNOA2005',

@@ -1,6 +1,7 @@
 /**
  * @module M/plugin/Mirrorpanel
  */
+
 import 'assets/css/cpmirrorpanel';
 import MirrorpanelControl from './cpmirrorpanelcontrol';
 import api from '../../api';

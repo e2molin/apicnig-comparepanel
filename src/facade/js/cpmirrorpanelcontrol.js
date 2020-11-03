@@ -101,6 +101,7 @@ export default class CompareMirrorpanel extends M.Control {
      */
     this.backImgLayersParams = values.backImgLayersParams;
 
+    
     /**
      * Define the control for managing layers
      * 

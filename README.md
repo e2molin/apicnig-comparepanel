@@ -70,3 +70,8 @@ const mp = new M.plugin.Comparepanel({
 
    map.addPlugin(mp);
 ```
+
+
+## Clonado del original del APICNIG en 
+
+[https://github.com/administradorcnig/APICore/tree/master/api-ign-js/src/plugins/comparepanel](https://github.com/administradorcnig/APICore/tree/master/api-ign-js/src/plugins/comparepanel)
