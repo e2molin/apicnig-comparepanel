@@ -4,7 +4,7 @@
 
 import LyrdropdownImplControl from 'impl/lyrdropdowncontrol';
 import template from 'templates/lyrdropdown';
-import { getValue as getValueTranslate} from './i18n/language'; //e2m: Multilanguage support. Alias -> getValue is too generic
+import { getValue } from './i18n/language'; //e2m: Multilanguage support. Alias -> getValue is too generic
 
 export default class LyrdropdownControl extends M.Control {
   /**
@@ -19,8 +19,9 @@ export default class LyrdropdownControl extends M.Control {
   constructor(values) {
     // 1. checks if the implementation can create PluginControl
     if (M.utils.isUndefined(LyrdropdownImplControl)) {
-      M.exception('La implementación usada no puede crear controles LyrdropdownControl');
+      M.exception(getValue('exception'));
     }
+
     // 2. implementation of this control
     const impl = new LyrdropdownImplControl();
     super(impl, 'Lyrdropdown');
@@ -68,14 +69,6 @@ export default class LyrdropdownControl extends M.Control {
      * @type { HTMLElement }
      */
     this.template = null;
-
-
-
-    // captura de customevent lanzado desde impl con coords
-    window.addEventListener('mapclicked', (e) => {
-      this.map_.addLabel('Hola Mundo!', e.detail);
-    });
-
   }
 
   /**
@@ -87,81 +80,62 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   createView(map) {
-    
     this.map = map;
-
     return new Promise((success, fail) => {
-
       //e2m: Transform stringLyr definition to apicnigLyr
       this.layers = this.transformToLayers(this.layers);
-
       //e2m: getting layers array with name and legend for plugin
-      let capas = this.layers.map(function(layer) {
-        return layer instanceof Object ? {  name: layer.name,legend: layer.legend} : { name: layer, legend: layer };
+      let capas = this.layers.map((layer) => {
+        return layer instanceof Object ? {  name: layer.name, legend: layer.legend} : { name: layer, legend: layer };
       });
-
       //e2m: adding language dictionary
       let options = '';
       if (capas.length > 1) {
         options = {
           jsonp: true,
           vars: {
-              options: capas,
-              translations: {
-                tooltip: getValueTranslate('tooltip'),
-                nolayertext: getValueTranslate('nolayertext'),
-              } 
-          }
+            options: capas,
+            translations: {
+              tooltip: getValue('tooltip'),
+              nolayertext: getValue('nolayertext'),
+            } ,
+          },
         };
       }
 
       //e2m: config a helper in Handlebars for embedding conditionals in template
-      Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-        if(v1 === v2) {
-          return options.fn(this);
-        }
-        return options.inverse(this);
+      Handlebars.registerHelper('ifCond', (v1, v2, options) => {
+        return v1 === v2 ? options.fn(this) : options.inverse(this);
       });
 
       this.template = M.template.compileSync(template, options);
-
       //Si no hay capas a las que aplicar la transparencia, el plugin no funciona e informa
       if (this.layers.length == 0) {
-        M.dialog.error(getValueTranslate('no_layers_plugin'));
+        M.dialog.error(getValue('no_layers_plugin'));
       } else {
-        //M.dialog.info(getValueTranslate('title'));
+        //M.dialog.info(getValue('title'));
         this.activate();
       }
 
-      
-
       //Events on template component
       this.template.querySelector('#m-lyrdropdown-selector').addEventListener('change', (evt) => {
-        //const olMap = this.map.getMapImpl();
-        //console.log(olMap.getLayers());
-        console.log(this.layers);
-        const layerSel = this.layers.filter(function(layer) {
+        const layerSel = this.layers.filter((layer) => {
           return layer.name === evt.target.value
-        });//Get selected layer from layer array
-        //console.log(layerSel);
+        });
+        //Get selected layer from layer array
         this.layerSelected.setVisible(false);
         this.removeEffects();
-        if (layerSel.length===0){
+        if (layerSel.length === 0){
           return;//No layer option is selected
         }
 
         this.layerSelected = layerSel[0];
-        //console.log(this.layerSelected.getImpl().getOL3Layer());
         this.getImpl().setLayer(this.layerSelected);
-        
       });
 
       // Añadir código dependiente del DOM
       success(this.template);
-      console.log(`Funciona. Capas disponibles: ${this.layers.length}`);
-
     });
-  
   }
 
   /**
@@ -172,16 +146,14 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   activate() {
-
    if (this.layerSelected === null) this.layerSelected = this.layers[0];
-   let names = this.layers.map(function(layer) {
+   let names = this.layers.map((layer) => {
      return layer instanceof Object ? { name: layer.name } : { name: layer };
    });
 
    if (names.length >= 1) {
      this.template.querySelector('#m-lyrdropdown-selector').disabled = false;
    }
-
   }
 
   /**
@@ -192,18 +164,18 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   deactivate() {
-
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
-    let names = this.layers.map(function(layer) {
+    let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
-    
+
     this.removeEffects();
     this.layerSelected.setVisible(false);
     if (names.length >= 1) {
       this.template.querySelector('#m-lyrdropdown-selector').disabled = true;
     }
   }
+
   /**
    * This function gets activation button
    *
@@ -216,7 +188,6 @@ export default class LyrdropdownControl extends M.Control {
     return html.querySelector('.m-lyrdropdown button');
   }
 
-
   /**
    * This function is called to remove the effects
    *
@@ -228,10 +199,9 @@ export default class LyrdropdownControl extends M.Control {
     this.getImpl().removeEffects();
   }
 
-
   /**
    * Transform StringLayers to Mapea M.Layer
-   * 
+   *
    * WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA
    * WMS*IGN*http://www.ign.es/wms-inspire/ign-base*IGNBaseTodo
    *
@@ -242,22 +212,25 @@ export default class LyrdropdownControl extends M.Control {
    * @return
    */
   transformToLayers(layers) {
-    const transform = layers.map(function(layer) {
+    const transform = layers.map((layer) => {
       let newLayer = null;
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
           const urlLayer = layer.split('*');
-          if (urlLayer[0].toUpperCase() == 'WMS') {
+          if (urlLayer[0].toUpperCase() === 'WMS') {
             newLayer = new M.layer.WMS({
               url: urlLayer[2],
-              name: urlLayer[3]
+              name: urlLayer[3],
+              legend: urlLayer[1],
             });
+
             this.map.addLayers(newLayer);
-          } else if (urlLayer[0].toUpperCase() == 'WMTS') {
+          } else if (urlLayer[0].toUpperCase() === 'WMTS') {
             newLayer = new M.layer.WMTS({
               url: urlLayer[2],
-              name: urlLayer[3]
+              name: urlLayer[3],
             });
+
             this.map.addLayers(newLayer);
           }
         } else {
@@ -268,6 +241,7 @@ export default class LyrdropdownControl extends M.Control {
         const layerByObject = this.map.getLayers().filter(l => layer.name.includes(l.name))[0];
         newLayer = this.isValidLayer(layerByObject) ? layerByObject : null;
       }
+
       if (newLayer !== null) {
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
@@ -276,6 +250,7 @@ export default class LyrdropdownControl extends M.Control {
         this.layers.remove(layer);
       }
     }, this);
+
     return (transform[0] === undefined) ? [] : transform;
   }
 
@@ -303,8 +278,4 @@ export default class LyrdropdownControl extends M.Control {
   equals(control) {
     return control instanceof LyrdropdownControl;
   }
-
-  // Add your own functions
-
-
 }

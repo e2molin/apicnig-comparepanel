@@ -27,13 +27,11 @@
 .m-lyrdropdown-select select {
 	font-family: 'Muli', 'sans-serif' !important;
 	display: inline-block;
-	width: 18em;
 	cursor: pointer;
 	padding: 3px 10px;
 	outline: 0;
 	border: 0px solid #000000;
 	border-radius: 0px;
-  background: #e6e6e6;
 	color: #000000;
 	appearance: none;
 	-webkit-appearance: none;
@@ -41,6 +39,8 @@
 	margin-left: 4%;
 	white-space: nowrap;
 	padding-right: 11%;
+  background-color: white;
+  height: 30px;
 }
 
 /****************************
@@ -57,9 +57,13 @@
 	display: none;
 }
 
-.m-lyrdropdown-select select:hover,
-.m-lyrdropdown-select select:focus {
-	background: #e6e6e6;
+.m-lyrdropdown-select:hover,
+.m-lyrdropdown-select select:hover {
+	background: #D1E6F8;
+}
+
+.m-control.m-container.m-lyrdropdown {
+  border-radius: 15px !important;
 }
 
 .m-lyrdropdown-select select:disabled {
@@ -69,12 +73,11 @@
 
 .m-lyrdropdown-select_arrow {
     position: absolute;
-    top: -5px;
-    right: 1em;
+    top: -1px;
+    right: 0;
     pointer-events: none;
     border-color: #7b7b7b transparent transparent;
 	  border-style: solid;
 	  border-width: 8px 5px 0;
-	  background-color:#e6e6e6;
 	  margin: 1em;
 }

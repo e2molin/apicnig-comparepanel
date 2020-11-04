@@ -21,6 +21,7 @@ export default class TransparencyControl extends M.Control {
     if (M.utils.isUndefined(TransparencyImplControl)) {
       M.exception(getValue('exception'));
     }
+
     // 2. implementation of this control
     const impl = new TransparencyImplControl();
     super(impl, 'Transparency');
@@ -64,7 +65,7 @@ export default class TransparencyControl extends M.Control {
     this.map = map;
     return new Promise((success, fail) => {
       this.layers = this.transformToLayers(this.layers);
-      let names = this.layers.map(function (layer) {
+      let names = this.layers.map((layer) => {
         return layer instanceof Object ? { name: layer.name } : { name: layer };
       });
 
@@ -75,8 +76,8 @@ export default class TransparencyControl extends M.Control {
             transparency: getValue('transparency'),
             radius: getValue('radius'),
             layers: getValue('layers'),
-          }
-        }
+          },
+        },
       };
 
       if (names.length >= 1) {
@@ -101,14 +102,16 @@ export default class TransparencyControl extends M.Control {
           this.template.querySelector('select').addEventListener('change', (evt) => {
             this.layerSelected.setVisible(false);
             this.removeEffects();
-            const layer = this.layers.filter(function (layer) {
+            const layer = this.layers.filter((layer) => {
               return layer.name === evt.target.value
             });
+
             this.layerSelected = layer[0];
             this.getImpl().effectSelected(this.layerSelected, this.radius);
           });
         }
       }
+
       success(this.template);
     });
   }
@@ -122,9 +125,10 @@ export default class TransparencyControl extends M.Control {
    */
   activate() {
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
-    let names = this.layers.map(function (layer) {
+    let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
+
     this.getImpl().effectSelected(this.layerSelected, this.radius);
     if (names.length >= 1) {
       this.template.querySelector('select').disabled = false;
@@ -141,9 +145,10 @@ export default class TransparencyControl extends M.Control {
    */
   deactivate() {
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
-    let names = this.layers.map(function (layer) {
+    let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
+
     this.removeEffects();
     this.layerSelected.setVisible(false);
     if (names.length >= 1) {
@@ -151,7 +156,6 @@ export default class TransparencyControl extends M.Control {
       this.template.querySelector('input').disabled = true;
     }
   }
-
 
   /**
    * This function is called to remove the effects
@@ -200,7 +204,7 @@ export default class TransparencyControl extends M.Control {
    * @return
    */
   transformToLayers(layers) {
-    const transform = layers.map(function (layer) {
+    const transform = layers.map((layer) => {
       let newLayer = null;
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
@@ -210,17 +214,18 @@ export default class TransparencyControl extends M.Control {
               url: urlLayer[2],
               name: urlLayer[3]
             });
+
             if (this.map.getLayers().filter(l => newLayer.name.includes(l.name)).length > 0) {
               newLayer = this.map.getLayers().filter(l => newLayer.name.includes(l.name))[0];
             } else {
               this.map.addLayers(newLayer);
             }
-
           } else if (urlLayer[0].toUpperCase() == 'WMTS') {
             newLayer = new M.layer.WMTS({
               url: urlLayer[1],
               name: urlLayer[2]
             });
+
             this.map.addLayers(newLayer);
           }
         } else {
@@ -244,16 +249,18 @@ export default class TransparencyControl extends M.Control {
         } else {
           newLayer.load = true;
         }
+
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
         return newLayer
       } else {
         this.layers.remove(layer);
       }
-
     }, this);
+
     return (transform[0] === undefined) ? [] : transform;
   }
+
   /**
    * This function transform string to M.Layer
    *
@@ -266,7 +273,6 @@ export default class TransparencyControl extends M.Control {
   isValidLayer(layer) {
     return layer.type === 'WMTS' || layer.type === 'WMS';
   }
-
 
   /**
    * This function compares controls

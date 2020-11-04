@@ -3,7 +3,7 @@
   "title": "Comparepanel",
   "play": "Play",
   "pause": "Pause",
-  "excepcion": "The implementation used cannot create comparepanelControl controls",
+  "exception": "The implementation used cannot create comparepanelControl controls",
   "intervals_error": "The intervals were not defined correctly",
   "tooltipLyr": "Layer Comparison",
   "tooltip_vcurtain": "Vertical curtain",

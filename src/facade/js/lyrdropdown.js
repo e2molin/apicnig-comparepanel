@@ -47,7 +47,7 @@ export default class Lyrdropdown extends M.Plugin {
      * @public
      * @type {string}
      */
-    this.className = 'm-plugin-lyrdropdown';    
+    this.className = 'm-plugin-lyrdropdown';
 
     /**
      * Position of the Plugin
@@ -74,7 +74,6 @@ export default class Lyrdropdown extends M.Plugin {
     this.collapsible = options.collapsible;
     if (this.collapsible === undefined) this.collapsible = true;
 
-
     /**
      * Layer names that will have effects
      * @public
@@ -88,18 +87,15 @@ export default class Lyrdropdown extends M.Plugin {
       if (Array.isArray(options.layers)) {
         this.layers = options.layers;
       } else {
-        this.layers = options.layers.split(",");
+        this.layers = options.layers.split(',');
       }
     }
-
-
 
     /**
      *@private
      *@type { string }
      */
     this.tooltip_ = options.tooltip || getValue('tooltip');
-
 
     /**
      * Metadata from api.json
@@ -118,17 +114,14 @@ export default class Lyrdropdown extends M.Plugin {
    * @api stable
    */
   addTo(map) {
-
     const pluginOnLeft = !!(['TL', 'BL'].includes(this.position));
-
-    const values = {
+    this.control_ = new LyrdropdownControl({
       pluginOnLeft,
       collapsible:  this.collapsible,
       collapsed:  this.collapsed,
       layers: this.layers,
-    }
+    });
 
-    this.controls_.push(new LyrdropdownControl(values));
     this.controls_.push(this.control_);
     this.map_ = map;
     // panel para agregar control - no obligatorio
@@ -139,6 +132,7 @@ export default class Lyrdropdown extends M.Plugin {
       collapsedButtonClass: 'g-cartografia-flecha-izquierda',
       tooltip: this.tooltip_,
     });
+
     this.panel_.addControls(this.controls_);
     map.addPanels(this.panel_);
   }
@@ -151,7 +145,6 @@ export default class Lyrdropdown extends M.Plugin {
    * @api stable
    */
   destroy() {
-
     this.map_.removeControls([this.control_]);
     [this.control_, this.panel_, this.map_, this.collapsible,this.collapsed,this.layers] = [null, null, null, null, null, null];
   }
@@ -199,7 +192,6 @@ export default class Lyrdropdown extends M.Plugin {
    * @api
    */
   activate() {
-    //console.log("Activate");
     this.control_.activate();
   }
 
@@ -211,7 +203,6 @@ export default class Lyrdropdown extends M.Plugin {
    * @api
    */
   deactivate() {
-    //console.log("Deactivate");
     this.control_.deactivate();
   }
 
@@ -225,10 +216,7 @@ export default class Lyrdropdown extends M.Plugin {
    * @api stable
    */
   equals(plugin) {
-    if (plugin instanceof Lyrdropdown) {
-      return true;
-    }
-    return false;
+    return plugin instanceof Lyrdropdown;
   }
 
 }

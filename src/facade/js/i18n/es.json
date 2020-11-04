@@ -3,7 +3,7 @@
   "title": "Panel de Comparadores",
   "play": "Iniciar",
   "pause": "Parar",
-  "excepcion": "La implementación usada no puede crear controles ComparepanelControl",
+  "exception": "La implementación usada no puede crear controles ComparepanelControl",
   "intervals_error": "Los intervalos no fueron definidos correctamente",
   "tooltipLyr": "Comparador de capas",
   "tooltip_vcurtain": "Cortina vertical",

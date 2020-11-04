@@ -102,7 +102,7 @@ export default class Comparepanel extends M.Plugin {
     /**
      * mirrorpanelParams
      * @public
-     * Value: Object with the rest of mirrorpanel's parameters 
+     * Value: Object with the rest of mirrorpanel's parameters
      * @type {Object}
      */
     this.mirrorpanelParams = options.mirrorpanelParams || {};
@@ -110,7 +110,7 @@ export default class Comparepanel extends M.Plugin {
     /**
      * timelineParams
      * @public
-     * Value: Object with the rest of timeline's parameters 
+     * Value: Object with the rest of timeline's parameters
      * @type {Object}
      */
     this.timelineParams = options.timelineParams || {};
@@ -118,7 +118,7 @@ export default class Comparepanel extends M.Plugin {
     /**
      * lyrcompareParams
      * @public
-     * Value: Object with the rest of lyrcompare's parameters 
+     * Value: Object with the rest of lyrcompare's parameters
      * @type {Object}
      */
     this.lyrcompareParams = options.lyrcompareParams || {};
@@ -127,7 +127,7 @@ export default class Comparepanel extends M.Plugin {
     /**
      * transparencyParams
      * @public
-     * Value: Object with the rest of transparency's parameters 
+     * Value: Object with the rest of transparency's parameters
      * @type {Object}
      */
     this.transparencyParams = options.transparencyParams || {};
@@ -155,7 +155,6 @@ export default class Comparepanel extends M.Plugin {
    * @api stable
    */
   addTo(map) {
-    
     this.control_ = new ComparepanelControl({
       baseLayers: this.baseLayers,
       mirrorpanelParams: this.mirrorpanelParams,
@@ -164,6 +163,7 @@ export default class Comparepanel extends M.Plugin {
       transparencyParams: this.transparencyParams,
       position: this.position,
     });
+
     this.controls_.push(this.control_);
     this.map_ = map;
     this.panel_ = new M.ui.Panel('panelComparepanel', {
@@ -174,11 +174,10 @@ export default class Comparepanel extends M.Plugin {
       collapsedButtonClass: 'cp-icon',
       tooltip: this.tooltip_,
     });
+
     this.panel_.addControls(this.controls_);
     map.addPanels(this.panel_);
     this.panel_._element.classList.add(this.vertical ? 'orientation-vertical' : 'orientation-horizontal');
-
-    
   }
 
 
@@ -193,7 +192,6 @@ export default class Comparepanel extends M.Plugin {
     this.control_.deactivate();
     this.map_.removeControls([this.control_]);
     [this.control_, this.panel_, this.map_, this.baseLayers, this.vertical, this.mirrorpanelParams, this.lyrcompareParams, this.timelineParams, this.transparencyParams] = [null, null, null, null, null, null, null, null, null];
-    
   }
 
   /**
@@ -262,9 +260,6 @@ export default class Comparepanel extends M.Plugin {
    * @api stable
    */
   equals(plugin) {
-    if (plugin instanceof Comparepanel) {
-      return true;
-    }
-    return false;
+    return plugin instanceof Comparepanel;
   }
 }

@@ -2,7 +2,7 @@
  * @module M/impl/control/LyrdropdownControl
  */
 
-import LayerdropInteraction from 'impl/LayerdropInteraction';
+// import LayerdropInteraction from 'impl/LayerdropInteraction';
 
 export default class LyrdropdownControl extends M.impl.Control {
   /**
@@ -47,18 +47,20 @@ export default class LyrdropdownControl extends M.impl.Control {
 
     //this.olMap.addLayer(lyrA); //e2m: Important control number interactions this.olMap.interactions.array_
     //const olMap = map.getMapImpl();
-    
+
     //e2m:Recorrer las interacciones cargadas
     /*this.olMap.getInteractions().forEach((interaction) => {
       console.log(interaction);
-    });    
-    console.log("Número de interacciones:" + this.olMap.interactions.array_.length);*/
+    });
+    console.log('Número de interacciones:' + this.olMap.interactions.array_.length);*/
 
+    /*
     this.layerdropInteraction_ = new LayerdropInteraction({
       lyrA,
     });
 
     this.olMap.addInteraction(this.layerdropInteraction_);
+    */
 
   }
 
@@ -71,9 +73,7 @@ export default class LyrdropdownControl extends M.impl.Control {
    * @api stable
    */
   addLayer(layer) {
-    //🚦
-    this.layerdropInteraction_.addLayer(layer.getImpl().getOL3Layer());
-
+    //this.layerdropInteraction_.addLayer(layer.getImpl().getOL3Layer());
   }
 
 /**
@@ -84,9 +84,7 @@ export default class LyrdropdownControl extends M.impl.Control {
    * @api stable
    */
   removeEffects() {
-
-    this.olMap.removeInteraction(this.layerdropInteraction_);
-
+    // this.olMap.removeInteraction(this.layerdropInteraction_);
   }
 
 
@@ -99,9 +97,7 @@ export default class LyrdropdownControl extends M.impl.Control {
    * @api stable
    */
   removeLayer(layer) {
-    //🚦
-    this.layerdropInteraction_.removeLayer(layer.getImpl().getOL3Layer());
-
+    // this.layerdropInteraction_.removeLayer(layer.getImpl().getOL3Layer());
   }
 
 
