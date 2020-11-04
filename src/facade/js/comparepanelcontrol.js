@@ -89,6 +89,7 @@ export default class ComparepanelControl extends M.Control {
 
   addComparators(map) {
     this.plugins.forEach((p) => {
+      console.log(p);
       map.addPlugin(p);
       this.panels.push(p.panel_._element);
       let element = document.querySelector("." + p.panel_._className + " .m-panel-controls");

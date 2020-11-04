@@ -80,14 +80,6 @@ export default class Mirrorpanel extends M.Plugin {
     if (this.modeViz === undefined) this.modeViz = 0;
 
     /**
-     * Mirror maps with plugins
-     * @type {boolean}
-     * @public
-     */
-    this.enabledPlugins = options.enabledPlugins;
-    if (this.enabledPlugins === undefined) this.enabledPlugins = true;
-
-    /**
      * Enabled key functions
      * @type {boolean}
      * @public
@@ -141,14 +133,14 @@ export default class Mirrorpanel extends M.Plugin {
      * Value: object with backimglayers' parameters
      * @type {Object}
      */
+    /*
     this.backImgLayersParams = options.backImgLayersParams;
     if (options.backImgLayersParams !== undefined) {
       if (M.utils.isObject(options.backImgLayersParams)) {
         let bIL = new M.plugin.BackImgLayer(options.backImgLayersParams);
         this.backImgLayersParams = bIL.getAPIRest().replace('backimglayer=', '').replace(/\*!/g, '!!');
       }
-
-    }
+    }*/
 
     /** 
      * Show interface
@@ -189,11 +181,10 @@ export default class Mirrorpanel extends M.Plugin {
       collapsible: this.collapsible,
       collapsed: this.collapsed,
       modeViz: this.modeViz,
-      enabledPlugins: this.enabledPlugins,
       showCursors: this.showCursors,
       mirrorLayers: this.mirrorLayers,
       defaultBaseLyrs: this.defaultBaseLyrs,
-      backImgLayersParams: this.backImgLayersParams
+      //backImgLayersParams: this.backImgLayersParams
     };
 
     this.control_ = new MirrorpanelControl(values);
@@ -205,7 +196,6 @@ export default class Mirrorpanel extends M.Plugin {
       collapsed: this.collapsed,
       position: M.ui.position[this.position],
       modeViz: this.modeViz,
-      enabledPlugins: this.enabledPlugins,
       showCursors: this.showCursors,
       className: this.interface ? 'm-plugin-panelMirrorpanel' : 'm-plugin-panelMirrorpanel hidden',
       collapsedButtonClass: 'mirrorpanel-icon',
@@ -215,9 +205,9 @@ export default class Mirrorpanel extends M.Plugin {
     map.addPanels(this.panel_);
 
     // Check if backimglayer is main map and backImgLayersParams is defined. If not, throw a error.
-    if (this.map_.getControls("BackImgLayer").length > 0 && this.backImgLayersParams === undefined) {
+    /*if (this.map_.getControls("BackImgLayer").length > 0 && this.backImgLayersParams === undefined) {
       M.dialog.error(getValue('backimglayersparams_undefined'));
-    }
+    }*/
     // Keybindings for Ctrl + Shift + (F1-F8) / ESC
     document.addEventListener('keydown', (zEvent) => {
       if (!this.enabledKeyFunctions) {
@@ -254,7 +244,7 @@ export default class Mirrorpanel extends M.Plugin {
     this.control_.removeMaps();
     this.control_.destroyMapsContainer();
     this.map_.removeControls([this.control_]);
-    [this.control_, this.panel_, this.map_, this.collapsible, this.collapsed, this.modeViz, this.enabledPlugins, this.enabledKeyFunctions, this.showCursors, this.mirrorLayers, this.defaultBaseLyrs, this.backImgLayersParams, this.interface] = [null, null, null, null, null, null, null, null, null, null, null, null, null];
+    [this.control_, this.panel_, this.map_, this.collapsible, this.collapsed, this.modeViz, this.enabledKeyFunctions, this.showCursors, this.mirrorLayers, this.defaultBaseLyrs, this.backImgLayersParams, this.interface] = [null, null, null, null, null, null, null, null, null, null, null, null];
   }
 
   /**

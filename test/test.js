@@ -8,6 +8,10 @@ M.language.setLang('es');//Español
  * Definimos las capas con notación MAPEA
  */
 
+
+
+
+ 
 const capasPNOA = [
   'WMS*PNOA 2004*https://www.ign.es/wms/pnoa-historico*PNOA2004',
   'WMS*PNOA 2005*https://www.ign.es/wms/pnoa-historico*PNOA2005',
@@ -41,8 +45,59 @@ const capasVueloHisto = [
 ];
 
 /**
+ * Definimos capas notación standard
+ * 
+ */
+let wmtsMTN251edi = new M.layer.WMTS({
+  url: "http://www.ign.es/wmts/primera-edicion-mtn",
+  name: "mtn25-edicion1",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "Primera edición MTN25"
+  }, {
+  format: 'image/jpeg'
+});
+
+let wmtsMTN501edi = new M.layer.WMTS({
+  url: "http://www.ign.es/wmts/primera-edicion-mtn",
+  name: "mtn50-edicion1",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "Primera edición MTN50"
+}, {
+  format: 'image/jpeg'
+});
+  
+let wmtsMTNActual = new M.layer.WMTS({
+  url: "https://www.ign.es/wmts/mapa-raster",
+  name: "MTN",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "Cartografía Ráster Actual"
+}, {
+  format: 'image/jpeg'
+});
+
+let wmtssiose = new M.layer.WMTS({
+  url: "https://servicios.idee.es/wmts/ocupacion-suelo",
+  name: "LC.LandCoverSurfaces",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "CORINE / SIOSE"
+}, {
+  format: 'image/jpeg'
+});
+
+let wmtsmdt = new M.layer.WMTS({
+  url: "https://servicios.idee.es/wmts/mdt",
+  name: "Relieve",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "MDT"
+}, {
+  format: 'image/jpeg'
+});
+
+
+/**
  * Objeto mapa
  */
+
 const map = M.map({
   container: 'mapjs',
   center: {
@@ -64,7 +119,7 @@ const map = M.map({
  * Plugin con los mapas de fondo
  */
 
-const mpBIL1 = new M.plugin.BackImgLayer({
+const mpBIL = new M.plugin.BackImgLayer({
   position: 'TR',
   layerId: 0,
   layerVisibility: true,
@@ -147,101 +202,50 @@ const mpBIL1 = new M.plugin.BackImgLayer({
               format: 'image/png',
           })],
       },
+      {
+        id: 'mtn25',
+        preview: 'img/mtn251Edi.jpg',
+        title: 'MTN25 1Edi',
+        layers: [wmtsMTN251edi],
+      },
+      {
+        id: 'mtn50',
+        preview: 'img/mtn501Edi.jpg',
+        title: 'MTN50 1Edi',
+        layers: [wmtsMTN501edi],
+      },
+      {
+        id: 'mtnActual',
+        preview: 'img/mtnactual.jpg',
+        title: 'Cartografía ráster',
+        layers: [wmtsMTNActual],
+      },
+      {
+        id: 'SIOSE',
+        preview: 'img/siose.jpg',
+        title: 'CORINE / SIOSE',
+        layers: [wmtssiose],
+      }, 
+      {
+        id: 'MDT',
+        preview: 'img/mdt.jpg',
+        title: 'MDT',
+        layers: [wmtsmdt],
+      },                          
   ],
 });
 
-const mpBIL2 = new M.plugin.BackImgLayer({
-  position: 'TR',
-  layerId: 0,
-  layerVisibility: true,
-  collapsed: true,
-  collapsible: true,
-  columnsNumber: 3,
-  layerOpts: [
-    {
-      id: 'mapa',
-      preview: 'http://visores-cnig-gestion-publico.desarrollo.guadaltel.es/iberpix/static/media/mapa.98d45f00.png',
-      title: 'Callejero',
-      layers: [
-        new M.layer.WMTS({
-          url: 'http://www.ign.es/wmts/ign-base?',
-          name: 'IGNBaseTodo',
-          legend: 'Callejero',
-          matrixSet: 'GoogleMapsCompatible',
-          transparent: false,
-          displayInLayerSwitcher: false,
-          queryable: false,
-          visible: true,
-          format: 'image/jpeg',
-        }),
-      ],
-    },
-    {
-      id: 'imagen',
-      preview: 'http://visores-cnig-gestion-publico.desarrollo.guadaltel.es/iberpix/static/media/image.44c5b451.png',
-      title: 'Imagen',
-      layers: [
-        new M.layer.WMTS({
-          url: 'http://www.ign.es/wmts/pnoa-ma?',
-          name: 'OI.OrthoimageCoverage',
-          legend: 'Imagen',
-          matrixSet: 'GoogleMapsCompatible',
-          transparent: false,
-          displayInLayerSwitcher: false,
-          queryable: false,
-          visible: true,
-          format: 'image/jpeg',
-        }),
-      ],
-    },
-    {
-      id: 'hibrido',
-      title: 'Híbrido',
-      preview: 'http://visores-cnig-gestion-publico.desarrollo.guadaltel.es/iberpix/static/media/hibrido.485e957e.png',
-      layers: [
-        new M.layer.WMTS({
-          url: 'http://www.ign.es/wmts/pnoa-ma?',
-          name: 'OI.OrthoimageCoverage',
-          matrixSet: 'GoogleMapsCompatible',
-          legend: 'Imagen',
-          transparent: true,
-          displayInLayerSwitcher: false,
-          queryable: false,
-          visible: true,
-          format: 'image/png',
-        }),
-        new M.layer.WMTS({
-          url: 'http://www.ign.es/wmts/ign-base?',
-          name: 'IGNBaseOrto',
-          matrixSet: 'GoogleMapsCompatible',
-          legend: 'Topónimos',
-          transparent: true,
-          displayInLayerSwitcher: false,
-          queryable: false,
-          visible: true,
-          format: 'image/png',
-        })
-      ],
-    },
-  ],
-});
+map.addPlugin(mpBIL);
 
-//map.addPlugin(mpBIL);
 
-let mp, posicion, collapsed, collapsible, columnas = 2;
+/**
+ * Plugin Comparador
+ */
 
-/*
-crearPluginBackImgLyr({
-    collapsed: collapsed,
-    collapsible: collapsible,
-    position: posicion,
-    columnsNumber: columnas
-});
-*/
 
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
-  vertical: false,
+  vertical: true,
   baseLayers: [
     ["AM 1956-1957", "1956", "WMS*AMS_1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957"],
     ["Interministerial 1973-1986", "1983", "WMS*Interministerial_1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986"],
@@ -267,91 +271,8 @@ const pluginComparepanel = new Comparepanel({
   timelineParams: { animation: false, },
   transparencyParams: { radius: 140, },
   lyrcompareParams: { staticDivision: 2, },
-  mirrorpanelParams: { enabledPlugins: false, }
+  mirrorpanelParams: { showCursors: true, }
 });
 
 map.addPlugin(pluginComparepanel);
 
-
-function crearPluginBackImgLyr(propiedades) {
-
-  propiedades.layerOpts = [{
-          id: 'mapa',
-          preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqmapa.png',
-          title: 'Mapa',
-          layers: [new M.layer.WMTS({
-              url: 'http://www.ign.es/wmts/ign-base?',
-              name: 'IGNBaseTodo',
-              legend: 'Mapa IGN',
-              matrixSet: 'GoogleMapsCompatible',
-              transparent: false,
-              displayInLayerSwitcher: false,
-              queryable: false,
-              visible: true,
-              format: 'image/jpeg',
-          })],
-      },
-      {
-          id: 'imagen',
-          title: 'Imagen',
-          preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqimagen.png',
-          layers: [new M.layer.WMTS({
-              url: 'http://www.ign.es/wmts/pnoa-ma?',
-              name: 'OI.OrthoimageCoverage',
-              legend: 'Imagen (PNOA)',
-              matrixSet: 'GoogleMapsCompatible',
-              transparent: false,
-              displayInLayerSwitcher: false,
-              queryable: false,
-              visible: true,
-              format: 'image/jpeg',
-          })],
-      },
-      {
-          id: 'hibrido',
-          title: 'Híbrido',
-          preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqhibrid.png',
-          layers: [new M.layer.WMTS({
-                  url: 'http://www.ign.es/wmts/pnoa-ma?',
-                  name: 'OI.OrthoimageCoverage',
-                  legend: 'Imagen (PNOA)',
-                  matrixSet: 'GoogleMapsCompatible',
-                  transparent: true,
-                  displayInLayerSwitcher: false,
-                  queryable: false,
-                  visible: true,
-                  format: 'image/jpeg',
-              }),
-              new M.layer.WMTS({
-                  url: 'http://www.ign.es/wmts/ign-base?',
-                  name: 'IGNBaseOrto',
-                  matrixSet: 'GoogleMapsCompatible',
-                  legend: 'Mapa IGN',
-                  transparent: false,
-                  displayInLayerSwitcher: false,
-                  queryable: false,
-                  visible: true,
-                  format: 'image/png',
-              })
-          ],
-      },
-      {
-          id: 'lidar',
-          preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
-          title: 'LIDAR',
-          layers: [new M.layer.WMTS({
-              url: 'https://wmts-mapa-lidar.idee.es/lidar?',
-              name: 'EL.GridCoverageDSM',
-              legend: 'Modelo Digital de Superficies LiDAR',
-              matrixSet: 'GoogleMapsCompatible',
-              transparent: false,
-              displayInLayerSwitcher: false,
-              queryable: false,
-              visible: true,
-              format: 'image/png',
-          })],
-      }
-  ];
-  mp = new M.plugin.BackImgLayer(propiedades);
-  map.addPlugin(mp);
-}

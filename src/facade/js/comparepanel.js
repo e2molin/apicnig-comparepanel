@@ -1,6 +1,7 @@
 /**
  * @module M/plugin/Comparepanel
  */
+
 import 'assets/css/comparepanel';
 import ComparepanelControl from './comparepanelcontrol';
 import api from '../../api';
@@ -154,6 +155,7 @@ export default class Comparepanel extends M.Plugin {
    * @api stable
    */
   addTo(map) {
+    
     this.control_ = new ComparepanelControl({
       baseLayers: this.baseLayers,
       mirrorpanelParams: this.mirrorpanelParams,
@@ -175,6 +177,8 @@ export default class Comparepanel extends M.Plugin {
     this.panel_.addControls(this.controls_);
     map.addPanels(this.panel_);
     this.panel_._element.classList.add(this.vertical ? 'orientation-vertical' : 'orientation-horizontal');
+
+    
   }
 
 

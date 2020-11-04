@@ -40,12 +40,6 @@ export default class CompareMirrorpanel extends M.Control {
      */
     this.modeViz = values.modeViz;
 
-    /**
-     * Mirror maps with plugins
-     * @private
-     * @type {boolean}
-     */
-    this.enabledPlugins = values.enabledPlugins;
 
     /**
      * Mirror maps with plugins
@@ -99,9 +93,9 @@ export default class CompareMirrorpanel extends M.Control {
      * @public
      * @public {Object}
      */
-    this.backImgLayersParams = values.backImgLayersParams;
+    //this.backImgLayersParams = values.backImgLayersParams;
 
-    
+
     /**
      * Define the control for managing layers
      * 
@@ -258,7 +252,7 @@ export default class CompareMirrorpanel extends M.Control {
   * Parse backImgLayers parameters and copy them for each mirror map.
   * 
   */
-  copyBackImgLayersParams(params, layerId) {
+  /*copyBackImgLayersParams(params, layerId) {
     let copy = params;
     const paramsSeparate = params.split('!!');
     const idsArray = paramsSeparate[6].split(',');
@@ -290,7 +284,7 @@ export default class CompareMirrorpanel extends M.Control {
       layerOpts: lyrs
     }
     return copy;
-  }
+  }*/
 
   /**
    * Initial configurations for applying CSS grid.
@@ -383,27 +377,6 @@ export default class CompareMirrorpanel extends M.Control {
     let plugin4map = null;
     let mpBILmap = null;
 
-    if (this.enabledPlugins) {
-      //Get main map plugins
-      const listaPlugs = this.map_.getPlugins();
-
-      listaPlugs.forEach((itemPlug) => {
-        if (itemPlug.metadata_) {
-          if (itemPlug.metadata_.name === "FullTOC") {
-            //FullTOC
-            plugin4map = new M.plugin.FullTOC({
-              http: itemPlug.http,
-              https: itemPlug.https,
-              precharged: itemPlug.precharged
-            });
-          }
-          if (itemPlug.metadata_.name === "backimglayer") {
-            //BackImgLayer
-            mpBILmap = new M.plugin.BackImgLayer(this.copyBackImgLayersParams(this.backImgLayersParams, mapLyr));
-          }
-        }
-      });
-    }
     this.mapL[mapLyr] = M.map({
       container: 'mapjs' + mapLyr,
       center: this.map_.getCenter(),
@@ -456,16 +429,7 @@ export default class CompareMirrorpanel extends M.Control {
       
     }
 
-    // Plugins enabled
-    if (this.enabledPlugins) {
-      // If there is layers for mirror map
-      if (this.mirrorLayers.length > 0) {
-        this.mapL[mapLyr].addLayers(this.mirrorLayers);
-        this.mapL[mapLyr].getLayers().forEach((l) => {
-          if (l.zindex_ !== 0) { l.setVisible(false); }
-        });
-      }
-    }
+
     if (this.showCursors) { this.addLayerCursor(mapLyr); }
     this.mapL[mapLyr].refresh();
 
