@@ -41,7 +41,6 @@ export default class LyrdropdownControl extends M.impl.Control {
    * @api stable
    */
   setLayer(lyrA) {
-
     lyrA.setVisible(true);
     lyrA.setZIndex(4500);
 
@@ -61,7 +60,6 @@ export default class LyrdropdownControl extends M.impl.Control {
 
     this.olMap.addInteraction(this.layerdropInteraction_);
     */
-
   }
 
   /**

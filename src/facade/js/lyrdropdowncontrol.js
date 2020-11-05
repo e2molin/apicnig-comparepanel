@@ -86,7 +86,7 @@ export default class LyrdropdownControl extends M.Control {
       this.layers = this.transformToLayers(this.layers);
       //e2m: getting layers array with name and legend for plugin
       let capas = this.layers.map((layer) => {
-        return layer instanceof Object ? {  name: layer.name, legend: layer.legend} : { name: layer, legend: layer };
+        return layer instanceof Object ? {  name: layer.name, legend: layer.legend } : { name: layer, legend: layer };
       });
       //e2m: adding language dictionary
       let options = '';
@@ -119,8 +119,8 @@ export default class LyrdropdownControl extends M.Control {
 
       //Events on template component
       this.template.querySelector('#m-lyrdropdown-selector').addEventListener('change', (evt) => {
-        const layerSel = this.layers.filter((layer) => {
-          return layer.name === evt.target.value
+        const layerSel = this.map.getLayers().filter((layer) => {
+          return layer.name === evt.target.value;
         });
         //Get selected layer from layer array
         this.layerSelected.setVisible(false);
@@ -212,6 +212,7 @@ export default class LyrdropdownControl extends M.Control {
    * @return
    */
   transformToLayers(layers) {
+    window.map = this.map;
     const transform = layers.map((layer) => {
       let newLayer = null;
       if (!(layer instanceof Object)) {
