@@ -124,12 +124,12 @@ export default class TimelineControl extends M.Control {
     if (!(layer instanceof Object)) {
       if (layer.indexOf('*') >= 0) {
         const urlLayer = layer.split('*');
-        if (urlLayer[0].toUpperCase() == 'WMS') {
+        if (urlLayer[0].toUpperCase() === 'WMS') {
           newLayer = new M.layer.WMS({
             url: urlLayer[2],
             name: urlLayer[3]
           });
-        } else if (urlLayer[0].toUpperCase() == 'WMTS') {
+        } else if (urlLayer[0].toUpperCase() === 'WMTS') {
           newLayer = new M.layer.WMTS({
             url: urlLayer[2],
             name: urlLayer[3]
@@ -178,7 +178,7 @@ export default class TimelineControl extends M.Control {
       document.querySelector('.m-timeline-names').innerHTML = '';
     });
 
-    if (step % 1 == 0) {
+    if (step % 1 === 0) {
       document.querySelector('.div-m-timeline-slider').style.setProperty('--left', left + 20 + 'px');
       this.getMapLayer(this.intervals[step].service).setVisible(true);
       document.querySelector('.m-timeline-names').innerHTML = this.intervals[step].name;

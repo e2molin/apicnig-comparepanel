@@ -252,12 +252,12 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
   updatePosition() {
     const swipeControl = document.querySelector('.lyrcompare-swipe-control');
     if (swipeControl) {
-      if (this.comparisonMode == 1) {
-        swipeControl.classList = 'lyrcompare-swipe-control vertical' + (this.staticDivision == 1 ? ' static' : ' dynamic');
-      } else if (this.comparisonMode == 2) {
-        swipeControl.classList = 'lyrcompare-swipe-control horizontal' + (this.staticDivision == 1 ? ' static' : ' dynamic');
-      } else if (this.comparisonMode == 3) {
-        swipeControl.classList = 'lyrcompare-swipe-control vertical horizontal' + (this.staticDivision == 1 ? ' static' : ' dynamic');
+      if (this.comparisonMode === 1) {
+        swipeControl.classList = 'lyrcompare-swipe-control vertical' + (this.staticDivision === 1 ? ' static' : ' dynamic');
+      } else if (this.comparisonMode === 2) {
+        swipeControl.classList = 'lyrcompare-swipe-control horizontal' + (this.staticDivision === 1 ? ' static' : ' dynamic');
+      } else if (this.comparisonMode === 3) {
+        swipeControl.classList = 'lyrcompare-swipe-control vertical horizontal' + (this.staticDivision === 1 ? ' static' : ' dynamic');
       }
     }
 
@@ -282,20 +282,20 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     //e2m: Mouse coordinates --> this.pos
     ctx.save();
     ctx.beginPath();
-    if (this.staticDivision == 1) {
-      if (this.comparisonMode == 1) {
+    if (this.staticDivision === 1) {
+      if (this.comparisonMode === 1) {
         ctx.rect(0, 0, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1]); //e2m: left fixed
-      } else if (this.comparisonMode == 2) {
+      } else if (this.comparisonMode === 2) {
         ctx.rect(0, 0, lienzoMapa[0], lienzoMapa[1] * ratio / 2 - margenClip * ratio);//e2m: up fixed
-      } else if (this.comparisonMode == 3) {
+      } else if (this.comparisonMode === 3) {
         ctx.rect(0, 0, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1] / 2);//e2m: up&left fixed
       }
     } else {
-      if (this.comparisonMode == 1) {
+      if (this.comparisonMode === 1) {
         ctx.rect(0, 0, this.pos[0] - margenClip * ratio, lienzoMapa[1]); //e2m: left dynamic
-      } else if (this.comparisonMode == 2) {
+      } else if (this.comparisonMode === 2) {
         ctx.rect(0, 0, ctx.canvas.width, this.pos[1] * ratio - margenClip * ratio);  //e2m: up dynamic
-      } else if (this.comparisonMode == 3) {
+      } else if (this.comparisonMode === 3) {
         ctx.rect(0, 0, this.pos[0] - margenClip * ratio, this.pos[1] - margenClip * ratio);  //e2m: up&left dynamic
       }
     }
@@ -331,20 +331,20 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     //e2m: Mouse coordinates --> this.pos
     ctx.save();
     ctx.beginPath();
-    if (this.staticDivision == 1) {
-      if (this.comparisonMode == 1) {
+    if (this.staticDivision === 1) {
+      if (this.comparisonMode === 1) {
         ctx.rect(lienzoMapa[0] * ratio / 2 + margenClip * ratio, 0, ctx.canvas.width - lienzoMapa[0] * ratio / 2, lienzoMapa[1]); //e2m: Right fixed
-      } else if (this.comparisonMode == 2) {
+      } else if (this.comparisonMode === 2) {
         ctx.rect(0, lienzoMapa[1] * ratio / 2 + margenClip * ratio, ctx.canvas.width, ctx.canvas.height - lienzoMapa[1] * ratio / 2); //e2m: Down fixed
-      } else if (this.comparisonMode == 3) {
+      } else if (this.comparisonMode === 3) {
         ctx.rect(lienzoMapa[0] * ratio / 2, 0, ctx.canvas.width - lienzoMapa[0] * ratio / 2, lienzoMapa[1] / 2); //e2m: up&right fixed
       }
     } else {
-      if (this.comparisonMode == 1) {
+      if (this.comparisonMode === 1) {
         ctx.rect(this.pos[0], 0, lienzoMapa[0] - this.pos[0], lienzoMapa[1]); //e2m: Right dynamic
-      } else if (this.comparisonMode == 2) {
+      } else if (this.comparisonMode === 2) {
         ctx.rect(0, this.pos[1], ctx.canvas.width, ctx.canvas.height - this.pos[1]); //e2m: Down dynamic
-      } else if (this.comparisonMode == 3) {
+      } else if (this.comparisonMode === 3) {
         //ctx.rect(this.pos[0], 0, lienzoMapa[0] - this.pos[0], lienzoMapa[1]); //e2m: split screen three. maybe
         ctx.rect(this.pos[0], 0, lienzoMapa[0] - this.pos[0], this.pos[1]); //e2m: up&right dynamic
       }
@@ -374,12 +374,12 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     //e2m: Mouse coordinates --> this.pos
     ctx.save();
     ctx.beginPath();
-    if (this.staticDivision == 1) {
-      if (this.comparisonMode == 3) {
+    if (this.staticDivision === 1) {
+      if (this.comparisonMode === 3) {
         ctx.rect(0, lienzoMapa[1] * ratio / 2, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1]);  //e2m: down&left fixed
       }
     } else {
-      if (this.comparisonMode == 3) {
+      if (this.comparisonMode === 3) {
         ctx.rect(0, this.pos[1] * ratio, this.pos[0] * ratio - margenClip * ratio, (lienzoMapa[1] - this.pos[1]) * ratio - margenClip * ratio);  //e2m: down&left dynamic
       }
     }
@@ -408,12 +408,12 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     //e2m: Mouse coordinates --> this.pos
     ctx.save();
     ctx.beginPath();
-    if (this.staticDivision == 1) {
-      if (this.comparisonMode == 3) {
+    if (this.staticDivision === 1) {
+      if (this.comparisonMode === 3) {
         ctx.rect(lienzoMapa[0] * ratio / 2, lienzoMapa[1] * ratio / 2, ctx.canvas.width * ratio / 2 - margenClip * ratio, ctx.canvas.height * ratio / 2 - margenClip * ratio); //e2m: down&right fixed
       }
     } else {
-      if (this.comparisonMode == 3) {
+      if (this.comparisonMode === 3) {
         ctx.rect(this.pos[0] * ratio, this.pos[1] * ratio, (ctx.canvas.width - this.pos[0]) * ratio - margenClip * ratio, (ctx.canvas.height - this.pos[1]) * ratio - margenClip * ratio); //e2m: down&right dynamic
       }
     }
@@ -439,7 +439,7 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
   createSwipeControl() {
     let swipeControl;
     let swipeIcon;
-    if (document.querySelector('.lyrcompare-swipe-control') == null) {
+    if (document.querySelector('.lyrcompare-swipe-control') === null) {
       swipeControl = document.createElement('div');
       swipeControl.classList.add('lyrcompare-swipe-control');
       swipeIcon = document.createElement('div');
@@ -466,14 +466,14 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     const lienzoMapa = this.map_.getSize();
     const swipeControl = document.querySelector('.lyrcompare-swipe-control');
     if (swipeControl && this.getMap()) {
-      if (this.staticDivision == 0 || this.staticDivision == 2) {
-        if (this.comparisonMode == 1) {
+      if (this.staticDivision === 0 || this.staticDivision === 2) {
+        if (this.comparisonMode === 1) {
           swipeControl.style.top = (lienzoMapa[1] / 2) - (swipeControl.offsetHeight / 2) + 'px';
           swipeControl.style.left = (this.pos[0]) - (swipeControl.offsetWidth / 2) + 'px';
-        } else if (this.comparisonMode == 2) {
+        } else if (this.comparisonMode === 2) {
           swipeControl.style.left = (lienzoMapa[0] / 2) - (swipeControl.offsetWidth / 2) + 'px';
           swipeControl.style.top = (this.pos[1]) - (swipeControl.offsetHeight / 2) + 'px';
-        } else if (this.comparisonMode == 3) {
+        } else if (this.comparisonMode === 3) {
           swipeControl.style.left = (this.pos[0]) - (swipeControl.offsetWidth / 2) + 'px';
           swipeControl.style.top = (this.pos[1]) - (swipeControl.offsetHeight / 2) + 'px';
         }

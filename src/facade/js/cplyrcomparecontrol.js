@@ -234,7 +234,7 @@ export default class LyrCompareControl extends M.Control {
     this.setEventsAndValues();
     this.updateControls();
 
-    if (this.layers.length == 0) {
+    if (this.layers.length === 0) {
       M.dialog.error(getValue('no_layers_plugin'));
     } else {
       //e2m: Toogle activate/desactivate vcurtain, hcurtain, multicurtain ---> comparisonMode = 1, 2, 3
@@ -493,7 +493,7 @@ export default class LyrCompareControl extends M.Control {
     this.removeActivate();
     this.activateByMode();
     const swapControl = document.querySelector('.lyrcompare-swipe-control');
-    if (this.comparisonMode == 0) {
+    if (this.comparisonMode === 0) {
       this.template.querySelectorAll('select[id^="m-lyrcompare-"]').forEach(item => {
         item.disabled = true;
       });
@@ -613,21 +613,23 @@ export default class LyrCompareControl extends M.Control {
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
           const urlLayer = layer.split('*');
-          if (urlLayer[0].toUpperCase() == 'WMS') {
+          if (urlLayer[0].toUpperCase() === 'WMS') {
             newLayer = new M.layer.WMS({
               url: urlLayer[2],
-              name: urlLayer[3]
+              name: urlLayer[3],
+              legend: urlLayer[1],
             });
 
             if (this.map.getLayers().filter(l => newLayer.name.includes(l.name)).length > 0) {
               newLayer = this.map.getLayers().filter(l => newLayer.name.includes(l.name))[0];
+              newLayer.legend = urlLayer[1] || newLayer.name;
             } else {
               this.map.addLayers(newLayer);
             }
-          } else if (urlLayer[0].toUpperCase() == 'WMTS') {
+          } else if (urlLayer[0].toUpperCase() === 'WMTS') {
             newLayer = new M.layer.WMTS({
               url: urlLayer[1],
-              name: urlLayer[2]
+              name: urlLayer[2],
             });
 
             this.map.addLayers(newLayer);
@@ -656,7 +658,7 @@ export default class LyrCompareControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
-        return newLayer
+        return newLayer;
       } else {
         this.layers.remove(layer);
       }

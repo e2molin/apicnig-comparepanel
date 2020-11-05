@@ -117,7 +117,7 @@ export default class ComparepanelControl extends M.Control {
     });
 
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.toggle('active');
-    if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name == 'transparency') {
+    if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'transparency') {
       plugin.activate();
     }
 

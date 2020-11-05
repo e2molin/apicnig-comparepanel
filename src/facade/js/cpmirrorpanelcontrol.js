@@ -198,9 +198,9 @@ export default class CompareMirrorpanel extends M.Control {
         })
       });
 
+      success(this.template);
       // Apply default vision
       this.manageVisionPanelByCSSGrid(this.modeViz);
-      success(this.template);
     });
   }
 
@@ -277,31 +277,31 @@ export default class CompareMirrorpanel extends M.Control {
     document.getElementById('lienzo').classList.add('modeViz' + modeViz);
     //Create map objects by modeviz
     if ([1, 2].includes(modeViz)) {
-      if (this.mapL['B'] == null) {
+      if (this.mapL['B'] === null) {
         this.createMapObjects('B');//Create MapB
       }
     }
 
     if ([3, 7, 8, 9].includes(modeViz)) {
-      if (this.mapL['B'] == null) {
+      if (this.mapL['B'] === null) {
         this.createMapObjects('B');//Create MapB
       }
 
-      if (this.mapL['C'] == null) {
+      if (this.mapL['C'] === null) {
         this.createMapObjects('C');//Create MapC
       }
     }
 
     if ([4, 5, 6].includes(modeViz)) {
-      if (this.mapL['B'] == null) {
+      if (this.mapL['B'] === null) {
         this.createMapObjects('B');//Create MapB
       }
 
-      if (this.mapL['C'] == null) {
+      if (this.mapL['C'] === null) {
         this.createMapObjects('C');//Create MapC
       }
 
-      if (this.mapL['D'] == null) {
+      if (this.mapL['D'] === null) {
         this.createMapObjects('D');//Create MapD
       }
     }

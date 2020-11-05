@@ -110,7 +110,7 @@ export default class LyrdropdownControl extends M.Control {
 
       this.template = M.template.compileSync(template, options);
       //Si no hay capas a las que aplicar la transparencia, el plugin no funciona e informa
-      if (this.layers.length == 0) {
+      if (this.layers.length === 0) {
         M.dialog.error(getValue('no_layers_plugin'));
       } else {
         //M.dialog.info(getValue('title'));
