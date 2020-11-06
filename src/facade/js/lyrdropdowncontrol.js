@@ -230,6 +230,9 @@ export default class LyrdropdownControl extends M.Control {
             newLayer = new M.layer.WMTS({
               url: urlLayer[2],
               name: urlLayer[3],
+              legend: urlLayer[1],
+              matrixSet: urlLayer[4],
+              format: urlLayer[5],
             });
 
             this.map.addLayers(newLayer);

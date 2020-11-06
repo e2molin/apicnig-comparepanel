@@ -132,7 +132,10 @@ export default class TimelineControl extends M.Control {
         } else if (urlLayer[0].toUpperCase() === 'WMTS') {
           newLayer = new M.layer.WMTS({
             url: urlLayer[2],
-            name: urlLayer[3]
+            name: urlLayer[3],
+            legend: urlLayer[1],
+            matrixSet: urlLayer[4],
+            format: urlLayer[5],
           });
         }
       } else {

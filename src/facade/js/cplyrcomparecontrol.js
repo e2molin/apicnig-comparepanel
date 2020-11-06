@@ -628,8 +628,11 @@ export default class LyrCompareControl extends M.Control {
             }
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
             newLayer = new M.layer.WMTS({
-              url: urlLayer[1],
-              name: urlLayer[2],
+              url: urlLayer[2],
+              name: urlLayer[3],
+              legend: urlLayer[1],
+              matrixSet: urlLayer[4],
+              format: urlLayer[5],
             });
 
             this.map.addLayers(newLayer);
@@ -646,7 +649,7 @@ export default class LyrCompareControl extends M.Control {
       if (newLayer !== null) {
         if (newLayer.getImpl().getOL3Layer() === null) {
           setTimeout(() => {
-            if (newLayer.type === 'WMS') {
+            if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
               newLayer.load = true;
             } else if (newLayer.type === 'WMTS') {
               newLayer.facadeLayer_.load = true;

@@ -52,6 +52,7 @@ const pluginComparepanel = new Comparepanel({
     ['PNOA 2016', '2016', 'WMS*PNOA 2016*https://www.ign.es/wms/pnoa-historico*pnoa2016'],
     ['PNOA 2017', '2017', 'WMS*PNOA 2017*https://www.ign.es/wms/pnoa-historico*pnoa2017'],
     ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],
+    //['PNOA Actual', '2020', 'WMTS*MTN*http://www.ign.es/wmts/mapa-raster*MTN*GoogleMapsCompatible*image/jpeg'],
   ],
   timelineParams: { animation: true, },
   transparencyParams: { radius: 140, },
