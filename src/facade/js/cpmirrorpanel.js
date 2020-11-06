@@ -127,21 +127,6 @@ export default class Mirrorpanel extends M.Plugin {
       }
     }
 
-    /**
-     * BackImgLayers' Parameters
-     * @public
-     * Value: object with backimglayers' parameters
-     * @type {Object}
-     */
-    /*
-    this.backImgLayersParams = options.backImgLayersParams;
-    if (options.backImgLayersParams !== undefined) {
-      if (M.utils.isObject(options.backImgLayersParams)) {
-        let bIL = new M.plugin.BackImgLayer(options.backImgLayersParams);
-        this.backImgLayersParams = bIL.getAPIRest().replace('backimglayer=', '').replace(/\*!/g, '!!');
-      }
-    }*/
-
     /** 
      * Show interface
      *@public

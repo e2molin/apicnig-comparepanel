@@ -1,15 +1,11 @@
 import Comparepanel from 'facade/comparepanel';
 
-
 M.language.setLang('es');//Español
 //M.language.setLang('en');//Inglés
 
 /**
  * Definimos las capas con notación MAPEA
  */
-
-
-
 
  
 const capasPNOA = [
