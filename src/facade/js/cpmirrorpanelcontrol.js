@@ -104,14 +104,14 @@ export default class CompareMirrorpanel extends M.Control {
       position: 'TL',
       collapsible: false,          // El botón para desplegar/replegar el plugin no aparece (false) o sí aparece(true)
       collapsed: true,              // El panel del plugin se muestra desplegado (false) o replegado (true)
-      //layers: this.defaultBaseLyrs,
-      layers: [
+      layers: this.defaultBaseLyrs,
+      /*layers: [
         'WMS*Nacional_1981-1986*https://www.ign.es/wms/pnoa-historico*Nacional_1981-1986',
         'WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC',
         'WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT',
         'WMS*Interministerial_1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986',
         'WMS*AMS_1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957',
-      ],
+      ],*/
     });
 
     /**

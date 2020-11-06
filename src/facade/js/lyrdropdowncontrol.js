@@ -140,7 +140,7 @@ export default class LyrdropdownControl extends M.Control {
         //const olMap = this.map.getMapImpl();
         //console.log(olMap.getLayers());
         console.log(this.layers);
-        const layerSel = this.layers.filter(function(layer) {
+        const layerSel = this.map.getLayers().filter(function(layer) {
           return layer.name === evt.target.value
         });//Get selected layer from layer array
         //console.log(layerSel);
