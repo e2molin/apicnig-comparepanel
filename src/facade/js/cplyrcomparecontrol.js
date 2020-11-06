@@ -231,7 +231,7 @@ export default class LyrCompareControl extends M.Control {
       }
       return options.inverse(this);
     });
-
+    console.log(this.layers);
     //template with default options
     this.template = M.template.compileSync(template, options);
     this.setEventsAndValues();

@@ -97,14 +97,14 @@ let wmtsmdt = new M.layer.WMTS({
 const map = M.map({
   container: 'mapjs',
   center: {
-    x: -667143.31,
-    y: 4493011.77,
+    x: -412300,
+    y: 4926700,
     draw: false  //Dibuja un punto en el lugar de la coordenada
   },
   controls: ['scale','location'],
   /*projection: "EPSG:25830*m",*/
   projection: "EPSG:3857*m",
-  zoom: 6,
+  zoom: 15,
 
   //Ojo, si añado esta capa sin TOC, se ve siempre y no se muestran capas base
   /*layers: ["WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA"],*/
@@ -237,12 +237,47 @@ map.addPlugin(mpBIL);
 /**
  * Plugin Comparador
  */
+/*
+let wmtsMTN501edi = new M.layer.WMTS({
+  url: "http://www.ign.es/wmts/primera-edicion-mtn",
+  name: "mtn50-edicion1",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "Primera edición MTN50"
+}, {
+  format: 'image/jpeg'
+});
+*/
+
+/*    ["PNOA 2009", "2009", "WMS*pnoa2009*https://www.ign.es/wms/pnoa-historico*pnoa2009"],
+    ["PNOA 2010", "2010", "WMS*pnoa2010*https://www.ign.es/wms/pnoa-historico*pnoa2010"],
+    ["PNOA 2011", "2011", "WMS*pnoa2011*https://www.ign.es/wms/pnoa-historico*pnoa2011"],
+    ["PNOA 2012", "2012", "WMS*pnoa2012*https://www.ign.es/wms/pnoa-historico*pnoa2012"],
+    ["PNOA 2013", "2013", "WMS*pnoa2013*https://www.ign.es/wms/pnoa-historico*pnoa2013"],
+    ["PNOA 2014", "2014", "WMS*pnoa2014*https://www.ign.es/wms/pnoa-historico*pnoa2014"],
+    ["PNOA 2015", "2015", "WMS*pnoa2015*https://www.ign.es/wms/pnoa-historico*pnoa2015"],
+    ["PNOA 2016", "2016", "WMS*pnoa2016*https://www.ign.es/wms/pnoa-historico*pnoa2016"],
+    ["PNOA 2017", "2017", "WMS*pnoa2017*https://www.ign.es/wms/pnoa-historico*pnoa2017"],
+    ["PNOA 2018", "2018", "WMS*pnoa2018*https://www.ign.es/wms/pnoa-historico*pnoa2018"]
 
 
+
+*/
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: true,
   baseLayers: [
+    ["Plano de Mancelli, 1622", "1622", "WMS*Mancelli, 1622*https://www.ign.es/wms/planos*MancelliMadrid"],
+    ["Plano de Texeira, 1656", "1656", "WMS*Texeira, 1656*https://www.ign.es/wms/planos*Texeira"],
+    ["Plano de Nicolás Chalmandrier, 1761", "1761", "WMS*Chalmandrier, 1761*https://www.ign.es/wms/planos*ChalmadrierMadrid"],
+    ["Plano de Espinosa de los Monteros, 1769", "1769", "WMS*Espinosa de los Monteros, 1769*https://www.ign.es/wms/planos*EspinosaMadrid"],
+    ["Plano Geométrico de Madrid de Tomás López, 1785", "1785", "WMS*Tomás López, 1785*https://www.ign.es/wms/planos*GeometricoMadrid"],
+    ["Plano de Madoz y Coello, 1848", "1848", "WMS*Madoz y Coello, 1848*https://www.ign.es/wms/planos*madozMadrid"],
+    ["Plano de Facundo Cañada, 1900", "1900", "WMS*Facundo Cañada, 1900*https://www.ign.es/wms/planos*facundoMadrid"],
+    ["Plano de Nuñez Granés, 1910", "1910", "WMS*Nuñez Granés, 1910*https://www.ign.es/wms/planos*nunezMadrid"],
+    ["Plano parcelario, 1929", "1929", "WMS*Parcelario, 1929*https://www.ign.es/wms/planos*ayuntamientoMadrid"],
+    ["Plano parcelario, 1940", "1940", "WMS*Parcelario, 1940*https://www.ign.es/wms/planos*parcelarioMadrid"]
+
+/*
     ["AM 1956-1957", "1956", "WMS*AMS_1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957"],
     ["Interministerial 1973-1986", "1983", "WMS*Interministerial_1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986"],
     ["NACIONAL 1981-1986", "1986", "WMS*NACIONAL_1981-1986*https://www.ign.es/wms/pnoa-historico*NACIONAL_1981-1986"],
@@ -262,7 +297,7 @@ const pluginComparepanel = new Comparepanel({
     ["PNOA 2015", "2015", "WMS*pnoa2015*https://www.ign.es/wms/pnoa-historico*pnoa2015"],
     ["PNOA 2016", "2016", "WMS*pnoa2016*https://www.ign.es/wms/pnoa-historico*pnoa2016"],
     ["PNOA 2017", "2017", "WMS*pnoa2017*https://www.ign.es/wms/pnoa-historico*pnoa2017"],
-    ["PNOA 2018", "2018", "WMS*pnoa2018*https://www.ign.es/wms/pnoa-historico*pnoa2018"]
+    ["PNOA 2018", "2018", "WMS*pnoa2018*https://www.ign.es/wms/pnoa-historico*pnoa2018"]*/
   ],
   timelineParams: { animation: false, },
   transparencyParams: { radius: 140, },
