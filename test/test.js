@@ -29,8 +29,8 @@ const map = M.map({
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: true,
-  collapsed: false,
-  collapsible: false,
+  collapsed: true,
+  collapsible: true,
   baseLayers: [
     ['Americano 1956-1957', '1956', 'WMS*Americano 1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957'],
     ['Interministerial 1973-1986', '1983', 'WMS*Interministerial 1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986'],
