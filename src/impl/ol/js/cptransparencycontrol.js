@@ -32,14 +32,19 @@ export default class TransparencyControl extends M.impl.Control {
    * @api stable
    */
   effectSelected(layers, radius) {
+    console.log("Llego");
     layers.setVisible(true);
     layers.setZIndex(90000);
     this.transparentInteraction_ = new TransparentInteraction({
       radius,
       layers,
     });
-
+    console.log("Llego");
     this.olMap.addInteraction(this.transparentInteraction_);
+
+    return;
+
+
   }
 
   /**

@@ -88,6 +88,51 @@ Cuando nos bajamos el *boilerplate* para comenzar a hacer un plugin, debería ll
 
 Hay que explicar cómo pasar los parámetros del plugin con todas sus variantes: strings, arrays, booleans, y explicar cómo se gestiona la entrada.
 
+## Comentarios
+
+Hemos reducido el grosor de los separadores de los métodos *curtain* aunque sin llegar al grosor mínimo de los que aparecen en el método *mirror*. En el método *curtain* es necesario que haya un grosor ligeramente mayor, para que se aprecie mejor la transición entre capas. Aún así es cierto que el grosor anterior podía ser excesivo. Se reduce a la mitad.
+
+```css
+.lyrcompare-swipe-control.vertical::before {
+	content: '';
+	background: #fff;
+	display: block;
+	position: absolute;
+	height: 250vh;
+	width: 0.25rem;	/* 0.5rem; Reducimos el ancho del separador vertical */
+	top: -125vh;
+	left: 1.125rem; /* 1rem; Reducimos el ancho del separador vertical */
+	cursor: ew-resize;
+}
+
+.lyrcompare-swipe-control.horizontal::after {
+	content: '';
+	background: #fff;
+	display: block;
+	position: absolute;
+	width: 250vw;
+	height: 0.25rem;	/*0.5rem; Reducimos el alto del separador horizontal */
+	left: -125vw;
+	top: 1.125rem; 		/* 1rem;  Reducimos el alto del separador horizontal  */
+	cursor: ns-resize;
+}
+```
+
+## Mejoras
+
+* Asignar un icono general al ComparePanel: actualmente replica el icono del mirrorPanel
+  * ✅ Icono añadido a la librería de fuentes y asignado
+* Deberíamos poder arrancar el *spyeye* con una capa activa.
+* El timeline debería arrancarse activo y en una capa concreta.
+  * ✅ Ya se puede arrancar en una de las capas a través de **defaultCompareViz**.
+* Incorporar un botón para incorporar más capas a la lista de capas disponibles en comparación
+* Describir ayuda con ejemplos de carga de capas por WMS y WMTS
+* Mostrar un TOC en los dioversos mapas mirror.
+* Unificar las capas cargadas a partir de un cierto zIndex intermedio, y documentarlo.
+* Posibilidad de configurar el lienzo principal a derecha o izquierda
+* Seleccionar cuáles de los modos mirror están disponibles
+* Cuando se pulsa un *play*, no aparece un botón de *pause* para detener la animación
+  * ✅ Ya se puede contralar la animación arrancando y deteniéndola. Botones con iconos adecuados
 
 
 ## Snippets: Cargar Capa de Openlayer
@@ -99,6 +144,28 @@ source: new ol.source.OSM()
 });
 mapImpl.addLayer(capa)
 ```
+
+## Cargar capas WMTS
+
+```javascript
+new M.layer.WMTS({
+            url: 'https://www.ign.es/wmts/mapa-raster?',
+            name: 'MTN',
+            legend: 'Mapa',
+            matrixSet: 'GoogleMapsCompatible',
+            transparent: false,
+            displayInLayerSwitcher: false,
+            queryable: false,
+            visible: true,
+            format: 'image/png',
+          }),
+
+//Si se quiere cargar como cadena igualmente el orden es correcto. Si cargo la capa por url me devuelve que el formato no está soportado. He probado con png y funciona correctamente.
+
+capaSIOSEsource = 'WMTS*https://servicios.idee.es/wmts/ocupacion-suelo?*LC.LandCoverSurfaces*GoogleMapsCompatible*SIOSE*false*image/png*false*false*true';
+```
+
+
 
 
 ## Instalación desde GitHub

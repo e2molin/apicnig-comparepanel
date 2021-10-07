@@ -4,7 +4,7 @@
 
 import 'assets/css/lyrdropdown';
 import LyrdropdownControl from './lyrdropdowncontrol';
-import api from '../../api.json';
+import api from '../../api';
 import { getValue } from './i18n/language';   //e2m: Multilanguage support
 
 export default class Lyrdropdown extends M.Plugin {

@@ -237,7 +237,7 @@ export default class CompareMirrorpanel extends M.Control {
 
     const mapjsA = document.getElementById('mapjs') || document.getElementById('map');
     this.oldClass = mapjsA.classList.toString();
-    document.body.insertBefore(bigContainer, mapjsA);
+    mapjsA.parentElement.insertBefore(bigContainer, mapjsA);
     mapjsA.classList.add('mirror1');
     bigContainer.appendChild(mapjsA);
 
@@ -332,6 +332,7 @@ export default class CompareMirrorpanel extends M.Control {
     if (this.mapL['B'] !== null) { this.mapL['B'].refresh(); }
     if (this.mapL['C'] !== null) { this.mapL['C'].refresh(); }
     if (this.mapL['D'] !== null) { this.mapL['D'].refresh(); }
+    document.querySelector('#m-cp-mirrorpanel > button').click();
   }
 
   /**

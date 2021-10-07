@@ -100,6 +100,7 @@ export default class TransparencyControl extends M.Control {
           this.template.querySelector('select').disabled = true;
           this.template.querySelector('input').disabled = true;
           this.template.querySelector('select').addEventListener('change', (evt) => {
+            
             this.layerSelected.setVisible(false);
             this.removeEffects();
             const layer = this.layers.filter((layer) => {
@@ -116,6 +117,15 @@ export default class TransparencyControl extends M.Control {
     });
   }
 
+  setDefaultLayer(){
+    console.log("Activación remota");
+    //this.template.querySelector('select').disabled = false;
+    //this.template.querySelector('input').disabled = false;
+    //this.getImpl().effectSelected(this.layerSelected, this.radius);
+
+  }
+
+
   /**
    * Activate Select/Input
    *
@@ -124,16 +134,21 @@ export default class TransparencyControl extends M.Control {
    * @api stable
    */
   activate() {
+    
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
     let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
+    
 
-    this.getImpl().effectSelected(this.layerSelected, this.radius);
     if (names.length >= 1) {
       this.template.querySelector('select').disabled = false;
       this.template.querySelector('input').disabled = false;
     }
+
+    console.log(`e2m: Activo spyeye! ${this.layerSelected.name}`);
+    this.getImpl().effectSelected(this.layerSelected, this.radius);
+
   }
 
   /**
