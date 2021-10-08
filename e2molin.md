@@ -125,14 +125,18 @@ Hemos reducido el grosor de los separadores de los métodos *curtain* aunque sin
 * Deberíamos poder arrancar el *spyeye* con una capa activa.
 * El timeline debería arrancarse activo y en una capa concreta.
   * ✅ Ya se puede arrancar en una de las capas a través de **defaultCompareViz**.
+* Cuando se pulsa un *play*, no aparece un botón de *pause* para detener la animación
+  * ✅ Ya se puede contralar la animación arrancando y deteniéndola. Botones con iconos adecuados
 * Incorporar un botón para incorporar más capas a la lista de capas disponibles en comparación
 * Describir ayuda con ejemplos de carga de capas por WMS y WMTS
 * Mostrar un TOC en los dioversos mapas mirror.
 * Unificar las capas cargadas a partir de un cierto zIndex intermedio, y documentarlo.
 * Posibilidad de configurar el lienzo principal a derecha o izquierda
 * Seleccionar cuáles de los modos mirror están disponibles
-* Cuando se pulsa un *play*, no aparece un botón de *pause* para detener la animación
-  * ✅ Ya se puede contralar la animación arrancando y deteniéndola. Botones con iconos adecuados
+
+## Preguntas
+
+* ¿Cómo se puede conocer la versión de la API con la que trabajo?
 
 
 ## Snippets: Cargar Capa de Openlayer

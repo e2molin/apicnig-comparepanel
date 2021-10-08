@@ -37,23 +37,27 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setMap(map) {
     let i;
+
+    /*
+    //e2m: deprecated. Esto no se usa ¿? 
+    console.log(this.getMap());
     if (this.getMap()) {
       for (i = 0; i < this.layers_.length; i += 1) {
         if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
         if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
-        /* eslint-disable */
         this.layers_[i].precompose = this.layers_[i].postcompose = null;
-        /* eslint-enable */
       }
-
       this.getMap().renderSync();
     }
-
+    */
     ol.interaction.Pointer.prototype.setMap.call(this, map);
     if (map) {
       for (i = 0; i < this.layers_.length; i += 1) {
-        this.layers_[i].precompose = this.layers_[i].on('precompose', this.precompose_.bind(this));
-        this.layers_[i].postcompose = this.layers_[i].on('postcompose', this.postcompose_.bind(this));
+        //this.layers_[i].precompose = this.layers_[i].on('precompose', this.precompose_.bind(this));
+        //this.layers_[i].postcompose = this.layers_[i].on('postcompose', this.postcompose_.bind(this));
+        
+        this.layers_[i].prerender = this.layers_[i].on('prerender', this.prerender_.bind(this));
+        this.layers_[i].postrender = this.layers_[i].on('postrender', this.postrender_.bind(this));
       }
 
       map.renderSync();
@@ -72,16 +76,21 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    * @param {ol.layer|Array<ol.layer>} layer to clip
    */
   addLayer(layers) {
+
     /* eslint-disable */
     if (!(layers instanceof Array)) layers = [layers];
     /* eslint-enable */
+    console.log(layers);
     for (let i = 0; i < layers.length; i += 1) {
+      /*
+       //e2m: deprecated. Esto no se usa ¿? 
       const l = { layer: layers[i] };
       if (this.getMap()) {
         l.precompose = layers[i].on('precompose', this.precompose_.bind(this));
         l.postcompose = layers[i].on('postcompose', this.postcompose_.bind(this));
         this.getMap().renderSync();
       }
+      */
       this.layers_.push(layers[i]);
     }
   }
@@ -129,18 +138,46 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
 
   /* @private
    */
-  precompose_(e) {
+
+  // e2m: deprecated
+  /*precompose_(e) {
+    console.log("precompose_");
+    const ctx = e.context;
+    const ratio = e.frameState.pixelRatio;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
+    ctx.clip();
+  }*/
+
+  /* @private
+   */
+  // e2m: deprecated
+  /*postcompose_(e) {
+    //console.log("postcompose_");
+    e.context.restore();
+  }*/
+
+  /* @private
+ */
+  prerender_(e) {
+
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
     ctx.save();
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
+    ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    ctx.stroke();
     ctx.clip();
+
   }
 
   /* @private
    */
-  postcompose_(e) {
+  postrender_(e) {
     e.context.restore();
   }
 

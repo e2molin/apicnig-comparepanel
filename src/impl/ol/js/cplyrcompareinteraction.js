@@ -45,16 +45,22 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
   /** Set the map > start postcompose
    */
   setMap(map) {
+
+
+    console.log("Dato");
+
+    // e2m: deprecated
+    /*
     if (this.getMap()) {
       for (let i = 0; i < this.layers_.length; i += 1) {
         if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
         if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
         this.layers_[i].precompose = this.layers_[i].postcompose = null;
       }
-
       this.getMap().renderSync();
     }
-
+    */
+   
     ol.interaction.Pointer.prototype.setMap.call(this, map);
     if (map) {
       this.createSwipeControl();

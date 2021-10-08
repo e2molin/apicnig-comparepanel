@@ -184,6 +184,7 @@ export default class Comparepanel extends M.Plugin {
    */
   addTo(map) {
 
+    console.log(M);
     // e2m: ponemos el arraque del visualizador mirror a cero por defecto
     this.mirrorpanelParams.modeViz = this.mirrorpanelParams.modeViz || {};
     this.mirrorpanelParams.modeViz = (this.defaultCompareMode==='mirror'? this.defaultCompareViz : 0);
