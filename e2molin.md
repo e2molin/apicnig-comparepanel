@@ -122,16 +122,20 @@ Hemos reducido el grosor de los separadores de los métodos *curtain* aunque sin
 
 * Asignar un icono general al ComparePanel: actualmente replica el icono del mirrorPanel
   * ✅ Icono añadido a la librería de fuentes y asignado
-* Deberíamos poder arrancar el *spyeye* con una capa activa.
 * El timeline debería arrancarse activo y en una capa concreta.
   * ✅ Ya se puede arrancar en una de las capas a través de **defaultCompareViz**.
 * Cuando se pulsa un *play*, no aparece un botón de *pause* para detener la animación
   * ✅ Ya se puede contralar la animación arrancando y deteniéndola. Botones con iconos adecuados
+* Posibilidad de configurar el lienzo principal a derecha o izquierda
+  * ✅ Los modos 1,3,4,5,7 y 9 tienen un modo reverse, en el que la aineación de las columnas va de izquierda a derecha
+* Problema e funcionamiento con API-CNIG 4.0 y OL6
+  * ✅ Se ha solucionado el problema de funcionameinto. A la espera de introducir retrocompatibilidad.
+
 * Incorporar un botón para incorporar más capas a la lista de capas disponibles en comparación
 * Describir ayuda con ejemplos de carga de capas por WMS y WMTS
-* Mostrar un TOC en los dioversos mapas mirror.
+* Deberíamos poder arrancar el *spyeye* con una capa activa.
+* Mostrar un TOC en los diversos mapas mirror.
 * Unificar las capas cargadas a partir de un cierto zIndex intermedio, y documentarlo.
-* Posibilidad de configurar el lienzo principal a derecha o izquierda
 * Seleccionar cuáles de los modos mirror están disponibles
 
 ## Preguntas

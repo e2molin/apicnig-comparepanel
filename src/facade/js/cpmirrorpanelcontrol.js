@@ -55,6 +55,7 @@ export default class CompareMirrorpanel extends M.Control {
     this.lyrCursor = { A: null, B: null, C: null, D: null }
     this.featureLyrCursor = { A: null, B: null, C: null, D: null }
     this.oldClass = '';
+    this.reverseLayout = values.reverseLayout;
 
     /**
      * Defining cursor style
@@ -269,12 +270,14 @@ export default class CompareMirrorpanel extends M.Control {
     document.getElementById('mapjsB').style.display = 'none';
     document.getElementById('mapjsC').style.display = 'none';
     document.getElementById('mapjsD').style.display = 'none';
+    document.getElementById('lienzo').classList.remove('reverseMirror');
     this.template.querySelector('#set-mirror-' + oldModeViz).classList.remove('buttom-pressed');
     for (let i = 0; i < 10; i++) {
       document.getElementById('lienzo').classList.remove('modeViz' + i);
     }
 
     document.getElementById('lienzo').classList.add('modeViz' + modeViz);
+    if (this.reverseLayout) document.getElementById('lienzo').classList.add('reverseMirror');
     //Create map objects by modeviz
     if ([1, 2].includes(modeViz)) {
       if (this.mapL['B'] === null) {

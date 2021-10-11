@@ -26,6 +26,7 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
 
     this.pos = false;
     this.opacityVal = (optionsE.opacityVal || 100);
+    this.OLVersion = "OL6";
 
     const layerA = [optionsE.lyrA].map(layer => layer.getImpl().getOL3Layer()).filter(layer => layer != null);
     this.addLayerA(layerA);
@@ -40,39 +41,57 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
       const layerD = [optionsE.lyrD].map(layer => layer.getImpl().getOL3Layer()).filter(layer => layer != null);
       this.addLayerD(layerD);
     }
+
+    
+
   }
 
   /** Set the map > start postcompose
    */
   setMap(map) {
 
-
-    console.log("Dato");
-
-    // e2m: deprecated
-    /*
+    
     if (this.getMap()) {
+      // e2m: Por aquí pasamos al desactivar el control
       for (let i = 0; i < this.layers_.length; i += 1) {
-        if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
-        if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
-        this.layers_[i].precompose = this.layers_[i].postcompose = null;
+        if (this.OLVersion === "OL6"){
+          if (this.layers_[i].prerender) ol.Observable.unByKey(this.layers_[i].prerender);
+          if (this.layers_[i].postrender) ol.Observable.unByKey(this.layers_[i].postrender);
+          this.layers_[i].prerender = this.layers_[i].postrender = null;
+        }else{
+          if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
+          if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
+          this.layers_[i].precompose = this.layers_[i].postcompose = null;
+        }
       }
       this.getMap().renderSync();
     }
-    */
-   
+    
     ol.interaction.Pointer.prototype.setMap.call(this, map);
     if (map) {
       this.createSwipeControl();
-      this.layers_[0].precompose = this.layers_[0].on('precompose', this.precomposeA_.bind(this));
-      this.layers_[0].postcompose = this.layers_[0].on('postcompose', this.postcomposeA_.bind(this));
-      this.layers_[1].precompose = this.layers_[1].on('precompose', this.precomposeB_.bind(this));
-      this.layers_[1].postcompose = this.layers_[1].on('postcompose', this.postcomposeB_.bind(this));
-      if (this.layers_[2] !== undefined && this.layers_[3] !== undefined) {
-        this.layers_[2].precompose = this.layers_[2].on('precompose', this.precomposeC_.bind(this));
-        this.layers_[2].postcompose = this.layers_[2].on('postcompose', this.postcomposeC_.bind(this));
-        this.layers_[3].precompose = this.layers_[3].on('precompose', this.precomposeD_.bind(this));
-        this.layers_[3].postcompose = this.layers_[3].on('postcompose', this.postcomposeD_.bind(this));
+      if (this.OLVersion === "OL6"){
+        this.layers_[0].prerender = this.layers_[0].on('prerender', this.precomposeA_.bind(this));
+        this.layers_[0].postrender = this.layers_[0].on('postrender', this.postcomposeA_.bind(this));
+        this.layers_[1].prerender = this.layers_[1].on('prerender', this.precomposeB_.bind(this));
+        this.layers_[1].postrender = this.layers_[1].on('postrender', this.postcomposeB_.bind(this));
+        if (this.layers_[2] !== undefined && this.layers_[3] !== undefined) {
+          this.layers_[2].prerender = this.layers_[2].on('prerender', this.precomposeC_.bind(this));
+          this.layers_[2].postrender = this.layers_[2].on('postrender', this.postcomposeC_.bind(this));
+          this.layers_[3].prerender = this.layers_[3].on('prerender', this.precomposeD_.bind(this));
+          this.layers_[3].postrender = this.layers_[3].on('postrender', this.postcomposeD_.bind(this));
+        }
+      }else{
+        this.layers_[0].precompose = this.layers_[0].on('precompose', this.precomposeA_.bind(this));
+        this.layers_[0].postcompose = this.layers_[0].on('postcompose', this.postcomposeA_.bind(this));
+        this.layers_[1].precompose = this.layers_[1].on('precompose', this.precomposeB_.bind(this));
+        this.layers_[1].postcompose = this.layers_[1].on('postcompose', this.postcomposeB_.bind(this));
+        if (this.layers_[2] !== undefined && this.layers_[3] !== undefined) {
+          this.layers_[2].precompose = this.layers_[2].on('precompose', this.precomposeC_.bind(this));
+          this.layers_[2].postcompose = this.layers_[2].on('postcompose', this.postcomposeC_.bind(this));
+          this.layers_[3].precompose = this.layers_[3].on('precompose', this.precomposeD_.bind(this));
+          this.layers_[3].postcompose = this.layers_[3].on('postcompose', this.postcomposeD_.bind(this));
+        }
       }
 
       map.renderSync();

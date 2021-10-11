@@ -24,6 +24,8 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
 
     this.pos = false;
     this.radius = (optionsE.radius || 100);
+    this.OLVersion = "OL6";
+
 
     if (optionsE.layers) {
       optionsE.layers = [optionsE.layers];
@@ -38,26 +40,34 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
   setMap(map) {
     let i;
 
-    /*
-    //e2m: deprecated. Esto no se usa ¿? 
+    
     console.log(this.getMap());
     if (this.getMap()) {
+      // e2m: Por aquí pasamos al desactivar el control
       for (i = 0; i < this.layers_.length; i += 1) {
-        if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
-        if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
-        this.layers_[i].precompose = this.layers_[i].postcompose = null;
+        if (this.OLVersion === "OL6"){
+          if (this.layers_[i].prerender) ol.Observable.unByKey(this.layers_[i].prerender);
+          if (this.layers_[i].postrender) ol.Observable.unByKey(this.layers_[i].postrender);
+          this.layers_[i].prerender = this.layers_[i].postcompose = null;
+        }else{
+          if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
+          if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
+          this.layers_[i].precompose = this.layers_[i].postcompose = null;
+        }
       }
       this.getMap().renderSync();
     }
-    */
+    
     ol.interaction.Pointer.prototype.setMap.call(this, map);
     if (map) {
       for (i = 0; i < this.layers_.length; i += 1) {
-        //this.layers_[i].precompose = this.layers_[i].on('precompose', this.precompose_.bind(this));
-        //this.layers_[i].postcompose = this.layers_[i].on('postcompose', this.postcompose_.bind(this));
-        
-        this.layers_[i].prerender = this.layers_[i].on('prerender', this.prerender_.bind(this));
-        this.layers_[i].postrender = this.layers_[i].on('postrender', this.postrender_.bind(this));
+        if (this.OLVersion === "OL6"){
+          this.layers_[i].prerender = this.layers_[i].on('prerender', this.precompose_.bind(this));
+          this.layers_[i].postrender = this.layers_[i].on('postrender', this.postcompose_.bind(this));
+        }else{
+        this.layers_[i].precompose = this.layers_[i].on('precompose', this.precompose_.bind(this));
+        this.layers_[i].postcompose = this.layers_[i].on('postcompose', this.postcompose_.bind(this));
+        }
       }
 
       map.renderSync();
@@ -140,7 +150,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
 
   // e2m: deprecated
-  /*precompose_(e) {
+  precompose_(e) {
     console.log("precompose_");
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
@@ -149,19 +159,19 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
     ctx.clip();
-  }*/
+  }
 
   /* @private
    */
   // e2m: deprecated
-  /*postcompose_(e) {
+  postcompose_(e) {
     //console.log("postcompose_");
     e.context.restore();
-  }*/
+  }
 
   /* @private
  */
-  prerender_(e) {
+  /*precompose_(e) {
 
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
@@ -173,13 +183,13 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.stroke();
     ctx.clip();
 
-  }
+  }*/
 
   /* @private
    */
-  postrender_(e) {
+  /*postcompose_(e) {
     e.context.restore();
-  }
+  }*/
 
   /**
    * Activate or deactivate the interaction.

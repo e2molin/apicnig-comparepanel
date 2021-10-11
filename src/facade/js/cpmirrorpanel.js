@@ -79,6 +79,16 @@ export default class Mirrorpanel extends M.Plugin {
     this.modeViz = options.modeViz;
     if (this.modeViz === undefined) this.modeViz = 0;
 
+
+    /**
+     * Opción de situar el mapa principal siempre a la derecha
+     * False: se sitúa a la izquierda. True: se sitúa a la derecha
+     * @type {boolean}
+     * @public
+     */
+    this.reverseLayout = options.reverseLayout;
+    if (this.reverseLayout === undefined) this.reverseLayout = false;
+
     /**
      * Enabled key functions
      * @type {boolean}
@@ -161,6 +171,7 @@ export default class Mirrorpanel extends M.Plugin {
       collapsible: this.collapsible,
       collapsed: this.collapsed,
       modeViz: this.modeViz,
+      reverseLayout: this.reverseLayout,
       showCursors: this.showCursors,
       mirrorLayers: this.mirrorLayers,
       defaultBaseLyrs: this.defaultBaseLyrs,

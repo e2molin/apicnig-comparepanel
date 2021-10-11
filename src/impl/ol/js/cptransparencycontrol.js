@@ -35,7 +35,9 @@ export default class TransparencyControl extends M.impl.Control {
 
     layers.setVisible(true);
     layers.setZIndex(90000);
-    
+    //const olVersion = olIndex.VERSION
+    console.log(this.olMap);
+    console.log(M);
     this.transparentInteraction_ = new TransparentInteraction({
       radius,
       layers,
