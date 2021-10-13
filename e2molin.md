@@ -118,6 +118,12 @@ Hemos reducido el grosor de los separadores de los métodos *curtain* aunque sin
 }
 ```
 
+https://viglino.github.io/font-gis/
+
+
+
+
+
 ## Mejoras
 
 * Asignar un icono general al ComparePanel: actualmente replica el icono del mirrorPanel

@@ -98,16 +98,19 @@ const listBaseLayersByString = [
 
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
-  vertical: true,
+  vertical: false,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'timeline',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 0,
   baseLayers:listBaseLayersByString,
   timelineParams: { animation: true, },
   transparencyParams: { radius: 140, },
   lyrcompareParams: { staticDivision: 2 },     //comparisonMode
-  mirrorpanelParams: { showCursors: true }      //modeViz
+  mirrorpanelParams: { 
+      showCursors: true,
+      reverseLayout:false
+  }
 });
 
 map.addPlugin(pluginComparepanel);
