@@ -170,6 +170,8 @@ export default class TimelineControl extends M.Control {
     }
   }
 
+  
+
   /** This function change layers and show layer name when slider moves
    *
    * @public

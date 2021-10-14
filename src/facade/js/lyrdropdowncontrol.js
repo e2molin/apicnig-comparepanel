@@ -211,6 +211,78 @@ export default class LyrdropdownControl extends M.Control {
    * @param {string}
    * @return
    */
+ /**
+   * Transform StringLayers to Mapea M.Layer
+   * @public
+   * @function
+   * @api stable
+   * @param {string}
+   * @return
+   */
+  transformToLayers(layers) {
+    const transform = layers.map((layer) => {
+      let newLayer = null;
+      console.log('transformToLayers');
+      if (!(layer instanceof Object)) {
+        if (layer.indexOf('*') >= 0) {
+          const urlLayer = layer.split('*');
+          if (urlLayer[0].toUpperCase() === 'WMS') {
+            newLayer = new M.layer.WMS({
+              url: urlLayer[2],
+              name: urlLayer[3],
+              legend: urlLayer[1],
+            });
+
+            if (this.map.getLayers().filter(l => newLayer.name.includes(l.name)).length > 0) {
+              newLayer = this.map.getLayers().filter(l => newLayer.name.includes(l.name))[0];
+              newLayer.legend = urlLayer[1] || newLayer.name;
+            } else {
+              this.map.addLayers(newLayer);
+            }
+          } else if (urlLayer[0].toUpperCase() === 'WMTS') {
+            newLayer = new M.layer.WMTS({
+              url: urlLayer[2],
+              name: urlLayer[3],
+              legend: urlLayer[1],
+              matrixSet: urlLayer[4],
+              format: urlLayer[5],
+            });
+
+            this.map.addLayers(newLayer);
+          }
+        } else {
+          const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
+          newLayer = this.isValidLayer(layerByName) ? layerByName : null;
+        }
+      } else if (layer instanceof Object) {
+        const layerByObject = this.map.getLayers().filter(l => layer.name.includes(l.name))[0];
+        newLayer = this.isValidLayer(layerByObject) ? layerByObject : null;
+      }
+
+      if (newLayer !== null) {
+        if (newLayer.getImpl().getOL3Layer() === null) {
+          setTimeout(() => {
+            if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
+              newLayer.load = true;
+            } else if (newLayer.type === 'WMTS') {
+              newLayer.facadeLayer_.load = true;
+            }
+          }, 1000);
+        } else {
+          newLayer.load = true;
+        }
+
+        newLayer.displayInLayerSwitcher = false;
+        newLayer.setVisible(false);
+        return newLayer;
+      } else {
+        this.layers.remove(layer);
+      }
+    }, this);
+
+    return (transform[0] === undefined) ? [] : transform;
+  }
+  /*
   transformToLayers(layers) {
     window.map = this.map;
     const transform = layers.map((layer) => {
@@ -257,6 +329,7 @@ export default class LyrdropdownControl extends M.Control {
 
     return (transform[0] === undefined) ? [] : transform;
   }
+  */
 
   /**
    * This function transform string to M.Layer

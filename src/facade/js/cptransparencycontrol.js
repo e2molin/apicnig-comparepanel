@@ -218,9 +218,10 @@ export default class TransparencyControl extends M.Control {
    * @param {string}
    * @return
    */
-  transformToLayers(layers) {
+   transformToLayers(layers) {
     const transform = layers.map((layer) => {
       let newLayer = null;
+      console.log('transformToLayers');
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
           const urlLayer = layer.split('*');
@@ -260,7 +261,7 @@ export default class TransparencyControl extends M.Control {
       if (newLayer !== null) {
         if (newLayer.getImpl().getOL3Layer() === null) {
           setTimeout(() => {
-            if (newLayer.type === 'WMS') {
+            if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
               newLayer.load = true;
             } else if (newLayer.type === 'WMTS') {
               newLayer.facadeLayer_.load = true;
@@ -272,7 +273,7 @@ export default class TransparencyControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
-        return newLayer
+        return newLayer;
       } else {
         this.layers.remove(layer);
       }
@@ -280,6 +281,12 @@ export default class TransparencyControl extends M.Control {
 
     return (transform[0] === undefined) ? [] : transform;
   }
+
+
+
+
+
+  
 
   /**
    * This function transform string to M.Layer

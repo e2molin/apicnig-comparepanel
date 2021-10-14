@@ -111,7 +111,7 @@ const pluginComparepanel = new Comparepanel({
   vertical: false,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'curtain',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   timelineParams: { 
