@@ -92,24 +92,46 @@ const listBaseLayersByString = [
   ['PNOA 2016', '2016', 'WMS*PNOA 2016*https://www.ign.es/wms/pnoa-historico*pnoa2016'],
   ['PNOA 2017', '2017', 'WMS*PNOA 2017*https://www.ign.es/wms/pnoa-historico*pnoa2017'],
   ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],
+  /*['Waterbodies', '2015', 'WMS*Waterbodies*https://wms.mapama.gob.es/sig/Agua/Embalses/wms.aspx*HY.PhysicalWaters.Waterbodies'],
+  ['Ultimos10dias', '2016', 'WMS*Ultimos10dias*https://www.ign.es/wms-inspire/geofisica*Ultimos10dias'],
+  ['Ultimos30dias', '2017', 'WMS*Ultimos30dias*https://www.ign.es/wms-inspire/geofisica*Ultimos30dias'],
+  ['Ultimos365dias', '2018', 'WMS*Ultimos365dias*https://www.ign.es/wms-inspire/geofisica*Ultimos365dias'],*/
 ];
 
+/*
+const mpTOC = new M.plugin.FullTOC({
+  position: 'TR',
+});
 
+map.addPlugin(mpTOC);
+*/
 
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: false,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'timeline',// mirror - curtain - timeline - spyeye
-  defaultCompareViz: 0,
-  baseLayers:listBaseLayersByString,
-  timelineParams: { animation: true, },
-  transparencyParams: { radius: 140, },
-  lyrcompareParams: { staticDivision: 2 },     //comparisonMode
+  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+  defaultCompareViz: 1,
+  baseLayers: listBaseLayersByString,
+  timelineParams: { 
+    animation: true, 
+  },
+  transparencyParams: { 
+    radius: 100, 
+  },
+  lyrcompareParams: { 
+      staticDivision: 2,
+      /*defaultLyrA:1,
+      defaultLyrB:2,
+      defaultLyrC:3,
+      defaultLyrD:4,*/
+      opacityVal:50,
+   },
   mirrorpanelParams: { 
       showCursors: true,
-      reverseLayout:false
+      reverseLayout:false,
+      enabledPlugins: false 
   }
 });
 

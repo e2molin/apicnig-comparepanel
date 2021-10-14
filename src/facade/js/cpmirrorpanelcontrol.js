@@ -56,6 +56,7 @@ export default class CompareMirrorpanel extends M.Control {
     this.featureLyrCursor = { A: null, B: null, C: null, D: null }
     this.oldClass = '';
     this.reverseLayout = values.reverseLayout;
+    this.enabledPlugins = values.enabledPlugins;
 
     /**
      * Defining cursor style

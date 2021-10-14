@@ -89,7 +89,7 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
     - 1: dos mapas en vertical.
     - 2: dos mapas en horizontal.
     - 3: cuatro mapas.
-  - En el caso del modo *timeline* indicamos de 0 a n-1, siendo n el número de capas disponiebles, cual de ellas arranca visible.
+  - En el caso del modo *timeline* indicamos de 0 a n-1, siendo n el número de capas disponibles, cual de ellas arranca visible.
   - En el caso del modo *spyeye* arranca con la barra de herramientas desplegada con el mapa simple esperando al usuario.
 
 - **baseLayers**. Parámetro obligatorio. Array que contiene cada capa junto a sus datos:
@@ -107,7 +107,7 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
   ['OLISTAT', '1998', 'WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT'],
   ['SIGPAC', '2003', 'WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC'],
   ['PNOA 2004', '2004', 'WMS*PNOA 2004*https://www.ign.es/wms/pnoa-historico*pnoa2004'],
-  ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],
+  ['PNOA 2019', '2019', 'WMS*PNOA 2019*https://www.ign.es/wms/pnoa-historico*pnoa2019'],
 
   /* WMTS */
   ['MTN', '2020', 'WMTS*MTN*https://www.ign.es/wmts/mapa-raster*MTN*GoogleMapsCompatible*image/jpeg'],
@@ -117,13 +117,22 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
 ```
 
 - **mirrorpanelParams**. Parámetros opcionales del plugin mirrorpanel. A destacar:
-  - showCursors: Si es true, muestra cursores sincronziados en cda unao de los mapas espejo. Por defecto tiene el valor true.
+  - showCursors (true/false): Si es true, muestra cursores sincronziados en cda unao de los mapas espejo. Defecto: *true*.
+  - reverseLayout (true/false): indica en qué posición de la pantalla se mantiene el mapa principal (el que contiene el botón con las herramientas de comparación) con respecto a los demás. *False*: se sitúa a la izquierda. *True*: se sitúa a la derecha. Defecto: *false*.
 
 - **lyrcompareParams**. Parámetros opcionales del plugin lyrcompare.
+  - defaultLyrA (numérico): Capa cargada al inicio en posición 1. Valores de 1 al número de capas disponibles. Defecto, 1.
+  - defaultLyrB (numérico): Capa cargada al inicio en posición 2. Valores de 1 al número de capas disponibles. Defecto, 2.
+  - defaultLyrC (numérico): Capa cargada al inicio en posición 3. Valores de 1 al número de capas disponibles. Defecto, 3.
+  - defaultLyrD (numérico): Capa cargada al inicio en posición 4. Valores de 1 al número de capas disponibles. Defecto, 4.
+  - opacityVal: Define el valor de la opacidad que se aplicará a las capas que se muestran sobre la cartografía base. Rango 0 a 100.
+  - staticDivision: Permite definir si al arrancar la herramienta dividirá las capas por la posición del ratón (valor 0), por el punto medio del lienzo de cartografía (valor 1) o por el punto medio del lienzo de cartografía con líneas arrastrables (valor 2). Por defecto toma el valor 1.
 
 - **timelineParams**. Parámetros opcionales del plugin timeline.
+  - animation (true/false): habilita o deshabilita el modo de animación. Defecto: *true*.
 
 - **transparencyParams**. Parámetros opcionales del plugin transparency.
+  - radius (numérico): radio del efecto transparencia. Tiene un rango entre 30 y 200. Defecto: 100.
 
 # Ejemplos de uso
 
@@ -131,22 +140,37 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
 Insertar intervalos a través de servicios WMS. La URL en formato mapea sigue la siguiente estructura:
   - Servicio,Leyenda,URL,Nombre. Separados por "*".
 ```javascript
-const mp = new M.plugin.Comparepanel({
- position: 'TR',
-  vertical:true,
-  baseLayers: [
-    ["NACIONAL 1981-1986", "1986", "WMS*NACIONAL_1981-1986*https://www.ign.es/wms/pnoa-historico*NACIONAL_1981-1986"],
-    ["OLISTAT", "1998", "WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT"],
-    ["SIGPAC", "2003", "WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC"],
-    ["PNOA 2004", "2004", "WMS*pnoa2004*https://www.ign.es/wms/pnoa-historico*pnoa2004"],
-    ["PNOA 2005", "2005", "WMS*pnoa2005*https://www.ign.es/wms/pnoa-historico*pnoa2005"],
-    ["PNOA 2006", "2006", "WMS*pnoa2006*https://www.ign.es/wms/pnoa-historico*pnoa2006"],
-    ["PNOA 2010", "2010", "WMS*pnoa2010*https://www.ign.es/wms/pnoa-historico*pnoa2010"]
-  ],
-  timelineParams: { animation: false, },
-  transparencyParams: { radius: 140, },
-  lyrcompareParams: { staticDivision: 2, }
-});
+
+  const mp = new Comparepanel({
+    position: 'TR',
+    vertical: false,
+    collapsed: false,
+    collapsible: true,
+    defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+    defaultCompareViz: 1,
+    baseLayers: [
+      ["NACIONAL 1981-1986", "1986", "WMS*NACIONAL_1981-1986*https://www.ign.es/wms/pnoa-historico*NACIONAL_1981-1986"],
+      ["OLISTAT", "1998", "WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT"],
+      ["SIGPAC", "2003", "WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC"],
+      ["PNOA 2004", "2004", "WMS*pnoa2004*https://www.ign.es/wms/pnoa-historico*pnoa2004"],
+      ["PNOA 2005", "2005", "WMS*pnoa2005*https://www.ign.es/wms/pnoa-historico*pnoa2005"],
+      ["PNOA 2006", "2006", "WMS*pnoa2006*https://www.ign.es/wms/pnoa-historico*pnoa2006"],
+      ["PNOA 2010", "2010", "WMS*pnoa2010*https://www.ign.es/wms/pnoa-historico*pnoa2010"]
+    ],
+    timelineParams: { 
+      animation: true, 
+    },
+    transparencyParams: { 
+      radius: 100, 
+    },
+    lyrcompareParams: { 
+        staticDivision: 2,
+    },
+    mirrorpanelParams: { 
+        showCursors: true,
+        reverseLayout:false,
+    }
+  });
 
    map.addPlugin(mp);
 ```
