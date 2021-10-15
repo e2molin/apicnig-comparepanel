@@ -92,15 +92,15 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     /* eslint-enable */
     console.log(layers);
     for (let i = 0; i < layers.length; i += 1) {
-      /*
+      
        //e2m: deprecated. Esto no se usa ¿? 
       const l = { layer: layers[i] };
       if (this.getMap()) {
-        l.precompose = layers[i].on('precompose', this.precompose_.bind(this));
-        l.postcompose = layers[i].on('postcompose', this.postcompose_.bind(this));
+        l.prerender = layers[i].on('prerender', this.precompose_.bind(this));
+        l.postrender = layers[i].on('postrender', this.postcompose_.bind(this));
         this.getMap().renderSync();
       }
-      */
+      
       this.layers_.push(layers[i]);
     }
   }
@@ -150,6 +150,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
 
   // e2m: deprecated
+/*
   precompose_(e) {
     console.log("precompose_");
     const ctx = e.context;
@@ -160,19 +161,20 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
     ctx.clip();
   }
-
+*/
   /* @private
    */
   // e2m: deprecated
+/*
   postcompose_(e) {
     //console.log("postcompose_");
     e.context.restore();
   }
-
+*/
   /* @private
  */
-  /*precompose_(e) {
-
+  precompose_(e) {
+    console.log("precompose_");
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
     ctx.save();
@@ -183,13 +185,14 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.stroke();
     ctx.clip();
 
-  }*/
+  }
 
   /* @private
    */
-  /*postcompose_(e) {
+  postcompose_(e) {
+    console.log("postcompose_");
     e.context.restore();
-  }*/
+  }
 
   /**
    * Activate or deactivate the interaction.

@@ -119,6 +119,9 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
 - **mirrorpanelParams**. Parámetros opcionales del plugin mirrorpanel. A destacar:
   - showCursors (true/false): Si es true, muestra cursores sincronziados en cda unao de los mapas espejo. Defecto: *true*.
   - reverseLayout (true/false): indica en qué posición de la pantalla se mantiene el mapa principal (el que contiene el botón con las herramientas de comparación) con respecto a los demás. *False*: se sitúa a la izquierda. *True*: se sitúa a la derecha. Defecto: *false*.
+  - enabledPlugins: permite que algunos de los plugins configurados en el mapa principal se repliquen en los mapas espejo: disponible actualmente para el control FullTOC.
+
+![](assets/fulltoc-mirror.png)
 
 - **lyrcompareParams**. Parámetros opcionales del plugin lyrcompare.
   - defaultLyrA (numérico): Capa cargada al inicio en posición 1. Valores de 1 al número de capas disponibles. Defecto, 1.

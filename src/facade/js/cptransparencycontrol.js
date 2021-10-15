@@ -240,14 +240,26 @@ export default class TransparencyControl extends M.Control {
             }
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
             newLayer = new M.layer.WMTS({
-              url: urlLayer[2],
+              /*url: urlLayer[2],
               name: urlLayer[3],
               legend: urlLayer[1],
               matrixSet: urlLayer[4],
-              format: urlLayer[5],
-            });
+              format: urlLayer[5],*/
+//['MDT-Relieve', '2020', 'WMTS*MDT Relieve*https://servicios.idee.es/wmts/mdt*Relieve*GoogleMapsCompatible*image/jpeg'],
 
-            this.map.addLayers(newLayer);
+              url:'https://servicios.idee.es/wmts/mdt',
+              name: 'Relieve',
+              legend: 'MDT',
+              matrixSet: 'GoogleMapsCompatible',
+              transparent: true,              // Es una capa Overlay -> zIndex > 0
+              displayInLayerSwitcher: false,  // No aparece en el TOC
+              queryable: false,               // No GetFeatureInfo
+              visibility: false,              // Visible a false por defecto
+              format: 'image/jpeg',
+
+            }), this.map.addWMTS(newLayer);
+
+            //this.map.addLayers(newLayer);
           }
         } else {
           const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
@@ -273,6 +285,7 @@ export default class TransparencyControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
+        console.log(newLayer);
         return newLayer;
       } else {
         this.layers.remove(layer);
@@ -282,11 +295,7 @@ export default class TransparencyControl extends M.Control {
     return (transform[0] === undefined) ? [] : transform;
   }
 
-
-
-
-
-  
+   
 
   /**
    * This function transform string to M.Layer

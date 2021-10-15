@@ -343,8 +343,10 @@ export default class CompareMirrorpanel extends M.Control {
    * Create mirror map object synchro with the main map
    */
   createMapObjects(mapLyr) {
-    let plugin4map = null;
-    let mpBILmap = null;
+    let pluginFullTOC4map = null;
+    //let mpBILmap = null;
+
+    console.log(this.enabledPlugins);
     this.mapL[mapLyr] = M.map({
       container: 'mapjs' + mapLyr,
       center: this.map_.getCenter(),
@@ -353,12 +355,30 @@ export default class CompareMirrorpanel extends M.Control {
     });
 
     this.mapL[mapLyr].getMapImpl().setView(this.map_.getMapImpl().getView());
-    if (plugin4map !== null) {
-      this.mapL[mapLyr].addPlugin(plugin4map);
-    }
+    
+    // if (plugin4map !== null) {
+    //   this.mapL[mapLyr].addPlugin(plugin4map);
+    // }
 
-    if (mpBILmap !== null) {
-      this.mapL[mapLyr].addPlugin(mpBILmap);
+    // if (mpBILmap !== null) {
+    //   this.mapL[mapLyr].addPlugin(mpBILmap);
+    // }
+
+    if (this.enabledPlugins) {
+      const listaPlugs = this.map_.getPlugins();
+      listaPlugs.forEach((itemPlug) => {
+        if (itemPlug.metadata_) {
+          //FullTOC
+          if (itemPlug.metadata_.name === "FullTOC") {
+            pluginFullTOC4map = new M.plugin.FullTOC({
+              http: itemPlug.http,
+              https: itemPlug.https,
+              precharged: itemPlug.precharged
+            });
+          }
+
+        }
+      });
     }
 
     if (this.lyDropControl !== null){
@@ -374,6 +394,13 @@ export default class CompareMirrorpanel extends M.Control {
         this.mapL[mapLyr].addPlugin(this.lyDropControlD);
       }
     }
+
+    // Añadimos plugins secundarios
+    if (pluginFullTOC4map !== null) {
+      this.mapL[mapLyr].addPlugin(pluginFullTOC4map);
+    } 
+
+
 
     if (this.showCursors) { this.addLayerCursor(mapLyr); }
     this.mapL[mapLyr].refresh();

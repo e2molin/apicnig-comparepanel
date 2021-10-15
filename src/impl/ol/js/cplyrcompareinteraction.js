@@ -158,8 +158,8 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     if (!(layers instanceof Array)) layers = [layers];
     const l = { layer: layers[0] };
     if (this.getMap()) {
-      l.precompose = layers[0].on('precompose', this.precomposeA_.bind(this));
-      l.postcompose = layers[0].on('postcompose', this.postcomposeA_.bind(this));
+      l.prerender = layers[0].on('prerender', this.precomposeA_.bind(this));
+      l.postrender = layers[0].on('postrender', this.postcomposeA_.bind(this));
       this.getMap().renderSync();
     }
 
@@ -175,8 +175,8 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     if (!(layers instanceof Array)) layers = [layers];
     const l = { layer: layers[0] };
     if (this.getMap()) {
-      l.precompose = layers[0].on('precompose', this.precomposeB_.bind(this));
-      l.postcompose = layers[0].on('postcompose', this.postcomposeB_.bind(this));
+      l.prerender = layers[0].on('prerender', this.precomposeB_.bind(this));
+      l.postrender = layers[0].on('postrender', this.postcomposeB_.bind(this));
       this.getMap().renderSync();
     }
 
@@ -192,8 +192,8 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     if (!(layers instanceof Array)) layers = [layers];
     const l = { layer: layers[0] };
     if (this.getMap()) {
-      l.precompose = layers[0].on('precompose', this.precomposeC_.bind(this));
-      l.postcompose = layers[0].on('postcompose', this.postcomposeC_.bind(this));
+      l.prerender = layers[0].on('prerender', this.precomposeC_.bind(this));
+      l.postrender = layers[0].on('postrender', this.postcomposeC_.bind(this));
       this.getMap().renderSync();
     }
 
@@ -209,8 +209,8 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     if (!(layers instanceof Array)) layers = [layers];
     const l = { layer: layers[0] };
     if (this.getMap()) {
-      l.precompose = layers[0].on('precompose', this.precomposeD_.bind(this));
-      l.postcompose = layers[0].on('postcompose', this.postcomposeD_.bind(this));
+      l.prerender = layers[0].on('prerender', this.precomposeD_.bind(this));
+      l.postrender = layers[0].on('postrender', this.postcomposeD_.bind(this));
       this.getMap().renderSync();
     }
 
@@ -236,8 +236,8 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
       }
 
       if (k !== this.layers_.length && this.getMap()) {
-        if (this.layers_[k].precompose) ol.Observable.unByKey(this.layers_[k].precompose);
-        if (this.layers_[k].postcompose) ol.Observable.unByKey(this.layers_[k].postcompose);
+        if (this.layers_[k].prerender) ol.Observable.unByKey(this.layers_[k].prerender);
+        if (this.layers_[k].postrender) ol.Observable.unByKey(this.layers_[k].postrender);
         this.layers_.splice(k, 1);
         this.getMap().renderSync();
       }
