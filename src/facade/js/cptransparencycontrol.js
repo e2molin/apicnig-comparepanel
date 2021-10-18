@@ -219,12 +219,13 @@ export default class TransparencyControl extends M.Control {
    * @return
    */
    transformToLayers(layers) {
+    console.log("transformToLayers Spyeye");
     const transform = layers.map((layer) => {
       let newLayer = null;
-      console.log('transformToLayers');
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
           const urlLayer = layer.split('*');
+          // console.log(urlLayer);
           if (urlLayer[0].toUpperCase() === 'WMS') {
             newLayer = new M.layer.WMS({
               url: urlLayer[2],
@@ -238,29 +239,23 @@ export default class TransparencyControl extends M.Control {
             } else {
               this.map.addLayers(newLayer);
             }
+            // console.log(newLayer);
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
+
             newLayer = new M.layer.WMTS({
-              /*url: urlLayer[2],
+              url: urlLayer[2] + '?',
               name: urlLayer[3],
               legend: urlLayer[1],
               matrixSet: urlLayer[4],
-              format: urlLayer[5],*/
-//['MDT-Relieve', '2020', 'WMTS*MDT Relieve*https://servicios.idee.es/wmts/mdt*Relieve*GoogleMapsCompatible*image/jpeg'],
-
-              url:'https://servicios.idee.es/wmts/mdt',
-              name: 'Relieve',
-              legend: 'MDT',
-              matrixSet: 'GoogleMapsCompatible',
               transparent: true,              // Es una capa Overlay -> zIndex > 0
               displayInLayerSwitcher: false,  // No aparece en el TOC
               queryable: false,               // No GetFeatureInfo
               visibility: false,              // Visible a false por defecto
-              format: 'image/jpeg',
-
+              format: urlLayer[5],
             }), this.map.addWMTS(newLayer);
-
-            //this.map.addLayers(newLayer);
+            // console.log(newLayer);
           }
+
         } else {
           const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
           newLayer = this.isValidLayer(layerByName) ? layerByName : null;
@@ -273,10 +268,13 @@ export default class TransparencyControl extends M.Control {
       if (newLayer !== null) {
         if (newLayer.getImpl().getOL3Layer() === null) {
           setTimeout(() => {
+            console.log(`Cargado ${newLayer.type}`);
             if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
               newLayer.load = true;
+
             } else if (newLayer.type === 'WMTS') {
               newLayer.facadeLayer_.load = true;
+
             }
           }, 1000);
         } else {

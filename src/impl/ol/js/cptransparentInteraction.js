@@ -26,13 +26,18 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     this.radius = (optionsE.radius || 100);
     this.OLVersion = "OL6";
 
+    console.log(optionsE);
+    const layer = [optionsE.layers].map(layer => layer.getImpl().getOL3Layer()).filter(layer => layer != null);
+    this.addLayer(layer);
 
-    if (optionsE.layers) {
+
+    /*if (optionsE.layers) {
       optionsE.layers = [optionsE.layers];
+      console.log(layer);
       const layer = optionsE.layers.map(layer => layer.getImpl().getOL3Layer())
         .filter(layer => layer != null);
       this.addLayer(layer);
-    }
+    }*/
   }
 
   /** Set the map > start postcompose
@@ -174,7 +179,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
   /* @private
  */
   precompose_(e) {
-    console.log("precompose_");
+    //console.log("precompose_");
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
     ctx.save();
@@ -190,7 +195,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
   /* @private
    */
   postcompose_(e) {
-    console.log("postcompose_");
+    //console.log("postcompose_");
     e.context.restore();
   }
 

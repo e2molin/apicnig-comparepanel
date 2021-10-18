@@ -84,18 +84,18 @@ const listBaseLayersByString = [
   ['PNOA 2016', '2016', 'WMS*PNOA 2016*https://www.ign.es/wms/pnoa-historico*pnoa2016'],
   ['PNOA 2017', '2017', 'WMS*PNOA 2017*https://www.ign.es/wms/pnoa-historico*pnoa2017'],
   ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],*/
-  ['Waterbodies', '2015', 'WMS*Waterbodies*https://wms.mapama.gob.es/sig/Agua/Embalses/wms.aspx*HY.PhysicalWaters.Waterbodies'],
+  /*['Waterbodies', '2015', 'WMS*Waterbodies*https://wms.mapama.gob.es/sig/Agua/Embalses/wms.aspx*HY.PhysicalWaters.Waterbodies'],*/
   ['Ultimos10dias', '2016', 'WMS*Ultimos10dias*https://www.ign.es/wms-inspire/geofisica*Ultimos10dias'],
   ['Ultimos30dias', '2017', 'WMS*Ultimos30dias*https://www.ign.es/wms-inspire/geofisica*Ultimos30dias'],
   ['Ultimos365dias', '2018', 'WMS*Ultimos365dias*https://www.ign.es/wms-inspire/geofisica*Ultimos365dias'],
   ['MDT-Relieve', '2020', 'WMTS*MDT Relieve*https://servicios.idee.es/wmts/mdt*Relieve*GoogleMapsCompatible*image/jpeg'],
-  /*['MTN', '2020', 'WMTS*MTN*https://www.ign.es/wmts/mapa-raster*MTN*GoogleMapsCompatible*image/jpeg'],
+  ['MTN', '2020', 'WMTS*MTN*https://www.ign.es/wmts/mapa-raster*MTN*GoogleMapsCompatible*image/jpeg'],
   ['SIOSE', '2020', 'WMTS*SIOSE*https://servicios.idee.es/wmts/ocupacion-suelo*LC.LandCoverSurfaces*GoogleMapsCompatible*image/png'],
   ['LIDAR', '2020', 'WMTS*LIDAR*https://wmts-mapa-lidar.idee.es/lidar*EL.GridCoverageDSM*GoogleMapsCompatible*image/png'],
   ['MDT-Elevaciones', '2020', 'WMTS*MDT-Elevaciones*https://servicios.idee.es/wmts/mdt*EL.GridCoverage*GoogleMapsCompatible*image/jpeg'],
   ['MTN50-Minutas', '2020', 'WMTS*MTN50-Minutas*https://www.ign.es/wmts/primera-edicion-mtn*catastrones*GoogleMapsCompatible*image/jpeg'],
   ['MTN50-1Edi', '2020', 'WMTS*MTN50-1Edi*https://www.ign.es/wmts/primera-edicion-mtn*mtn50-edicion1*GoogleMapsCompatible*image/jpeg'],
-  ['MTN25-1Edi', '2020', 'WMTS*MTN25-1Edi*https://www.ign.es/wmts/primera-edicion-mtn*mtn25-edicion1*GoogleMapsCompatible*image/jpeg'],*/
+  ['MTN25-1Edi', '2020', 'WMTS*MTN25-1Edi*https://www.ign.es/wmts/primera-edicion-mtn*mtn25-edicion1*GoogleMapsCompatible*image/jpeg'],
 ];
 
 
@@ -111,7 +111,7 @@ const pluginComparepanel = new Comparepanel({
   vertical: false,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'spyeye',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   timelineParams: { 

@@ -621,6 +621,7 @@ export default class LyrCompareControl extends M.Control {
    * @returns 
    */
   transformToLayers(layers) {
+    console.log("transformToLayers Curtain");
     const transform = layers.map((layer) => {
       let newLayer = null;
       if (!(layer instanceof Object)) {
@@ -684,7 +685,7 @@ export default class LyrCompareControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
-        // console.log(newLayer);
+        console.log(newLayer);
         return newLayer;
       } else {
         this.layers.remove(layer);

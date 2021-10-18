@@ -119,10 +119,12 @@ export default class LyrdropdownControl extends M.Control {
 
       //Events on template component
       this.template.querySelector('#m-lyrdropdown-selector').addEventListener('change', (evt) => {
+        console.log("Entro:" + evt.target.value);
         const layerSel = this.map.getLayers().filter((layer) => {
           return layer.name === evt.target.value;
         });
         //Get selected layer from layer array
+        console.log(this.layerSelected);
         this.layerSelected.setVisible(false);
         this.removeEffects();
         if (layerSel.length === 0){
@@ -164,6 +166,7 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   deactivate() {
+    console.log('deactivate');
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
     let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
@@ -196,6 +199,7 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   removeEffects() {
+    console.log('removeEffects');
     this.getImpl().removeEffects();
   }
 
@@ -213,6 +217,7 @@ export default class LyrdropdownControl extends M.Control {
    */
  /**
    * Transform StringLayers to Mapea M.Layer
+   * Entra tantas veces como mapas lienzo activos haya.
    * @public
    * @function
    * @api stable
@@ -220,9 +225,10 @@ export default class LyrdropdownControl extends M.Control {
    * @return
    */
   transformToLayers(layers) {
+    console.log("transformToLayers LyerDropDown");
     const transform = layers.map((layer) => {
       let newLayer = null;
-      console.log('transformToLayers');
+
       if (!(layer instanceof Object)) {
         if (layer.indexOf('*') >= 0) {
           const urlLayer = layer.split('*');
@@ -240,15 +246,32 @@ export default class LyrdropdownControl extends M.Control {
               this.map.addLayers(newLayer);
             }
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
+
+            /*newLayer = new M.layer.WMTS({
+              url: urlLayer[2] + '?',
+              name: urlLayer[3],
+              legend: urlLayer[1],
+              matrixSet: urlLayer[4],
+              transparent: true,              // Es una capa Overlay -> zIndex > 0
+              displayInLayerSwitcher: false,  // No aparece en el TOC
+              queryable: false,               // No GetFeatureInfo
+              visibility: false,              // Visible a false por defecto
+              format: urlLayer[5],
+            }), this.map.addWMTS(newLayer);*/
+
             newLayer = new M.layer.WMTS({
               url: urlLayer[2],
               name: urlLayer[3],
               legend: urlLayer[1],
               matrixSet: urlLayer[4],
+              transparent: true,              // Es una capa Overlay -> zIndex > 0
+              displayInLayerSwitcher: false,  // No aparece en el TOC
+              queryable: false,               // No GetFeatureInfo
+              visibility: false,              // Visible a false por defecto
               format: urlLayer[5],
             });
-
-            this.map.addLayers(newLayer);
+            this.map.addWMTS(newLayer);
+            //this.map.addLayers(newLayer);
           }
         } else {
           const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
@@ -274,6 +297,7 @@ export default class LyrdropdownControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
+        console.log(newLayer);
         return newLayer;
       } else {
         this.layers.remove(layer);
@@ -282,54 +306,7 @@ export default class LyrdropdownControl extends M.Control {
 
     return (transform[0] === undefined) ? [] : transform;
   }
-  /*
-  transformToLayers(layers) {
-    window.map = this.map;
-    const transform = layers.map((layer) => {
-      let newLayer = null;
-      if (!(layer instanceof Object)) {
-        if (layer.indexOf('*') >= 0) {
-          const urlLayer = layer.split('*');
-          if (urlLayer[0].toUpperCase() === 'WMS') {
-            newLayer = new M.layer.WMS({
-              url: urlLayer[2],
-              name: urlLayer[3],
-              legend: urlLayer[1],
-            });
-
-            this.map.addLayers(newLayer);
-          } else if (urlLayer[0].toUpperCase() === 'WMTS') {
-            newLayer = new M.layer.WMTS({
-              url: urlLayer[2],
-              name: urlLayer[3],
-              legend: urlLayer[1],
-              matrixSet: urlLayer[4],
-              format: urlLayer[5],
-            });
-
-            this.map.addLayers(newLayer);
-          }
-        } else {
-          const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
-          newLayer = this.isValidLayer(layerByName) ? layerByName : null;
-        }
-      } else if (layer instanceof Object) {
-        const layerByObject = this.map.getLayers().filter(l => layer.name.includes(l.name))[0];
-        newLayer = this.isValidLayer(layerByObject) ? layerByObject : null;
-      }
-
-      if (newLayer !== null) {
-        newLayer.displayInLayerSwitcher = false;
-        newLayer.setVisible(false);
-        return newLayer
-      } else {
-        this.layers.remove(layer);
-      }
-    }, this);
-
-    return (transform[0] === undefined) ? [] : transform;
-  }
-  */
+ 
 
   /**
    * This function transform string to M.Layer

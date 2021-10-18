@@ -155,12 +155,14 @@ export default class ComparepanelControl extends M.Control {
   }
 
   deactivateAndActivateMirrorPanel(plugin) {
-
+    console.log("deactivateAndActivateMirrorPanel");
     this.actualComparisonMode = plugin.name;
     this.template.querySelector('#m-cp-mirrorpanel .cp-mirrorpanel').classList.toggle('hide-panel');  // Oculto panel
     this.template.querySelector('#m-cp-mirrorpanel .cp-button').classList.toggle('active');         // Elimino sonbra botón
     this.plugins.forEach(p => {
+      console.log(p);
       if (p.name !== 'mirrorpanel') {
+        console.log('PAso');
         p.deactivate();
         this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');  // Oculto panel
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');           // Elimino sonbra botón
