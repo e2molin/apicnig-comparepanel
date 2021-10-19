@@ -148,11 +148,6 @@ export default class LyrCompareControl extends M.Control {
    * @api stable
    */
   createView(map) {
-    if (this.interface === false || this.comparisonMode > 0) {
-      this.on(M.evt.ADDED_TO_MAP, (e) => {
-        this.activateCurtain();
-      });
-    }
 
     this.map = map;
     return new Promise((success, fail) => {
@@ -191,13 +186,7 @@ export default class LyrCompareControl extends M.Control {
    */
   setFunctionsAndCompile(success) {
     let layers = this.layers.map((layer) => {
-      return layer instanceof Object ? {
-        name: layer.name,
-        legend: layer.legend
-      } : {
-        name: layer,
-        legend: layer
-      };
+      return layer instanceof Object ? { name: layer.name, legend: layer.legend} : { name: layer, legend: layer };
     });
 
     const options = {

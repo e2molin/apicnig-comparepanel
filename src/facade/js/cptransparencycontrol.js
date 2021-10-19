@@ -62,9 +62,11 @@ export default class TransparencyControl extends M.Control {
    * @api stable
    */
   createView(map) {
+
     this.map = map;
     return new Promise((success, fail) => {
       this.layers = this.transformToLayers(this.layers);
+      
       let names = this.layers.map((layer) => {
         return layer instanceof Object ? { name: layer.name, legend: layer.legend } : { name: layer, legend: layer };
       });
