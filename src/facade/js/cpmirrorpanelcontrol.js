@@ -344,6 +344,7 @@ export default class CompareMirrorpanel extends M.Control {
    */
   createMapObjects(mapLyr) {
     let pluginFullTOC4map = null;
+    let pluginBackImgLayer4map = null;
     //let mpBILmap = null;
 
     console.log(this.enabledPlugins);
@@ -365,7 +366,19 @@ export default class CompareMirrorpanel extends M.Control {
     // }
 
     if (this.enabledPlugins) {
+      const listaCtrls = this.map_.getControls();
       const listaPlugs = this.map_.getPlugins();
+      console.log(listaPlugs);
+      console.log(listaCtrls);
+
+      listaCtrls.forEach((itemCtrl) => {
+        if (itemCtrl.name === 'backgroundlayers'){
+          this.mapL[mapLyr].addControls(['backgroundlayers']);
+        }
+
+      });
+
+
       listaPlugs.forEach((itemPlug) => {
         if (itemPlug.metadata_) {
           //FullTOC
@@ -374,6 +387,14 @@ export default class CompareMirrorpanel extends M.Control {
               http: itemPlug.http,
               https: itemPlug.https,
               precharged: itemPlug.precharged
+            });
+          }
+          console.log("Paso444" + itemPlug.metadata_.name);
+          if (itemPlug.metadata_.name === "backimglayer") {
+            pluginBackImgLayer4map = new M.plugin.BackImgLayer({
+              layerId: itemPlug.layerId,
+              columnsNumber: itemPlug.columnsNumber,
+              layerOpts: itemPlug.layerOpts
             });
           }
 
@@ -399,7 +420,11 @@ export default class CompareMirrorpanel extends M.Control {
     if (pluginFullTOC4map !== null) {
       this.mapL[mapLyr].addPlugin(pluginFullTOC4map);
     } 
-
+    console.log("Paso555");
+    if (pluginBackImgLayer4map !== null) {
+      console.log("PAso555");
+      this.mapL[mapLyr].addPlugin(pluginBackImgLayer4map);
+    } 
 
 
     if (this.showCursors) { this.addLayerCursor(mapLyr); }

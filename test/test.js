@@ -2,13 +2,27 @@ import Comparepanel from 'facade/comparepanel';
 
 M.language.setLang('es');//Español
 
-/**
-* Definimos las capas con notación MAPEA
-*/
+/*
+const customBGLids = ['mapa','imagen','hibrido','cartomtn'];
+const customBGLtitles = ['Mapa','Imagen','Mixto','Carto'];
+const customBGLlayers = [
+          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseTodo*GoogleMapsCompatible*base*false*image/jpeg*false*false*true',
+          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*false*image/jpeg*false*false*true',
+          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*true*image/jpeg*false*false*true' + '+' +
+          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseOrto*GoogleMapsCompatible*Callejero*true*image/png*false*false*true',
+          'WMTS*https://www.ign.es/wmts/mapa-raster?*MTN*GoogleMapsCompatible*MTN*true*image/jpeg*false*false*true'
+        ];
 
-/**
- * Objeto mapa
- */
+const customBGLoptions = customBGLids.map((id, index) => {
+  return {
+    id,
+    title: customBGLtitles[index],
+    layers: customBGLlayers[index].split('+'),
+  };
+});
+
+M.config('backgroundlayers', customBGLoptions);
+*/
 
 const map = M.map({
   container: 'mapjs',
@@ -58,6 +72,160 @@ const map = M.map({
 
  * 
  */
+
+
+
+
+
+const objWMTSsiose = new M.layer.WMTS({
+    url: "https://servicios.idee.es/wmts/ocupacion-suelo",
+    name: "LC.LandCoverSurfaces",
+    matrixSet: "GoogleMapsCompatible",
+    legend: "CORINE / SIOSE",
+    format: 'image/png'
+  });
+
+  const objWMTSMapa = new M.layer.WMTS({
+    url: 'https://www.ign.es/wmts/mapa-raster',
+    name: 'MTN',
+    matrixSet: 'GoogleMapsCompatible',
+    legend: 'Mapa MTN',
+    format: 'image/jpeg'
+  });
+
+const mpBIL = new M.plugin.BackImgLayer({
+    position: 'TR',
+    collapsible: true,
+    collapsed: true,
+    layerId: 0,
+    layerVisibility: true,
+    columnsNumber: 3,
+    layerOpts: [
+      // LiDAR Híbrido
+      {
+        id: 'pnoa-hibido',
+        title: 'PNOA Híbrido',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqhibrid.png',
+        layers: [new M.layer.WMTS({
+          url: 'https://www.ign.es/wmts/pnoa-ma?',
+          name: 'OI.OrthoimageCoverage',
+          legend: 'Imagen (PNOA)',
+          matrixSet: 'EPSG:4326',
+          transparent: true,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/jpeg',
+        }),
+        new M.layer.WMTS({
+          url: 'https://www.ign.es/wmts/ign-base?',
+          name: 'IGNBaseOrto',
+          matrixSet: 'EPSG:4326',
+          legend: 'Mapa IGN',
+          transparent: false,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/png',
+        })
+        ],
+      },
+      // PNOA Híbrido
+      {
+        id: 'lidar-hibrido',
+        title: 'LiDAR Híbrido',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
+        layers: [new M.layer.WMTS({
+          url: 'https://wmts-mapa-lidar.idee.es/lidar?',
+          name: 'EL.GridCoverageDSM',
+          legend: 'Modelo Digital de Superficies LiDAR',
+          matrixSet: 'EPSG:4326',
+          transparent: true,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/png',
+        }),
+        new M.layer.WMTS({
+          url: 'https://www.ign.es/wmts/ign-base?',
+          name: 'IGNBaseOrto',
+          matrixSet: 'EPSG:4326',
+          legend: 'Mapa IGN',
+          transparent: true,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/png',
+        })
+        ],
+      },
+      // Mapa base
+      {
+        id: 'mapa',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqmapa.png',
+        title: 'Mapa',
+        layers: [new M.layer.WMTS({
+          url: 'https://www.ign.es/wmts/ign-base?',
+          name: 'IGNBaseTodo',
+          legend: 'Mapa IGN',
+          matrixSet: 'EPSG:4326',
+          transparent: false,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/jpeg',
+        })],
+      },
+      //PNOA sin textos
+      {
+        id: 'imagen',
+        title: 'Imagen',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqimagen.png',
+        layers: [new M.layer.WMTS({
+          url: 'https://www.ign.es/wmts/pnoa-ma?',
+          name: 'OI.OrthoimageCoverage',
+          legend: 'Imagen (PNOA)',
+          matrixSet: 'EPSG:4326',
+          transparent: false,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/jpeg',
+        })],
+      },
+      // LiDAR sin textos
+      {
+        id: 'lidar',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
+        title: 'LIDAR',
+        layers: [new M.layer.WMTS({
+          url: 'https://wmts-mapa-lidar.idee.es/lidar?',
+          name: 'EL.GridCoverageDSM',
+          legend: 'Modelo Digital de Superficies LiDAR',
+          matrixSet: 'EPSG:4326',
+          transparent: false,
+          displayInLayerSwitcher: false,
+          queryable: false,
+          visible: true,
+          format: 'image/png',
+        })],
+      },
+      // SIOSE
+      {
+        id: 'MAPAMTN',
+        preview: 'img/mtnactual.jpg',
+        title: 'Mapa MTN',
+        layers: [objWMTSMapa],
+      },
+    ],
+  }
+);
+//map.addPlugin(mpBIL);
+
+
+
+
+
 
 
 

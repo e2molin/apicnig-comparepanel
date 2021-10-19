@@ -90,6 +90,8 @@ export default class ComparepanelControl extends M.Control {
       success(this.template);
 
       this.addComparators(map);
+      console.log(this.map.getBaseLayers());
+      console.log(this.map.getLayers());
     });
   }
 

@@ -179,6 +179,32 @@ new M.layer.WMTS({
 capaSIOSEsource = 'WMTS*https://servicios.idee.es/wmts/ocupacion-suelo?*LC.LandCoverSurfaces*GoogleMapsCompatible*SIOSE*false*image/png*false*false*true';
 ```
 
+## Configurar mapas de fondo en el BackImgLayer
+
+```javascript
+const customBGLids = ['mapa','imagen','hibrido','cartomtn'];
+const customBGLtitles = ['Mapa','Imagen','Mixto','Carto'];
+const customBGLlayers = [
+          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseTodo*GoogleMapsCompatible*base*false*image/jpeg*false*false*true',
+          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*false*image/jpeg*false*false*true',
+          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*true*image/jpeg*false*false*true' + '+' +
+          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseOrto*GoogleMapsCompatible*Callejero*true*image/png*false*false*true',
+          'WMTS*https://www.ign.es/wmts/mapa-raster?*MTN*GoogleMapsCompatible*MTN*true*image/jpeg*false*false*true'
+        ];
+
+const customBGLoptions = customBGLids.map((id, index) => {
+  return {
+    id,
+    title: customBGLtitles[index],
+    layers: customBGLlayers[index].split('+'),
+  };
+});
+
+M.config('backgroundlayers', customBGLoptions);
+```
+
+
+
 
 
 
