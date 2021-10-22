@@ -213,15 +213,11 @@ console.table(capas);
   * ✅ Ya se puede contralar la animación arrancando y deteniéndola. Botones con iconos adecuados
 * Posibilidad de configurar el lienzo principal a derecha o izquierda
   * ✅ Los modos 1,3,4,5,7 y 9 tienen un modo reverse, en el que la aineación de las columnas va de izquierda a derecha
-* Problema e funcionamiento con API-CNIG 4.0 y OL6
+* Problema de funcionamiento con API-CNIG 4.0 y OL6
   * ✅ Se ha solucionado el problema de funcionameinto. A la espera de introducir retrocompatibilidad.
+* ✅ Descripción en la ayuda de ejemplos de carga de capas por WMS y WMTS
+* ✅ Mostrar un plugin FullTOC y un plugin Vector junto con un control BackImgLayer en los diversos mapas mirror.
 
-* Incorporar un botón para incorporar más capas a la lista de capas disponibles en comparación
-* Describir ayuda con ejemplos de carga de capas por WMS y WMTS
-* Deberíamos poder arrancar el *spyeye* con una capa activa.
-* Mostrar un TOC en los diversos mapas mirror.
-* Unificar las capas cargadas a partir de un cierto zIndex intermedio, y documentarlo.
-* Seleccionar cuáles de los modos mirror están disponibles
 
 ## Preguntas
 
