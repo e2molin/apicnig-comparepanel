@@ -228,3 +228,6 @@ console.table(capas);
 * ¿Cómo se puede conocer la versión de la API con la que trabajo? : No se puede. Quizás se implemente en próximas peticiones. Ahora la única solución actualmente sería pasar la versión como parámetro del plugin.
 
 
+## Servicios de prueba
+
+NASA * https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+API+for+Developers#expand-WMTS

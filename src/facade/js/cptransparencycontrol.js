@@ -148,7 +148,6 @@ export default class TransparencyControl extends M.Control {
       this.template.querySelector('input').disabled = false;
     }
 
-    console.log(`e2m: Activo spyeye! ${this.layerSelected.name}`);
     this.getImpl().effectSelected(this.layerSelected, this.radius);
 
   }
@@ -221,7 +220,7 @@ export default class TransparencyControl extends M.Control {
    * @return
    */
    transformToLayers(layers) {
-    console.log("transformToLayers Spyeye");
+
     const transform = layers.map((layer) => {
       let newLayer = null;
       if (!(layer instanceof Object)) {
@@ -235,12 +234,6 @@ export default class TransparencyControl extends M.Control {
               legend: urlLayer[1],
             });
 
-            if (this.map.getLayers().filter(l => newLayer.name.includes(l.name)).length > 0) {
-              newLayer = this.map.getLayers().filter(l => newLayer.name.includes(l.name))[0];
-              newLayer.legend = urlLayer[1] || newLayer.name;
-            } else {
-              this.map.addLayers(newLayer);
-            }
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
 
             newLayer = new M.layer.WMTS({
@@ -257,6 +250,14 @@ export default class TransparencyControl extends M.Control {
 
           }
 
+          if (this.map.getLayers().filter(l => newLayer.name.includes(l.name)).length > 0) {
+            newLayer = this.map.getLayers().filter(l => newLayer.name.includes(l.name))[0];
+            newLayer.legend = urlLayer[1] || newLayer.name;
+          } else {
+            this.map.addLayers(newLayer);
+          }
+
+
         } else {
           const layerByName = this.map.getLayers().filter(l => layer.includes(l.name))[0];
           newLayer = this.isValidLayer(layerByName) ? layerByName : null;
@@ -271,10 +272,6 @@ export default class TransparencyControl extends M.Control {
           setTimeout(() => {
             if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
               newLayer.load = true;
-
-            } else if (newLayer.type === 'WMTS') {
-              newLayer.facadeLayer_.load = true;
-
             }
           }, 1000);
         } else {
