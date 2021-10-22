@@ -241,7 +241,6 @@ export default class TransparencyControl extends M.Control {
             } else {
               this.map.addLayers(newLayer);
             }
-            // console.log(newLayer);
           } else if (urlLayer[0].toUpperCase() === 'WMTS') {
 
             newLayer = new M.layer.WMTS({
@@ -255,7 +254,7 @@ export default class TransparencyControl extends M.Control {
               visibility: false,              // Visible a false por defecto
               format: urlLayer[5],
             }), this.map.addWMTS(newLayer);
-            // console.log(newLayer);
+
           }
 
         } else {
@@ -270,7 +269,6 @@ export default class TransparencyControl extends M.Control {
       if (newLayer !== null) {
         if (newLayer.getImpl().getOL3Layer() === null) {
           setTimeout(() => {
-            console.log(`Cargado ${newLayer.type}`);
             if (newLayer.type === 'WMS' || newLayer.type === 'WMTS') {
               newLayer.load = true;
 
@@ -285,7 +283,6 @@ export default class TransparencyControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
-        console.log(newLayer);
         return newLayer;
       } else {
         this.layers.remove(layer);
