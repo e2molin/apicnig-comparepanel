@@ -220,8 +220,85 @@ const mpBIL = new M.plugin.BackImgLayer({
     ],
   }
 );
-//map.addPlugin(mpBIL);
 
+const mpBILBasico = new M.plugin.BackImgLayer({
+  position: 'TR',
+  layerId: 0,
+  layerVisibility: true,
+  collapsed: true,
+  collapsible: true,
+  columnsNumber: 3,
+  layerOpts: [
+      {
+        id: 'mapa',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqmapa.png',
+        title: 'Mapa IGN',
+        layers: [
+          new M.layer.WMTS({
+            url: 'https://www.ign.es/wmts/ign-base?',
+            name: 'IGNBaseTodo',
+            legend: 'Mapa IGN',
+            matrixSet: 'GoogleMapsCompatible',
+            transparent: false,
+            displayInLayerSwitcher: false,
+            queryable: false,
+            visible: true,
+            format: 'image/jpeg',
+          }),
+        ],
+      },
+      {
+        id: 'imagen',
+        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqimagen.png',
+        title: 'Imagen PNOA',
+        layers: [
+          new M.layer.WMTS({
+            url: 'https://www.ign.es/wmts/pnoa-ma?',
+            name: 'OI.OrthoimageCoverage',
+            legend:'Imagen PNOA',
+            matrixSet: 'GoogleMapsCompatible',
+            transparent: false,
+            displayInLayerSwitcher: false,
+            queryable: false,
+            visible: true,
+            format: 'image/jpeg',
+          }),
+        ],
+      },
+            // PNOA Híbrido
+            {
+              id: 'lidar-hibrido',
+              title: 'LiDAR Híbrido',
+              preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
+              layers: [new M.layer.WMTS({
+                url: 'https://wmts-mapa-lidar.idee.es/lidar?',
+                name: 'EL.GridCoverageDSM',
+                legend: 'Modelo Digital de Superficies LiDAR',
+                matrixSet: 'EPSG:4326',
+                transparent: true,
+                displayInLayerSwitcher: false,
+                queryable: false,
+                visible: true,
+                format: 'image/png',
+              }),
+              new M.layer.WMTS({
+                url: 'https://www.ign.es/wmts/ign-base?',
+                name: 'IGNBaseOrto',
+                matrixSet: 'EPSG:4326',
+                legend: 'Mapa IGN',
+                transparent: true,
+                displayInLayerSwitcher: false,
+                queryable: false,
+                visible: true,
+                format: 'image/png',
+              })
+              ],
+            },
+    ],
+  }
+);
+
+//map.addPlugin(mpBIL);
 
 const listBaseLayersByString = [
   // WMS PNOA Histórico
@@ -289,7 +366,7 @@ map.addPlugin(mpVector);
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: false,
-  collapsed: false,
+  collapsed: true,
   collapsible: true,
   defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
@@ -310,8 +387,9 @@ const pluginComparepanel = new Comparepanel({
    },
   mirrorpanelParams: { 
       showCursors: true,
-      reverseLayout:false,
+      reverseLayout:true,
       enabledPlugins: true, 
+      // backImgLayersParams: backImgLayersParams,
   }
 });
 
