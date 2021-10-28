@@ -126,6 +126,30 @@ export default class Comparepanel extends M.Plugin {
     this.defaultCompareViz = options.defaultCompareViz || 0;
 
 
+    /**
+     * The name of the vector layer hat contains the attribution information.
+     *
+     * @private
+     * @type {string}
+     */
+     this.layerName_ = options.layerName || 'attributions';
+
+     /**
+      * Layer of Mapea with attributions
+      *
+      * @private
+      * @type {M.layer.GeoJSON | M.layer.KML}
+      */
+     this.layerCobertura_ = options.layerCobertura;
+
+
+
+    /**
+     * Parameter of the features of the layer that contains the information of the URL.
+     * @private
+     * @type {URLLike}
+     */
+    this.urlCoberturas_ = options.urlcoberturas || 'urlcoberturas';
 
     /**
      * mirrorpanelParams
@@ -225,6 +249,8 @@ export default class Comparepanel extends M.Plugin {
 
     this.controls_.push(this.control_);
     this.map_ = map;
+  
+
     this.panel_ = new M.ui.Panel('panelComparepanel', {
       collapsible: this.collapsible,
       collapsed: this.collapsed,
@@ -237,6 +263,67 @@ export default class Comparepanel extends M.Plugin {
     this.panel_.addControls(this.controls_);
     map.addPanels(this.panel_);
     this.panel_._element.classList.add(this.vertical ? 'orientation-vertical' : 'orientation-horizontal');
+
+
+    //Cargo el fichero de coberturas
+    this.loadCoverLyr();
+
+    this.onMoveEnd((evt) => {
+      this.getCobertura(evt);
+    });
+
+  }
+
+
+  /**
+     * @public
+     * @function
+     */
+  loadCoverLyr() {
+    let estiloPoly = new M.style.Polygon({
+      fill: {
+        color: 'green',
+        opacity: 0.0,
+      },
+      /*stroke: {
+        color: '#FF0000',
+        width: 0,
+      }*/
+    });// Estilo no visible
+
+    const optionsLayer = {
+      name: this.layerName_,
+      url: this.urlCoberturas_,
+    };
+    this.layer_ = new M.layer.GeoJSON(optionsLayer, { displayInLayerSwitcher: false });
+
+    this.map_.addLayers(this.layer_);
+    this.layer_.displayInLayerSwitcher = false;
+    this.layer_.setVisible(true);
+    this.layer_.setStyle(estiloPoly);
+
+  }
+
+
+  onMoveEnd(callback) {
+
+    const olMap = this.map_.getMapImpl();
+    olMap.on('moveend', e => callback(e));
+
+  }
+
+
+  getCobertura(evt) {
+    const olMap = this.map_.getMapImpl();
+    //const extent = olMap.getView().calculateExtent(olMap.getSize());
+    let pixelCentral = olMap.getPixelFromCoordinate(olMap.getView().getCenter());
+    //console.log(pixelCentral);
+    olMap.forEachFeatureAtPixel(pixelCentral, function (feature, layer) {
+      //console.log(feature);
+      //console.log(layer);    
+      console.log(feature.get('layerkey') !== undefined ? `Capa: ${feature.get('layerkey')}` : '');
+    });
+
   }
 
 
