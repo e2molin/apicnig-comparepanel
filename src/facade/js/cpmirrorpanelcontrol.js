@@ -478,6 +478,22 @@ export default class CompareMirrorpanel extends M.Control {
     });
   }
 
+
+  
+  manageLyrAvailable(lyrList){
+    
+    console.log('manageLyrAvailable indise');
+    console.table(lyrList);
+    //console.log(this.lyDropControlA.layers);
+    //console.log(this.lyDropControlB.layers);
+    //console.log(this.lyDropControlC.layers);
+    //console.log(this.lyDropControlD.layers);
+    this.lyDropControlA.setDisabledLyrs(lyrList);
+    this.lyDropControlB.setDisabledLyrs(lyrList);
+    //this.lyDropControlC.setDisabledLyrs(lyrList);
+    //this.lyDropControlD.setDisabledLyrs(lyrList);
+  }
+
   /**
    * This function is called to remove the effects
    *

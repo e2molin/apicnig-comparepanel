@@ -149,6 +149,20 @@ export default class Lyrdropdown extends M.Plugin {
     [this.control_, this.panel_, this.map_, this.collapsible,this.collapsed,this.layers] = [null, null, null, null, null, null];
   }
 
+
+  setDisabledLyrs(lyrList){
+
+    console.log(this.control_.template.querySelector('#m-lyrdropdown-selector').options[0].selected);//Comrpouebo si el primer elemento está seleccionado
+    console.log(this.control_.template.querySelector('#m-lyrdropdown-selector').options[1].selected);//Comrpouebo si el segundo elemento está seleccionado
+    this.control_.template.querySelector('#m-lyrdropdown-selector').options[2].disabled=true;
+    for (let  iOpt =1; iOpt < this.control_.template.querySelector('#m-lyrdropdown-selector').options.length; iOpt++) {
+      this.control_.template.querySelector('#m-lyrdropdown-selector').options[iOpt].disabled = !lyrList.includes(this.control_.template.querySelector('#m-lyrdropdown-selector').options[iOpt].value)
+    }
+   
+   }
+
+
+
   /**
    * This function gets name plugin
    * @getter
