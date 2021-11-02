@@ -151,13 +151,25 @@ export default class Lyrdropdown extends M.Plugin {
 
 
   setDisabledLyrs(lyrList){
-
-    console.log(this.control_.template.querySelector('#m-lyrdropdown-selector').options[0].selected);//Comrpouebo si el primer elemento está seleccionado
-    console.log(this.control_.template.querySelector('#m-lyrdropdown-selector').options[1].selected);//Comrpouebo si el segundo elemento está seleccionado
-    this.control_.template.querySelector('#m-lyrdropdown-selector').options[2].disabled=true;
-    for (let  iOpt =1; iOpt < this.control_.template.querySelector('#m-lyrdropdown-selector').options.length; iOpt++) {
-      this.control_.template.querySelector('#m-lyrdropdown-selector').options[iOpt].disabled = !lyrList.includes(this.control_.template.querySelector('#m-lyrdropdown-selector').options[iOpt].value)
+    
+    if (this.control_ === undefined){
+      return;
     }
+    if (this.control_.template === null){
+      return;
+    }
+    //console.log(this.control_.template);
+    try {
+      let optionLyrs = null;
+      optionLyrs = this.control_.template.querySelector('#m-lyrdropdown-selector');
+      optionLyrs.options[2].disabled=true;
+      for (let  iOpt =1; iOpt < optionLyrs.options.length; iOpt++) {
+        optionLyrs.options[iOpt].disabled = !lyrList.includes(optionLyrs.options[iOpt].value)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  
    
    }
 

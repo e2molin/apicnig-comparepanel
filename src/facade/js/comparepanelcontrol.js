@@ -91,11 +91,8 @@ export default class ComparepanelControl extends M.Control {
 
       this.template = M.template.compileSync(template, options);
       success(this.template);
-
       this.addComparators(map);
-      console.log(this.map.getBaseLayers());
-      console.log(this.map.getLayers());
-      console.log(this.urlCover);
+
     });
   }
 
@@ -163,7 +160,6 @@ export default class ComparepanelControl extends M.Control {
     });
 
     if (this.defaultComparisonMode==='mirrorpanel') {
-      console.log("Entro");
       // this.template.querySelector('#m-cp-mirrorpanel .cp-mirrorpanel').classList.toggle('hide-panel');  // Oculto panel
       // this.template.querySelector('#m-cp-mirrorpanel .cp-button').classList.toggle('active');         // Elimino sonbra botón
     }
@@ -178,7 +174,6 @@ export default class ComparepanelControl extends M.Control {
     this.plugins.forEach(p => {
       console.log(p);
       if (p.name !== 'mirrorpanel') {
-        console.log('PAso');
         p.deactivate();
         this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');  // Oculto panel
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');           // Elimino sonbra botón
@@ -263,6 +258,8 @@ export default class ComparepanelControl extends M.Control {
       }
     });
     this.mirrorpanel.manageLyrAvailable(lyrAvailable);
+    this.lyrcompare.manageLyrAvailable(lyrAvailable);
+    this.transparency.manageLyrAvailable(lyrAvailable);
 
   }
 

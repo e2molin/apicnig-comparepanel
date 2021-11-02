@@ -275,8 +275,6 @@ export default class Mirrorpanel extends M.Plugin {
 
 
   manageLyrAvailable(lyrList){
-    //console.log('manageLyrAvailable');
-    //console.table(lyrList);
     this.control_.manageLyrAvailable(lyrList);
   }
 

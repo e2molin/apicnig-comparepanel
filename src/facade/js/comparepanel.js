@@ -218,23 +218,11 @@ export default class Comparepanel extends M.Plugin {
 
     // e2m: ponemos el arraque del visualizador mirror a cero por defecto
     this.mirrorpanelParams.modeViz = this.mirrorpanelParams.modeViz || {};
-    this.mirrorpanelParams.modeViz = (this.defaultCompareMode==='mirror'? this.defaultCompareViz : 0);
+    this.mirrorpanelParams.modeViz = (this.defaultCompareMode === 'mirror' ? this.defaultCompareViz : 0);
 
     // e2m: ponemos el arraqnue del visualizador mirror a cero por defecto
     this.lyrcompareParams.comparisonMode = this.lyrcompareParams.comparisonMode || {};
-    this.lyrcompareParams.comparisonMode = (this.defaultCompareMode==='curtain'? this.defaultCompareViz : 0);
-
-    console.log(this.defaultCompareMode);
-
-    /**COMP_PLUGIN_NAMES[this.defaultCompareMode]
-     * 
-     */
-    
-     //console.log(`defaultComparisonMode: ${this.COMP_PLUGIN_NAMES[this.defaultCompareMode]}`);
-     //console.log(`defaultComparisonViz: ${this.defaultCompareViz}`);
-
-    console.log(this.mirrorpanelParams);
-
+    this.lyrcompareParams.comparisonMode = (this.defaultCompareMode === 'curtain' ? this.defaultCompareViz : 0);
 
     this.control_ = new ComparepanelControl({
       baseLayers: this.baseLayers,
@@ -250,7 +238,6 @@ export default class Comparepanel extends M.Plugin {
 
     this.controls_.push(this.control_);
     this.map_ = map;
-  
 
     this.panel_ = new M.ui.Panel('panelComparepanel', {
       collapsible: this.collapsible,
@@ -264,7 +251,6 @@ export default class Comparepanel extends M.Plugin {
     this.panel_.addControls(this.controls_);
     map.addPanels(this.panel_);
     this.panel_._element.classList.add(this.vertical ? 'orientation-vertical' : 'orientation-horizontal');
-
 
   }
 

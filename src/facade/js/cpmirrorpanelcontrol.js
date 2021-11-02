@@ -347,8 +347,6 @@ export default class CompareMirrorpanel extends M.Control {
     let pluginBackImgLayer4map = null;
     let pluginVector = null;
 
-
-    console.log(this.enabledPlugins);
     this.mapL[mapLyr] = M.map({
       container: 'mapjs' + mapLyr,
       center: this.map_.getCenter(),
@@ -361,8 +359,6 @@ export default class CompareMirrorpanel extends M.Control {
     if (this.enabledPlugins) {
       const listaCtrls = this.map_.getControls();
       const listaPlugs = this.map_.getPlugins();
-      console.log(listaPlugs);
-      console.log(listaCtrls);
 
       listaCtrls.forEach((itemCtrl) => {
         if (itemCtrl.name === 'backgroundlayers'){
@@ -370,7 +366,6 @@ export default class CompareMirrorpanel extends M.Control {
         }
 
       });
-
 
       listaPlugs.forEach((itemPlug) => {
         if (itemPlug.metadata_) {
@@ -482,16 +477,20 @@ export default class CompareMirrorpanel extends M.Control {
   
   manageLyrAvailable(lyrList){
     
-    console.log('manageLyrAvailable indise');
-    console.table(lyrList);
-    //console.log(this.lyDropControlA.layers);
-    //console.log(this.lyDropControlB.layers);
-    //console.log(this.lyDropControlC.layers);
-    //console.log(this.lyDropControlD.layers);
-    this.lyDropControlA.setDisabledLyrs(lyrList);
-    this.lyDropControlB.setDisabledLyrs(lyrList);
-    //this.lyDropControlC.setDisabledLyrs(lyrList);
-    //this.lyDropControlD.setDisabledLyrs(lyrList);
+    console.log('manageLyrAvailable MirrorCompare');
+
+    if (this.lyDropControlA.control_!== null){
+      this.lyDropControlA.setDisabledLyrs(lyrList);
+    }
+    if (this.lyDropControlB.control_!== null){
+      this.lyDropControlB.setDisabledLyrs(lyrList);
+    }  
+    if (this.lyDropControlC.control_!== null){
+      this.lyDropControlC.setDisabledLyrs(lyrList);
+    }
+    if (this.lyDropControlD.control_!== null){
+      this.lyDropControlD.setDisabledLyrs(lyrList);
+    }     
   }
 
   /**
