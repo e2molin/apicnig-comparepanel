@@ -23,16 +23,18 @@ const customBGLoptions = customBGLids.map((id, index) => {
 
 M.config('backgroundlayers', customBGLoptions);
 */
-
 const map = M.map({
   container: 'mapjs',
   center: {
     x: -667143.31,
     y: 4493011.77,
-    draw: false,
+    //x: -3.23232333,
+    //y: 42.2365656,
+    draw: true,
   },
   controls: ['scale','location'],
   projection: 'EPSG:3857*m',
+  //projection: 'EPSG:4326*d',
   zoom: 6,
 });
 
@@ -238,7 +240,7 @@ const getConfiguredBaseLayersPlugin = () => {
         title: 'Mapa IGN',
         layers: [
           new M.layer.WMTS({
-            url: 'http://www.ign.es/wmts/ign-base?',
+            url: 'https://www.ign.es/wmts/ign-base?',
             name: 'IGNBaseTodo',
             legend: 'Mapa IGN',
             matrixSet: 'GoogleMapsCompatible',
@@ -256,7 +258,7 @@ const getConfiguredBaseLayersPlugin = () => {
         title: 'Imagen PNOA',
         layers: [
           new M.layer.WMTS({
-            url: 'http://www.ign.es/wmts/pnoa-ma?',
+            url: 'https://www.ign.es/wmts/pnoa-ma?',
             name: 'OI.OrthoimageCoverage',
             legend: 'Imagen PNOA',
             matrixSet: 'GoogleMapsCompatible',
@@ -285,7 +287,7 @@ const getConfiguredBaseLayersPlugin = () => {
             format: 'image/jpeg',
           }),
           new M.layer.WMTS({
-            url: 'http://www.ign.es/wmts/ign-base?',
+            url: 'https://www.ign.es/wmts/ign-base?',
             name: 'IGNBaseOrto',
             matrixSet: 'GoogleMapsCompatible',
             legend: 'PNOA Híbrido Topo',
@@ -399,7 +401,6 @@ const mpVector = new M.plugin.Vectors({
 });
 
 map.addPlugin(mpVector);
-
 
 
 const pluginComparepanel = new Comparepanel({
