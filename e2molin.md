@@ -214,7 +214,7 @@ console.table(capas);
 * Posibilidad de configurar el lienzo principal a derecha o izquierda
   * ✅ Los modos 1,3,4,5,7 y 9 tienen un modo reverse, en el que la aineación de las columnas va de izquierda a derecha
 * Problema de funcionamiento con API-CNIG 4.0 y OL6
-  * ✅ Se ha solucionado el problema de funcionameinto. A la espera de introducir retrocompatibilidad.
+  * ✅ Se ha solucionado el problema de funcionamiento. A la espera de introducir retrocompatibilidad.
 * ✅ Descripción en la ayuda de ejemplos de carga de capas por WMS y WMTS
 * ✅ Mostrar un plugin FullTOC y un plugin Vector junto con un control BackImgLayer en los diversos mapas mirror.
 
