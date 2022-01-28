@@ -60,6 +60,20 @@ export default class TransparencyControl extends M.impl.Control {
   }
 
   /**
+   * Set radius
+   *
+   * @public
+   * @function
+   * @api stable
+   */
+   toogleFreeze() {
+    if (this.transparentInteraction_ !== undefined) this.transparentInteraction_.toogleFreeze();
+  }
+
+
+
+  
+  /**
    * Set layer
    *
    * @public

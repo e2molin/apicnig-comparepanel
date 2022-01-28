@@ -22,6 +22,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     // Default options
     const optionsE = options || {};
 
+    this.freeze = false;
     this.pos = false;
     this.radius = (optionsE.radius || 100);
     this.OLVersion = "OL6";
@@ -45,8 +46,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
   setMap(map) {
     let i;
 
-    
-    console.log(this.getMap());
     if (this.getMap()) {
       // e2m: Por aquí pasamos al desactivar el control
       for (i = 0; i < this.layers_.length; i += 1) {
@@ -84,6 +83,15 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setRadius(radius) {
     this.radius = radius;
+    if (this.getMap()) this.getMap().renderSync();
+  }
+
+  /** Set Freeze
+   * @param {boolean} state
+   */
+  toogleFreeze() {
+    this.freeze = !this.freeze;
+    console.log(`Freeze: ${this.freeze}`)
     if (this.getMap()) this.getMap().renderSync();
   }
 
@@ -139,9 +147,13 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setPosition(e) {
     if (e.pixel) {
-      this.pos = e.pixel;
+      if (this.freeze===false){
+        this.pos = e.pixel;
+      } 
+      console.log("PASO1");
     } else if (e && e instanceof Array) {
       this.pos = e;
+      console.log("PASO2");
     } else {
       /* eslint-disable */
       e = [-10000000, -10000000];
