@@ -51,6 +51,14 @@ export default class TransparencyControl extends M.Control {
      * @type { HTMLElement }
      */
     this.template = null;
+
+    /**
+     * Set fixed SpyEye
+     * @private
+     * @type {boolean}
+     */
+     this.freezeSpyEye = false;
+
   }
 
   /**

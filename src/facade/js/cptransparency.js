@@ -57,6 +57,14 @@ export default class Transparency extends M.Plugin {
     this.position = options.position;
 
     /**
+     * Enabled key functions
+     * @type {boolean}
+     * @public
+     */
+     this.enabledKeyFunctions = options.enabledKeyFunctions;
+     if (this.enabledKeyFunctions === undefined) this.enabledKeyFunctions = true;
+
+    /**
      * Layer names that will have effects
      * @public
      * Value: the names separated with coma
@@ -153,9 +161,9 @@ export default class Transparency extends M.Plugin {
 
 
     document.addEventListener('keydown', (zEvent) => {
-      // if (!this.enabledKeyFunctions) {
-      //   return;
-      // }
+      if (!this.enabledKeyFunctions) {
+        return;
+      }
       // console.log(zEvent.key);
       // for (let i = 0; i < 10; i++) {
       //   if (zEvent.ctrlKey && zEvent.shiftKey && zEvent.key === 'F' + (i + 1)) {  // case sensitive
@@ -182,7 +190,8 @@ export default class Transparency extends M.Plugin {
       if (zEvent.ctrlKey && zEvent.shiftKey && zEvent.key === 'Enter') {
         console.log("Congelo");
         this.control_.getImpl().toogleFreeze();
-
+        //this.control_.freezeSpyEye = !this.control_.freezeSpyEye;
+        //this.control_.getImpl().setFreeze(this.control_.freezeSpyEye);
       }
 
       // const keyStr = ['Control', 'Shift', 'Alt', 'Meta'].includes(zEvent.key) ? '' : zEvent.key;

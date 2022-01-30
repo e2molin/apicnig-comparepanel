@@ -86,12 +86,20 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     if (this.getMap()) this.getMap().renderSync();
   }
 
+  /** Set freeze value
+   * @param {boolean} value
+   */
+   setFreeze(value) {
+    this.freeze = value;
+    //if (this.getMap()) this.getMap().renderSync();
+  }
+
+
   /** Set Freeze
    * @param {boolean} state
    */
   toogleFreeze() {
     this.freeze = !this.freeze;
-    console.log(`Freeze: ${this.freeze}`)
     if (this.getMap()) this.getMap().renderSync();
   }
 
@@ -147,13 +155,14 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setPosition(e) {
     if (e.pixel) {
+      //console.log(e.pixel);
       if (this.freeze===false){
         this.pos = e.pixel;
       } 
-      console.log("PASO1");
+      //console.log("PASO1");
     } else if (e && e instanceof Array) {
       this.pos = e;
-      console.log("PASO2");
+      //console.log("PASO2");
     } else {
       /* eslint-disable */
       e = [-10000000, -10000000];
@@ -198,7 +207,12 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
     ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    if (this.freeze===true){
+      ctx.strokeStyle = 'rgba(255,0,0,0.5)';
+    }else{
+      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    }
+    
     ctx.stroke();
     ctx.clip();
 

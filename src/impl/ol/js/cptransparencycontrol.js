@@ -34,10 +34,6 @@ export default class TransparencyControl extends M.impl.Control {
   effectSelected(layers, radius) {
 
     layers.setVisible(true);
-    //layers.setZIndex(90000);
-    //const olVersion = olIndex.VERSION
-    console.log(this.olMap);
-    console.log(M);
     this.transparentInteraction_ = new TransparentInteraction({
       radius,
       layers,
@@ -60,7 +56,7 @@ export default class TransparencyControl extends M.impl.Control {
   }
 
   /**
-   * Set radius
+   * Toogle freezeValue
    *
    * @public
    * @function
@@ -70,6 +66,17 @@ export default class TransparencyControl extends M.impl.Control {
     if (this.transparentInteraction_ !== undefined) this.transparentInteraction_.toogleFreeze();
   }
 
+  /**
+   * Set freeze Value
+   *
+   * @public
+   * @function
+   * @param { Number } radius radius to assign
+   * @api stable
+   */
+   setFreeze(value) {
+    if (this.transparentInteraction_ !== undefined) this.transparentInteraction_.setFreeze(value);
+  }
 
 
   
