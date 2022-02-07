@@ -300,7 +300,6 @@ export default class LyrCompare extends M.Plugin {
     this.control_.manageLyrAvailable(lyrList);
   }
 
-
   /**
    * This function gets metadata plugin
    *
@@ -312,7 +311,6 @@ export default class LyrCompare extends M.Plugin {
   getMetadata() {
     return this.metadata_;
   }
-
 
   /**
    * Activate plugin

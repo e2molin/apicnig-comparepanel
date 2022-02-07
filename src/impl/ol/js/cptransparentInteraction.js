@@ -77,7 +77,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     if (this.getMap()) this.getMap().renderSync();
   }
 
-<<<<<<< HEAD
   /** Set clip radius
   * @param {integer} radius
   */
@@ -86,17 +85,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     if (this.getMap()) this.getMap().renderSync();
   }
 
-=======
-  /** Set freeze value
-   * @param {boolean} value
-   */
-   setFreeze(value) {
-    this.freeze = value;
-    //if (this.getMap()) this.getMap().renderSync();
-  }
-
-
->>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
   /** Set Freeze
    * @param {boolean} state
    */
@@ -160,16 +148,9 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       if (this.freeze===false){
         this.pos = e.pixel;
       } 
-<<<<<<< HEAD
     } else if (e && e instanceof Array) {
       this.pos = e;
       console.log("El valor de E es un Array");
-=======
-      //console.log("PASO1");
-    } else if (e && e instanceof Array) {
-      this.pos = e;
-      //console.log("PASO2");
->>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
     } else {
       /* eslint-disable */
       e = [-10000000, -10000000];
@@ -186,7 +167,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     ctx.save();
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
-<<<<<<< HEAD
     //ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
     ctx.lineWidth = 3;
     if (this.freeze){
@@ -194,36 +174,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     } else {
       ctx.strokeStyle = 'rgba(0,0,0,0.5)';
     }
-=======
-    ctx.clip();
-  }
-*/
-  /* @private
-   */
-  // e2m: deprecated
-/*
-  postcompose_(e) {
-    //console.log("postcompose_");
-    e.context.restore();
-  }
-*/
-  /* @private
- */
-  precompose_(e) {
-    //console.log("precompose_");
-    const ctx = e.context;
-    const ratio = e.frameState.pixelRatio;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
-    ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
-    if (this.freeze===true){
-      ctx.strokeStyle = 'rgba(255,0,0,0.5)';
-    }else{
-      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    }
-    
->>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
     ctx.stroke();
     ctx.clip();
   }
