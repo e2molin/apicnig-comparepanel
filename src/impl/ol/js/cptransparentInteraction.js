@@ -22,23 +22,14 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     // Default options
     const optionsE = options || {};
 
-    this.freeze = false;
-    this.pos = false;
+    this.freeze = optionsE.freeze;
+    this.pos = optionsE.freezeInPosition;
     this.radius = (optionsE.radius || 100);
     this.OLVersion = "OL6";
 
-    console.log(optionsE);
     const layer = [optionsE.layers].map(layer => layer.getImpl().getOL3Layer()).filter(layer => layer != null);
     this.addLayer(layer);
 
-
-    /*if (optionsE.layers) {
-      optionsE.layers = [optionsE.layers];
-      console.log(layer);
-      const layer = optionsE.layers.map(layer => layer.getImpl().getOL3Layer())
-        .filter(layer => layer != null);
-      this.addLayer(layer);
-    }*/
   }
 
   /** Set the map > start postcompose
@@ -86,12 +77,19 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     if (this.getMap()) this.getMap().renderSync();
   }
 
+  /** Set clip radius
+  * @param {integer} radius
+  */
+  setFreeze(value) {
+    this.freeze = value;
+    if (this.getMap()) this.getMap().renderSync();
+  }
+
   /** Set Freeze
    * @param {boolean} state
    */
   toogleFreeze() {
     this.freeze = !this.freeze;
-    console.log(`Freeze: ${this.freeze}`)
     if (this.getMap()) this.getMap().renderSync();
   }
 
@@ -105,7 +103,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     /* eslint-enable */
     console.log(layers);
     for (let i = 0; i < layers.length; i += 1) {
-      
        //e2m: deprecated. Esto no se usa ¿? 
       const l = { layer: layers[i] };
       if (this.getMap()) {
@@ -150,64 +147,39 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       if (this.freeze===false){
         this.pos = e.pixel;
       } 
-      console.log("PASO1");
     } else if (e && e instanceof Array) {
       this.pos = e;
-      console.log("PASO2");
+      console.log("El valor de E es un Array");
     } else {
       /* eslint-disable */
       e = [-10000000, -10000000];
       /* eslint-enable */
     }
-
     if (this.getMap()) this.getMap().renderSync();
   }
 
   /* @private
    */
-
-  // e2m: deprecated
-/*
   precompose_(e) {
-    console.log("precompose_");
-    const ctx = e.context;
-    const ratio = e.frameState.pixelRatio;
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
-    ctx.clip();
-  }
-*/
-  /* @private
-   */
-  // e2m: deprecated
-/*
-  postcompose_(e) {
-    //console.log("postcompose_");
-    e.context.restore();
-  }
-*/
-  /* @private
- */
-  precompose_(e) {
-    //console.log("precompose_");
     const ctx = e.context;
     const ratio = e.frameState.pixelRatio;
     ctx.save();
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
-    ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    //ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
+    ctx.lineWidth = 3;
+    if (this.freeze){
+      ctx.strokeStyle = 'rgba(255,0,0,0.7)';
+    } else {
+      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    }
     ctx.stroke();
     ctx.clip();
-
   }
 
   /* @private
    */
   postcompose_(e) {
-    //console.log("postcompose_");
     e.context.restore();
   }
 

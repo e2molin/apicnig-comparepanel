@@ -46,6 +46,13 @@ export default class TransparencyControl extends M.Control {
     this.layerSelected = null;
 
     /**
+     * Layer selected
+     * @public
+     * @type {M.layer}
+     */
+     this.freeze = false;
+
+    /**
      * Template
      * @public
      * @type { HTMLElement }
@@ -110,7 +117,7 @@ export default class TransparencyControl extends M.Control {
             });
 
             this.layerSelected = layer[0];
-            this.getImpl().effectSelected(this.layerSelected, this.radius);
+            this.getImpl().effectSelected(this.layerSelected, this.radius, this.freeze);
           });
         }
       }
@@ -120,6 +127,7 @@ export default class TransparencyControl extends M.Control {
   }
 
   setDefaultLayer(){
+
     console.log("Activación remota");
     //this.template.querySelector('select').disabled = false;
     //this.template.querySelector('input').disabled = false;
@@ -168,7 +176,7 @@ export default class TransparencyControl extends M.Control {
       this.template.querySelector('input').disabled = false;
     }
 
-    this.getImpl().effectSelected(this.layerSelected, this.radius);
+    this.getImpl().effectSelected(this.layerSelected, this.radius, this.freeze);
 
   }
 
@@ -308,8 +316,6 @@ export default class TransparencyControl extends M.Control {
 
     return (transform[0] === undefined) ? [] : transform;
   }
-
-   
 
   /**
    * This function transform string to M.Layer

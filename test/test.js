@@ -405,9 +405,9 @@ map.addPlugin(mpVector);
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: false,
-  collapsed: true,
+  collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'spyeye',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'curtain',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',
