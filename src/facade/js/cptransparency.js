@@ -188,15 +188,8 @@ export default class Transparency extends M.Plugin {
         this.control_.template.querySelector('#input-transparent-radius').value=this.control_.radius;
       }
       if (zEvent.ctrlKey && zEvent.shiftKey && zEvent.key === 'Enter') {
-<<<<<<< HEAD
         this.control_.freeze= !this.control_.freeze;
         this.control_.getImpl().setFreeze(this.control_.freeze);
-=======
-        console.log("Congelo");
-        this.control_.getImpl().toogleFreeze();
-        //this.control_.freezeSpyEye = !this.control_.freezeSpyEye;
-        //this.control_.getImpl().setFreeze(this.control_.freezeSpyEye);
->>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
       }
 
       // const keyStr = ['Control', 'Shift', 'Alt', 'Meta'].includes(zEvent.key) ? '' : zEvent.key;

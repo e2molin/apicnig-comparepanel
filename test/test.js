@@ -407,11 +407,7 @@ const pluginComparepanel = new Comparepanel({
   vertical: false,
   collapsed: false,
   collapsible: true,
-<<<<<<< HEAD
   defaultCompareMode: 'curtain',// mirror - curtain - timeline - spyeye
-=======
-  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
->>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',
