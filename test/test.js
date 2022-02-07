@@ -400,8 +400,6 @@ const mpVector = new M.plugin.Vectors({
 
 map.addPlugin(mpVector);
 
-
-
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: false,
@@ -423,7 +421,7 @@ const pluginComparepanel = new Comparepanel({
       defaultLyrB:1,
       defaultLyrC:2,
       defaultLyrD:3,
-      opacityVal:50,
+      opacityVal:100,
    },
   mirrorpanelParams: { 
       showCursors: true,

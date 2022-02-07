@@ -58,7 +58,6 @@ export default class LyrCompare extends M.Plugin {
      */
     this.controls_ = [];
 
-
     /**
      * Facade of the map
      * @private

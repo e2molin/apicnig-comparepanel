@@ -246,7 +246,6 @@ export default class LyrCompareControl extends M.Control {
         })
       });
     }
-    console.log(this.opacityVal);
     return success(this.template);
   }
 
