@@ -35,9 +35,12 @@ export default class TransparencyControl extends M.impl.Control {
   effectSelected(layers, radius, freeze) {
 
     layers.setVisible(true);
+<<<<<<< HEAD
     //console.log(this.olMap);
     //console.log(M);
     //console.log(this.freezePosition);
+=======
+>>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
     this.transparentInteraction_ = new TransparentInteraction({
       radius,
       freeze,
@@ -62,6 +65,7 @@ export default class TransparencyControl extends M.impl.Control {
   }
 
   /**
+<<<<<<< HEAD
    * Set freexe
    *
    * @public
@@ -76,6 +80,9 @@ export default class TransparencyControl extends M.impl.Control {
 
   /**
    * Toogle Freeze mode
+=======
+   * Toogle freezeValue
+>>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
    *
    * @public
    * @function
@@ -86,6 +93,23 @@ export default class TransparencyControl extends M.impl.Control {
     if (this.transparentInteraction_ !== undefined) this.transparentInteraction_.toogleFreeze();
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * Set freeze Value
+   *
+   * @public
+   * @function
+   * @param { Number } radius radius to assign
+   * @api stable
+   */
+   setFreeze(value) {
+    if (this.transparentInteraction_ !== undefined) this.transparentInteraction_.setFreeze(value);
+  }
+
+
+  
+>>>>>>> 8273a41afb3a4f6c21e7b0bfa8aab86e6461b1e4
   /**
    * Set layer
    *
