@@ -402,13 +402,12 @@ const mpVector = new M.plugin.Vectors({
 
 map.addPlugin(mpVector);
 
-
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
   vertical: false,
-  collapsed: true,
+  collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'curtain',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',
@@ -424,12 +423,13 @@ const pluginComparepanel = new Comparepanel({
       defaultLyrB:1,
       defaultLyrC:2,
       defaultLyrD:3,
-      opacityVal:50,
+      opacityVal:100,
    },
   mirrorpanelParams: { 
       showCursors: true,
       reverseLayout:true,
-      enabledPlugins: true, 
+      enabledPlugins: true,
+      enabledKeyFunctions: true,
   }
 });
 

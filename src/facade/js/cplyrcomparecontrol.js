@@ -246,7 +246,6 @@ export default class LyrCompareControl extends M.Control {
         })
       });
     }
-
     return success(this.template);
   }
 
