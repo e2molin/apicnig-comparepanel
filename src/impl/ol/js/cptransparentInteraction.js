@@ -143,10 +143,15 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    * @param {ol.Pixel|ol.MapBrowserEvent}
    */
   setPosition(e) {
+
+    //const pointerPos = ol.render.getRenderPixel(e, [this.pos[0]],this.pos[1]);
+
+    //console.log(ol.render.getRenderPixel(e, e.pixel));
     if (e.pixel) {
       //console.log(e.pixel);
       if (this.freeze===false){
         this.pos = e.pixel;
+        //this.pos = ol.render.getRenderPixel(e,[e.pixel[0],e.pixel[1]]);
       } 
     } else if (e && e instanceof Array) {
       this.pos = e;
@@ -163,11 +168,11 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   precompose_(e) {
     const ctx = e.context;
-    const ratio = e.frameState.pixelRatio;
+    //const ratio = e.frameState.pixelRatio;
     ctx.save();
     ctx.beginPath();
-    ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
-    //ctx.lineWidth = (5 * this.radius * ratio) / this.radius;
+    ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
+
     ctx.lineWidth = 3;
     if (this.freeze){
       ctx.strokeStyle = 'rgba(255,0,0,0.7)';
@@ -176,6 +181,70 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     }
     ctx.stroke();
     ctx.clip();
+
+    //ctx.save();
+    //ctx.beginPath();
+      // only show a circle around the mouse
+      //const pointerPos = ol.render.getRenderPixel(e, [this.pos[0]],this.pos[1]);
+      /*const offset = getRenderPixel(e, [
+        mousePosition[0] + this.radius,
+        mousePosition[1],
+      ]);    
+      const canvasRadius = Math.sqrt(
+        Math.pow(offset[0] - pixel[0], 2) + Math.pow(offset[1] - pixel[1], 2)
+      );*/
+      //ctx.arc(pixel[0], pixel[1], canvasRadius, 0, 2 * Math.PI);
+      //ctx.lineWidth = (5 * canvasRadius) / radius;
+      //ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+
+    //ctx.clip();
+      //console.log(pointerPos);
+
+
+
+
+//Rectangle
+//var ctx = event.context;
+//var pixelRatio = event.frameState.pixelRatio;
+//ctx.save();
+//ctx.beginPath();
+//var x = ctx.canvas.width / 2 - 100;
+//var y = ctx.canvas.height / 2 - 100;
+//ctx.rect(x, y, 100, 100);
+//ctx.clip();
+
+// Heart
+
+  // const ctx = event.context;
+  // // calculate the pixel ratio and rotation of the canvas
+  // const matrix = event.inversePixelTransform;
+  // const canvasPixelRatio = Math.sqrt(
+  //   matrix[0] * matrix[0] + matrix[1] * matrix[1]
+  // );
+  // const canvasRotation = -Math.atan2(matrix[1], matrix[0]);
+  // ctx.save();
+  // // center the canvas and remove rotation to position clipping
+  // ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
+  // ctx.rotate(-canvasRotation);
+
+  // ctx.scale(3 * canvasPixelRatio, 3 * canvasPixelRatio);
+  // ctx.translate(-75, -80);
+  // ctx.beginPath();
+  // ctx.moveTo(75, 40);
+  // ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
+  // ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+  // ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
+  // ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+  // ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+  // ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+  // ctx.clip();
+  // ctx.translate(75, 80);
+  // ctx.scale(1 / 3 / canvasPixelRatio, 1 / 3 / canvasPixelRatio);
+
+  // // reapply canvas rotation and position
+  // ctx.rotate(canvasRotation);
+  // ctx.translate(-ctx.canvas.width / 2, -ctx.canvas.height / 2);
+
   }
 
   /* @private

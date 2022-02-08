@@ -321,19 +321,16 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     if (this.staticDivision === 1) {
       if (this.comparisonMode === 1) {
-        //ctx.rect(0, 0, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1]); //e2m: left fixed
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0]/2, 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]]);
         bl =  ol.render.getRenderPixel(e, [0, mapSize[1]]);
       } else if (this.comparisonMode === 2) {
-        //ctx.rect(0, 0, lienzoMapa[0], lienzoMapa[1] * ratio / 2 - margenClip * ratio);//e2m: up fixed
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]/2]);
         bl =  ol.render.getRenderPixel(e, [0, mapSize[1]/2]);
       } else if (this.comparisonMode === 3) {
-        //ctx.rect(0, 0, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1] / 2);//e2m: up&left fixed
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0]/2, 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]/2]);
@@ -341,23 +338,21 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
       }
     } else {
       if (this.comparisonMode === 1) {
-        //ctx.rect(0, 0, this.pos[0] - margenClip * ratio, lienzoMapa[1]); //e2m: left dynamic
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [widthClip, 0]);
         br =  ol.render.getRenderPixel(e, [widthClip, mapSize[1]]);
         bl =  ol.render.getRenderPixel(e, [0, mapSize[1]]);
       } else if (this.comparisonMode === 2) {
-        //ctx.rect(0, 0, ctx.canvas.width, this.pos[1] * ratio - margenClip * ratio);  //e2m: up dynamic
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], heightClip]);
         bl =  ol.render.getRenderPixel(e, [0, heightClip]);
       } else if (this.comparisonMode === 3) {
-        //ctx.rect(0, 0, this.pos[0] - margenClip * ratio, this.pos[1] - margenClip * ratio);  //e2m: up&left dynamic
         tl =  ol.render.getRenderPixel(e, [0, 0]);
         tr =  ol.render.getRenderPixel(e, [widthClip, 0]);
         br =  ol.render.getRenderPixel(e, [widthClip, heightClip]);
         bl =  ol.render.getRenderPixel(e, [0, heightClip]);
+        // console.log(`Mapa A: TopLeft:${tl} - TopRight:${tr} - BottomRight:${br} - BottomLeft:${bl}`);
       }
     }
     if (tl!==undefined){
@@ -407,19 +402,16 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     if (this.staticDivision === 1) {
       if (this.comparisonMode === 1) {
-        //ctx.rect(lienzoMapa[0] * ratio / 2 + margenClip * ratio, 0, ctx.canvas.width - lienzoMapa[0] * ratio / 2, lienzoMapa[1]); //e2m: Right fixed
         tl =  ol.render.getRenderPixel(e, [mapSize[0]/2, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]]);
         bl =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]]);    
       } else if (this.comparisonMode === 2) {
-        //ctx.rect(0, lienzoMapa[1] * ratio / 2 + margenClip * ratio, ctx.canvas.width, ctx.canvas.height - lienzoMapa[1] * ratio / 2); //e2m: Down fixed
         tl =  ol.render.getRenderPixel(e, [0,mapSize[1]/2]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]/2]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]]);
         bl =  ol.render.getRenderPixel(e, [0, mapSize[1]]);        
       } else if (this.comparisonMode === 3) {
-        //ctx.rect(lienzoMapa[0] * ratio / 2, 0, ctx.canvas.width - lienzoMapa[0] * ratio / 2, lienzoMapa[1] / 2); //e2m: up&right fixed
         tl =  ol.render.getRenderPixel(e, [mapSize[0]/2, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]/2]);
@@ -439,12 +431,10 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
         br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]]);
         bl =  ol.render.getRenderPixel(e, [0, mapSize[1]]);
       } else if (this.comparisonMode === 3) {
-        //ctx.rect(this.pos[0], 0, lienzoMapa[0] - this.pos[0], lienzoMapa[1]); //e2m: split screen three. maybe
-        //ctx.rect(this.pos[0], 0, lienzoMapa[0] - this.pos[0], this.pos[1]); //e2m: up&right dynamic
-        tl =  ol.render.getRenderPixel(e, [mapSize[0]-widthClip, 0]);
+        tl =  ol.render.getRenderPixel(e, [widthClip, 0]);
         tr =  ol.render.getRenderPixel(e, [mapSize[0], 0]);
         br =  ol.render.getRenderPixel(e, [mapSize[0], heightClip]);
-        bl =  ol.render.getRenderPixel(e, [mapSize[0]-widthClip, heightClip]);
+        bl =  ol.render.getRenderPixel(e, [widthClip, heightClip]);
       }
    }
    if (tl!==undefined){
@@ -488,15 +478,13 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     if (this.staticDivision === 1) {
       if (this.comparisonMode === 3) {
-        //ctx.rect(0, lienzoMapa[1] * ratio / 2, lienzoMapa[0] / 2 * ratio - margenClip * ratio, lienzoMapa[1]);  //e2m: down&left fixed
-        tl =  ol.render.getRenderPixel(e, [0,heightClip]);
-        tr =  ol.render.getRenderPixel(e, [mapSize[0]/2, heightClip]);
-        br =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]/2]);
-        bl =  ol.render.getRenderPixel(e, [0, mapSize[1]/2]); 
+        tl =  ol.render.getRenderPixel(e, [0,mapSize[1]/2]);
+        tr =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]/2]);
+        br =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]]);
+        bl =  ol.render.getRenderPixel(e, [0, mapSize[1]]); 
       }
     } else {
       if (this.comparisonMode === 3) {
-        //ctx.rect(0, this.pos[1] * ratio, this.pos[0] * ratio - margenClip * ratio, (lienzoMapa[1] - this.pos[1]) * ratio - margenClip * ratio);  //e2m: down&left dynamic
         tl =  ol.render.getRenderPixel(e, [0,heightClip]);
         tr =  ol.render.getRenderPixel(e, [widthClip, heightClip]);
         br =  ol.render.getRenderPixel(e, [widthClip, mapSize[1]]);
@@ -544,21 +532,17 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
     ctx.beginPath();
     if (this.staticDivision === 1) {
       if (this.comparisonMode === 3) {
-        ctx.rect(lienzoMapa[0] * ratio / 2, lienzoMapa[1] * ratio / 2, ctx.canvas.width * ratio / 2 - margenClip * ratio, ctx.canvas.height * ratio / 2 - margenClip * ratio); //e2m: down&right fixed
-        //tl =  ol.render.getRenderPixel(e, [mapSize[0]/2,mapSize[1]/2]);
-        //tr =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]/2]);
-        //br =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]-heightClip]);
-        //bl =  ol.render.getRenderPixel(e, [mapSize[0]/2, mapSize[1]-heightClip]);  
+        tl =  ol.render.getRenderPixel(e, [mapSize[0]/2,mapSize[1]/2]);
+        tr =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]/2]);
+        br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]]);
+        bl =  ol.render.getRenderPixel(e, [mapSize[0]/2,mapSize[1]]);
       }
     } else {
       if (this.comparisonMode === 3) {
-        //ctx.rect(this.pos[0] * ratio, this.pos[1] * ratio, (ctx.canvas.width - this.pos[0]) * ratio - margenClip * ratio, (ctx.canvas.height - this.pos[1]) * ratio - margenClip * ratio); //e2m: down&right dynamic
-        console.log(mapSize);
-        console.log(this.pos);
         tl =  ol.render.getRenderPixel(e, [widthClip,heightClip]);
-        tr =  ol.render.getRenderPixel(e, [ mapSize[0]-widthClip, heightClip]);
-        br =  ol.render.getRenderPixel(e, [mapSize[0]-widthClip, mapSize[1] - heightClip]);
-        bl =  ol.render.getRenderPixel(e, [widthClip,mapSize[1] - heightClip]);        
+        tr =  ol.render.getRenderPixel(e, [mapSize[0], heightClip]);
+        br =  ol.render.getRenderPixel(e, [mapSize[0], mapSize[1]]);
+        bl =  ol.render.getRenderPixel(e, [widthClip,mapSize[1]]);
       }
     }
     if (tl!==undefined){
