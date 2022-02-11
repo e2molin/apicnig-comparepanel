@@ -264,6 +264,7 @@ export default class Transparency extends M.Plugin {
    * @api
    */
   activate() {
+    console.log("Aactivate SpyEye 1");
     this.control_.activate();
   }
 
@@ -275,6 +276,7 @@ export default class Transparency extends M.Plugin {
    * @api
    */
   deactivate() {
+    console.log("Deactivate SpyEye 1");
     this.control_.deactivate();
   }
 

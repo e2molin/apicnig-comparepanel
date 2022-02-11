@@ -319,6 +319,7 @@ export default class LyrCompare extends M.Plugin {
    * @api
    */
   activate() {
+    console.log("Activate Curtain 1");
     this.control_.activateCurtain();
   }
 
@@ -330,6 +331,7 @@ export default class LyrCompare extends M.Plugin {
    * @api
    */
   deactivate() {
+    console.log("Deactivate Curtain 1");
     this.control_.deactivateCurtain();
   }
 

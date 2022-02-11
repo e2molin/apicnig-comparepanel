@@ -402,9 +402,11 @@ export default class LyrCompareControl extends M.Control {
    * @api stable
    */
   activateCurtain() {
+    console.log("Activate Curtain 2A");
     this.activeDefault();
     this.getImpl().effectSelectedCurtain(this.layerSelectedA, this.layerSelectedB, this.layerSelectedC, this.layerSelectedD, this.opacityVal, this.staticDivision, this.comparisonMode);
     this.updateControls();
+    console.log("Activate Curtain 2B");
   }
 
   /**
@@ -444,6 +446,7 @@ export default class LyrCompareControl extends M.Control {
    * @api stable
    */
   deactivateCurtain() {
+    console.log("Deactivate Curtain 2A");
     const swipeControl = document.querySelector('.lyrcompare-swipe-control');
     if (swipeControl) {
       swipeControl.classList.display = 'none !important';
@@ -462,6 +465,7 @@ export default class LyrCompareControl extends M.Control {
 
     this.removeEffectsComparison();
     this.updateControls();
+    console.log("Deactivate Curtain 2B");
   }
 
   /**
@@ -481,7 +485,6 @@ export default class LyrCompareControl extends M.Control {
     if (this.template === null){
       return;
     }
-    console.log('manageLyrAvailable at CurtainCompare');
     this.updateLyrsAvailables(lyrList,"A");
     this.updateLyrsAvailables(lyrList,"B");
     this.updateLyrsAvailables(lyrList,"C");

@@ -30,7 +30,7 @@ const map = M.map({
     y: 4493011.77,
     //x: -3.23232333,
     //y: 42.2365656,
-    draw: true,
+    draw: false,
   },
   controls: ['scale','location'],
   projection: 'EPSG:3857*m',
@@ -333,7 +333,7 @@ const getConfiguredBaseLayersPlugin = () => {
 }
 
 const backImgLayersConfig = getConfiguredBaseLayersPlugin();
-console.log(backImgLayersConfig);
+
 const mpBILBasico = new M.plugin.BackImgLayer(
   backImgLayersConfig
   );
@@ -407,12 +407,12 @@ const pluginComparepanel = new Comparepanel({
   vertical: false,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'curtain',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
   defaultCompareViz: 1,
   baseLayers: listBaseLayersByString,
   urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',
   timelineParams: { 
-    animation: true, 
+    animation: true,
   },
   transparencyParams: { 
     radius: 100, 

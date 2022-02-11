@@ -247,6 +247,10 @@ div#m-comparepanel-title {
 	content: "\e920";
 }
 
+.cp-gestion-testing:before {
+	content: "\e816";
+}
+
 .cp-icon:before {
     content: "\e802";
     font-family: 'comparepanel' !important;

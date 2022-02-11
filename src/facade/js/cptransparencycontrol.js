@@ -149,7 +149,6 @@ export default class TransparencyControl extends M.Control {
     if (this.template === null){
       return;
     }
-    console.log('manageLyrAvailable at SpyEyeCompare');
 
     try {
       let dropDownContainer = null;
@@ -172,7 +171,7 @@ export default class TransparencyControl extends M.Control {
    * @api stable
    */
   activate() {
-    
+    console.log("Activate SpyEye 2S");
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
     let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
@@ -185,7 +184,7 @@ export default class TransparencyControl extends M.Control {
     }
 
     this.getImpl().effectSelected(this.layerSelected, this.radius, this.freeze);
-
+    console.log("Activate SpyEye 2E");
   }
 
   /**
@@ -196,17 +195,18 @@ export default class TransparencyControl extends M.Control {
    * @api stable
    */
   deactivate() {
+    console.log("Deactivate SpyEye 2S");
     if (this.layerSelected === null) this.layerSelected = this.layers[0];
     let names = this.layers.map((layer) => {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
-
     this.removeEffects();
     this.layerSelected.setVisible(false);
     if (names.length >= 1) {
       this.template.querySelector('select').disabled = true;
       this.template.querySelector('input').disabled = true;
     }
+    console.log("Deactivate SpyEye 2E");
   }
 
   /**
