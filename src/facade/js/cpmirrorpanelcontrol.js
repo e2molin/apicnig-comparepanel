@@ -316,8 +316,11 @@ export default class CompareMirrorpanel extends M.Control {
       });
 
       if (toDelete.length > 0) {
+        this.lyDropControlA.deactivate(); /** Se quedaba enganchada la última capa. Ahora parece que va al introducir esta línea */
         this.map_.removePlugins(toDelete);
       }
+
+
     } else {
       //Añado aquí el DropDownLayer del mapa principal
       this.lyDropControlA = new Lyrdropdown({

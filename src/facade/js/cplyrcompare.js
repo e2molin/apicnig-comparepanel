@@ -336,6 +336,22 @@ export default class LyrCompare extends M.Plugin {
   }
 
   /**
+   * Desactivate plugin
+   *
+   * @function
+   * @public
+   * @api
+   * @return {Boolean}
+   */
+   isActive() {
+
+    return this.control_.comparisonMode===0 ? false : true;
+
+  }
+
+
+
+  /**
    * This
    function compare
    *

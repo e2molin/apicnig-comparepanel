@@ -337,6 +337,10 @@ div#m-comparepanel-title {
 	content: "\e9c4";
 }
 
+.cp-deactivateCurtain:before {
+	content: "\e804";
+}
+
 .cp-modeviz0:before {
 	content: "\e804";
 }

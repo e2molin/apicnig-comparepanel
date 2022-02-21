@@ -151,8 +151,6 @@ export default class ComparepanelControl extends M.Control {
   }
 
   setComparatorsDefaultStyle(){
-    console.log(`defaultComparisonMode: ${this.defaultComparisonMode}`);
-    console.log(`defaultComparisonViz: ${this.defaultComparisonViz}`);
 
     if ((this.defaultComparisonMode==='mirrorpanel') && (this.defaultComparisonViz===0)) {
       console.log("Modo defecto");
@@ -172,10 +170,6 @@ export default class ComparepanelControl extends M.Control {
       }
     });
 
-    if (this.defaultComparisonMode==='mirrorpanel') {
-      // this.template.querySelector('#m-cp-mirrorpanel .cp-mirrorpanel').classList.toggle('hide-panel');  // Oculto panel
-      // this.template.querySelector('#m-cp-mirrorpanel .cp-button').classList.toggle('active');         // Elimino sonbra botón
-    }
     this.actualComparisonMode = this.defaultComparisonMode // mirror - curtain - timeline - spyeye
 
   }
@@ -187,22 +181,24 @@ export default class ComparepanelControl extends M.Control {
 
     this.plugins.forEach(p => {
       if (p.name !== 'mirrorpanel') {
-        
-        this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');  // Oculto panel
-        this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');           // Elimino sonbra botón
+          this.template.querySelector(`#m-cp-${p.name} .cp-${p.name}`).classList.remove('hide-panel');  // Oculto panel
+          this.template.querySelector(`#m-cp-${p.name} .cp-button`).classList.remove('active');           // Elimino sombra botón
+        }
+        if (p.name==='lyrcompare'){
+          if (p.isActive()===true){
+            p.deactivate();
+          }
         }
     });
+    /** Aquí no debería hacer nada 👇*/
     if (plugin.name==='mirrorpanel') {
       this.actualComparisonMode = plugin.name;
       return;
     }
-    this.plugins.forEach(p => {
-        p.deactivate();
-    });
   }
 
   deactivateAndActivateOtherModes(plugin) {
-
+    console.log(`deactivateAndActivateOtherModes: ${plugin.name}`);
     this.actualComparisonMode = plugin.name;
     if (plugin.name === 'mirrorpanel') return;
     this.plugins.forEach(p => {
