@@ -231,6 +231,7 @@ export default class LyrCompareControl extends M.Control {
       this.template.querySelectorAll('button[id^="m-lyrcompare-"]').forEach((button, i) => {
         if (button.id==="m-lyrcompare-deactivate"){
           button.addEventListener('click', evt => {
+            document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
             this.comparisonMode = 0;
             this.deactivateCurtain();
             return;
@@ -238,6 +239,8 @@ export default class LyrCompareControl extends M.Control {
         } else{
           button.addEventListener('click', evt => {
             if (this.comparisonMode === 0) {
+              document.querySelector('#m-lyrdropdown-selector').value="none";
+              document.querySelector('#m-lyrdropdown-selector').style.display = 'none';
               this.comparisonMode = i + 1;
               this.activateCurtain();
               return;

@@ -147,11 +147,19 @@ export default class ComparepanelControl extends M.Control {
       if (p.name==='mirrorpanel'){
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
           this.deactivateAndActivateMirrorPanel(p);
-        });        
-        
-      }else{
+          console.log("1");
+        }); 
+
+      } else if (p.name==='lyrcompare'){
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
+          console.log(`2:${this.actualComparisonMode}//${p.name}`);
           this.deactivateAndActivateOtherModes(p);
+        });        
+      } else {
+        this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
+          console.log(`2:${this.actualComparisonMode}//${p.name}`);
+          this.deactivateAndActivateOtherModes(p);
+          
         });
       }
     });
@@ -161,7 +169,7 @@ export default class ComparepanelControl extends M.Control {
       console.log(`actualComparisonMode: ${this.actualComparisonMode}`);
       console.log(this.map.getMapImpl().getLayers());
       this.plugins.forEach(p => {
-        //console.log(p.name);
+        console.log(p.name);
       });
       this.map.getMapImpl().getLayers().forEach(lyr=>{
         console.log(lyr.getSource().key_);
@@ -204,11 +212,11 @@ export default class ComparepanelControl extends M.Control {
           this.template.querySelector(`#m-cp-${p.name} .cp-${p.name}`).classList.remove('hide-panel');  // Oculto panel
           this.template.querySelector(`#m-cp-${p.name} .cp-button`).classList.remove('active');           // Elimino sombra botón
         }
-        if (p.name==='lyrcompare'){
-          if (p.isActive()===true){
-            p.deactivate();
-          }
-        }
+        // if (p.name==='lyrcompare'){
+        //   if (p.isActive()===true){
+        //     p.deactivate();
+        //   }
+        // }
     });
     /** Aquí no debería hacer nada 👇*/
     if (plugin.name==='mirrorpanel') {
@@ -221,7 +229,14 @@ export default class ComparepanelControl extends M.Control {
     console.log(`deactivateAndActivateOtherModes: ${plugin.name}`);
     this.actualComparisonMode = plugin.name;
     if (plugin.name === 'mirrorpanel') return;
+    
     this.plugins.forEach(p => {
+      if (p.name === 'mirrorpanel'){
+        return;
+      }
+      if (p.name === 'lyrcompare'){
+        return;
+      }      
       if (p.name !== plugin.name) {
         this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');
@@ -232,10 +247,12 @@ export default class ComparepanelControl extends M.Control {
     });
 
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.toggle('active');
-    if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'transparency') {
-      plugin.activate();
-    }
+    // if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'transparency') {
+    //   console.log("3");
+    //   plugin.activate();
+    // }
     if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'timeline') {
+      console.log("4");
       plugin.activate();
     }    
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-' + plugin.name).classList.toggle('hide-panel');

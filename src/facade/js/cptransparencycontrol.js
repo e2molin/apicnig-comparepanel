@@ -110,6 +110,19 @@ export default class TransparencyControl extends M.Control {
         this.getImpl().setRadius(this.radius);
       });
 
+      this.template.querySelector('#m-transparency-active').addEventListener('click', (evt) => {
+        console.log("btn-Activate");
+        document.querySelector('#m-lyrdropdown-selector').value="none";
+        document.querySelector('#m-lyrdropdown-selector').style.display = 'none';
+        this.activate();
+      });
+      this.template.querySelector('#m-transparency-deactivate').addEventListener('click', (evt) => {
+        console.log("btn-Deactivate");
+        document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
+        this.deactivate()
+      });    
+
+
       if (this.layers.length === 0 || this.layers === '') {
         M.dialog.error(getValue('errorLayer'));
       } else {
