@@ -115,18 +115,35 @@ export default class TransparencyControl extends M.Control {
       });
 
       this.template.querySelector('#m-transparency-active').addEventListener('click', (evt) => {
-        console.log("btn-Activate");
+        
+        // e2m: evitamos que el mapa principal, sobre el que se activa SpyEye pueda poner sobre él capas
         document.querySelector('#m-lyrdropdown-selector').value="none";
         document.querySelector('#m-lyrdropdown-selector').style.display = 'none';
+
+        // e2m: cuando activamos SpyEye, evitamos que se activen los comparadores de cortina
+        document.querySelector('#m-lyrcompare-vcurtain').disabled = true;
+        document.querySelector('#m-lyrcompare-hcurtain').disabled = true;
+        document.querySelector('#m-lyrcompare-multicurtain').disabled = true;
+        document.querySelector('#m-lyrcompare-deactivate').disabled = true;
+
         this.template.querySelector('#m-transparency-lock').style.visibility = 'visible';
         this.template.querySelector('#m-transparency-unlock').style.visibility = 'hidden';
         this.activate();
       });
       this.template.querySelector('#m-transparency-deactivate').addEventListener('click', (evt) => {
-        console.log("btn-Deactivate");
+        
+        // e2m: volvemos a permitir que el mapa principal pueda poner sobre él capas
         document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
+console.log("habilitamos");
+        // e2m: cuando desactivamos SpyEye, permitimos que se activen los comparadores de cortina de nuevo
+        document.querySelector('#m-lyrcompare-vcurtain').disabled = false;
+        document.querySelector('#m-lyrcompare-hcurtain').disabled = false;
+        document.querySelector('#m-lyrcompare-multicurtain').disabled = false;
+        document.querySelector('#m-lyrcompare-deactivate').disabled = false;
+
         this.template.querySelector('#m-transparency-lock').style.visibility = 'hidden';
         this.template.querySelector('#m-transparency-unlock').style.visibility = 'hidden';        
+
         this.deactivate()
       });    
       this.template.querySelector('#m-transparency-lock').addEventListener('click', (evt) => {
