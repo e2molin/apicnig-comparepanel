@@ -226,26 +226,41 @@ export default class ComparepanelControl extends M.Control {
   }
 
   deactivateAndActivateOtherModes(plugin) {
-    console.log(`deactivateAndActivateOtherModes: ${plugin.name}`);
     this.actualComparisonMode = plugin.name;
     if (plugin.name === 'mirrorpanel') return;
     
     this.plugins.forEach(p => {
-      if (p.name === 'mirrorpanel'){
-        return;
-      }
-      if (p.name === 'lyrcompare'){
-        return;
-      }      
       if (p.name !== plugin.name) {
         this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');
-        p.deactivate();
-      } else if (plugin.name !== 'mirrorpanel') {
-        p.deactivate();
       }
     });
+    this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.toggle('active');
+    this.template.querySelector('#m-cp-' + plugin.name + ' .cp-' + plugin.name).classList.toggle('hide-panel');
+  }
 
+
+  deactivateAndActivateOtherModesDeprecated(plugin) {
+    console.log(`deactivateAndActivateOtherModes: ${plugin.name}`);
+    this.actualComparisonMode = plugin.name;
+    if (plugin.name === 'mirrorpanel') return;
+    
+    // this.plugins.forEach(p => {
+    //   if (p.name === 'mirrorpanel'){
+    //     return;
+    //   }
+    //   if (p.name === 'lyrcompare'){
+    //     return;
+    //   }      
+    //   if (p.name !== plugin.name) {
+    //     this.template.querySelector('#m-cp-' + p.name + ' .cp-' + p.name).classList.remove('hide-panel');
+    //     this.template.querySelector('#m-cp-' + p.name + ' .cp-button').classList.remove('active');
+    //     p.deactivate();
+    //   } else if (plugin.name !== 'mirrorpanel') {
+    //     p.deactivate();
+    //   }
+    // });
+    console.log("5");
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.toggle('active');
     // if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'transparency') {
     //   console.log("3");
