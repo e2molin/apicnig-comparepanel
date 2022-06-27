@@ -412,6 +412,10 @@ div#m-comparepanel-title {
 	background-color: white;
 }
 
+/*
+Manejo con estilos de la barra del comparePanel
+*/
+
 .m-area.m-left .orientation-vertical .cp-mirrorpanel.m-panel-controls,
 .m-area.m-left .orientation-vertical .cp-timeline.m-panel-controls,
 .m-area.m-left .orientation-vertical .cp-lyrcompare.m-panel-controls,
@@ -450,11 +454,11 @@ div#m-comparepanel-title {
 .orientation-vertical.m-panel.m-plugin-comparepanel.opened {
 	transform: none;
 }
-.m-plugin-comparepanel.no-collapsible.opened.orientation-horizontal{
+.m-plugin-comparepanel.orientation-horizontal.opened.no-collapsible{
 	--translate: 64;
 }
-.m-plugin-comparepanel.opened.orientation-horizontal{
-	--translate: 84;
+.m-plugin-comparepanel.orientation-horizontal.opened{
+	--translate: 64;
 }
 
 .m-area.m-right .orientation-horizontal{
@@ -513,6 +517,8 @@ div#m-comparepanel-title {
 .orientation-horizontal.m-panel.m-plugin-comparepanel.opened {
 	transform: translate(var(--translateX),var(--translateY)) rotate(calc(var(--rotate) * 1deg));
 }
+
+
 .orientation-horizontal .cp-lyrcompare,
 .orientation-horizontal .cp-transparency,
 .orientation-horizontal .cp-timeline{

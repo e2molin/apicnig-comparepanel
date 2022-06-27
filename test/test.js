@@ -516,7 +516,7 @@ map.addPlugin(mpVector);
 
 const pluginComparepanel = new Comparepanel({
   position: 'TR',
-  vertical: true,
+  vertical: false,
   collapsed: false,
   collapsible: true,
   defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
