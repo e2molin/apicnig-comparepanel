@@ -120,15 +120,12 @@ export default class LyrdropdownControl extends M.Control {
 
       //Events on template component
       this.template.querySelector('#m-lyrdropdown-selector').addEventListener('change', (evt) => {
-        console.log("Entro:" + evt.target.value);
         const layerSel = this.map.getLayers().filter((layer) => {
           return layer.name === evt.target.value;
         });
         // Get selected layer from layer array
-        console.log(this.layerSelected);
         this.layerSelected.setVisible(false);
         this.removeEffects();
-        console.table(this.getImpl().map.getImpl().getLayers());
         if (layerSel.length === 0){
           /**
            * Se ha seleccionado la opción de eliminar capa
@@ -185,7 +182,9 @@ export default class LyrdropdownControl extends M.Control {
         this.template.querySelector('#m-lyrdropdown-selector').disabled = true;
       }
     } catch (error) {
-      console.error(error);
+          /* eslint-disable */
+          console.log(error);
+          /* eslint-enable */
     }
 
   }
@@ -210,7 +209,6 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   removeEffects() {
-    console.log('removeEffects');
     this.getImpl().removeEffects();
   }
 
