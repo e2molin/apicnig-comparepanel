@@ -219,6 +219,16 @@ console.table(capas);
 * ✅ Mostrar un plugin FullTOC y un plugin Vector junto con un control BackImgLayer en los diversos mapas mirror.
 
 
+## Semantic Commit Messages
+
+* feat: (new feature for the user, not a new feature for build script)
+* fix: (bug fix for the user, not a fix to a build script)
+* docs: (changes to the documentation)
+* style: (formatting, missing semi colons, etc; no production code change)
+* refactor: (refactoring production code, eg. renaming a variable)
+* test: (adding missing tests, refactoring tests; no production code change)
+* chore: (updating grunt tasks etc; no production code change)
+
 ## Preguntas
 
 * ¿Cómo se puede conocer la versión de la API con la que trabajo? : No se puede. Quizás se implemente en próximas peticiones. Ahora la única solución actualmente sería pasar la versión como parámetro del plugin.
