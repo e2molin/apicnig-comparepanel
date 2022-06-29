@@ -134,7 +134,7 @@ export default class TransparencyControl extends M.Control {
         
         // e2m: volvemos a permitir que el mapa principal pueda poner sobre él capas
         document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
-console.log("habilitamos");
+
         // e2m: cuando desactivamos SpyEye, permitimos que se activen los comparadores de cortina de nuevo
         document.querySelector('#m-lyrcompare-vcurtain').disabled = false;
         document.querySelector('#m-lyrcompare-hcurtain').disabled = false;
@@ -147,7 +147,7 @@ console.log("habilitamos");
         this.deactivate()
       });    
       this.template.querySelector('#m-transparency-lock').addEventListener('click', (evt) => {
-        M.dialog.info('Mueva el cursor a la zona deseada y pulse Ctrl+Shift+ENter para congelar');
+        M.dialog.info('Mueva el cursor a la zona deseada y pulse Ctrl+Shift+Enter para congelar');
       });
       this.template.querySelector('#m-transparency-unlock').addEventListener('click', (evt) => {
         this.freeze= !this.freeze;
@@ -234,7 +234,9 @@ console.log("habilitamos");
       this.template.querySelector('select').disabled = false;
       this.template.querySelector('input').disabled = false;
       this.template.querySelector('#m-transparency-lock').style.visibility = 'visible';
-      this.template.querySelector('#m-transparency-unlock').style.visibility = 'hidden';   
+      this.template.querySelector('#m-transparency-unlock').style.visibility = 'hidden';
+      this.template.querySelector('#m-transparency-active').disabled = true;
+      this.template.querySelector('#m-transparency-deactivate').disabled = false;
     }
 
     this.getImpl().effectSelected(this.layerSelected, this.radius, this.freeze);
@@ -258,6 +260,9 @@ console.log("habilitamos");
     if (names.length >= 1) {
       this.template.querySelector('select').disabled = true;
       this.template.querySelector('input').disabled = true;
+      this.template.querySelector('#m-transparency-active').disabled = false;
+      this.template.querySelector('#m-transparency-deactivate').disabled = true;
+      
     }
     console.log("Deactivate SpyEye 2E");
   }
