@@ -10,6 +10,11 @@
 	color: #71a7d3 !important;
 }
 
+.m-panel-btn.g-cartografia-flecha-izquierda{
+	margin-left:0px;
+}
+
+
 /* Title and images container */
 
 .m-control.m-container.m-comparepanel {
@@ -44,6 +49,67 @@ div#m-comparepanel-titulo {
 	text-align: center;
 	width: 100%;
 }
+
+
+/* .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls > div {
+	margin-top:32px;
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-mirrorpanel-panel{
+	margin-top:-32px;
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-lyrcompare-panel{
+	margin-top:-32px;
+	
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-transparency-panel{
+	margin-top:-32px;
+} */
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
+	margin-top:32px;
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
+	transform: translateX(50px);
+	border-radius: 4px 0 4px 0;
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
+	transform: translateX(50px);
+	border-radius: 4px 0 4px 0;
+}
+
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
+	transform: translateX(50px);
+	border-radius: 4px 0 4px 0;
+}
+
+
+
+
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
+	margin-top:32px;
+}
+
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
+	transform: translateX(-500px);
+	border-radius: 4px 0 4px 0;
+}
+
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
+	transform: translateX(-400px);
+	border-radius: 4px 0 4px 0 ;
+}
+
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
+	transform: translateX(-400px);
+	border-radius: 4px 0 4px 0 ;
+}
+
+
 
 .m-comparepanel .activecomparepanelDiv {
 	border: 5px solid #92c1e7 !important;
@@ -191,6 +257,78 @@ div#m-comparepanel-titulo {
 	margin: 0;
 	outline: none !important;
 }
+
+
+.cp-mirrorpanel.m-panel-controls,
+.cp-timeline.m-panel-controls,
+.cp-lyrcompare.m-panel-controls,
+.cp-transparency.m-panel-controls {
+	display: none;
+	position: absolute;
+	background-color: white;
+}
+
+
+
+
+
+
+
+.cp-button {
+	display: inline-block;
+	border: 0;
+	background: none;
+	width: 100%;
+	font-size: 23px;
+	padding: 10px;
+	cursor: pointer;
+	color: #6f6f93;
+}
+
+.hide-panel {
+	display: inline-block !important;
+}
+
+.cp-button.active {
+	color: #71a7d3;
+}
+
+.cp-button:hover {
+	color: #98bddb;
+}
+
+.cp-button:disabled {
+	color: #ffb9b9;
+	cursor: default;
+}
+
+
+.m-panel.m-plugin-comparepanel.opened.no-collapsible.orientation-vertical > div > div > div > button.cp-button.active {
+	background-color: #d1e6f8;
+	color: #364b5f;
+}
+
+.m-panel.m-plugin-comparepanel.opened.no-collapsible.orientation-vertical > div > div > div > button:hover {
+	background-color: #d1e6f8;
+	color: #364b5f;
+}
+
+.m-panel.m-plugin-comparepanel.opened.no-collapsible.orientation-vertical #m-cp-mirrorpanel > button {
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+}
+
+.m-panel.m-plugin-comparepanel.opened.no-collapsible.orientation-vertical #m-cp-transparency > button {
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+
+.m-plugin-comparepanel .m-panel-btn {
+	box-shadow: none !important;
+}
+
+
+
 
 /* Iconos para botones */
 

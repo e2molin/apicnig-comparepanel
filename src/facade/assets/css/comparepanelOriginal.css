@@ -215,7 +215,7 @@ div#m-comparepanel-title {
 .m-plugin-comparepanel>.m-panel-controls {
 	display: block !important;
 }
-
+/*
 .cp-mirrorpanel.m-panel-controls,
 .cp-timeline.m-panel-controls,
 .cp-lyrcompare.m-panel-controls,
@@ -224,7 +224,7 @@ div#m-comparepanel-title {
 	position: absolute;
 	background-color: white;
 }
-
+*/
 /*
 Manejo con estilos de la barra del comparePanel
 */
@@ -348,6 +348,7 @@ Manejo con estilos de la barra del comparePanel
 	transform: rotate(var(--rotateY));
 }
 
+/*
 .cp-button {
 	display: inline-block;
 	border: 0;
@@ -375,8 +376,8 @@ Manejo con estilos de la barra del comparePanel
 	color: #ffb9b9;
 	cursor: default;
 }
-
-
+*/
+/*
 .m-panel.m-plugin-comparepanel.opened.no-collapsible.orientation-vertical > div > div > div > button.cp-button.active {
 	background-color: #d1e6f8;
 	color: #364b5f;
@@ -400,3 +401,4 @@ Manejo con estilos de la barra del comparePanel
 .m-plugin-comparepanel .m-panel-btn {
 	box-shadow: none !important;
 }
+*/
