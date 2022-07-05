@@ -50,65 +50,144 @@ div#m-comparepanel-titulo {
 	width: 100%;
 }
 
+/*#region Comparison Toolbar TopLeft */
 
-/* .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls > div {
-	margin-top:32px;
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel.opened > button{
+	float:left;
 }
 
-.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-mirrorpanel-panel{
-	margin-top:-32px;
+.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel.opened > div > .m-control.m-container.m-comparepanel-container{
+	margin-left: -40px;
+	margin-top:40px;
 }
 
-.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-lyrcompare-panel{
-	margin-top:-32px;
-	
+.m-area.m-top.m-left {
+	flex-flow: column-reverse;
 }
-
-.m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .div-m-transparency-panel{
-	margin-top:-32px;
-} */
 
 .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
-	margin-top:32px;
+	margin-top:0px;
 }
 
 .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
-	transform: translateX(50px);
-	border-radius: 4px 0 4px 0;
+	transform: translateX(5px);
+	border-radius: 4px;
 }
 
 .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
-	transform: translateX(50px);
-	border-radius: 4px 0 4px 0;
+	transform: translateX(5px);
+	border-radius: 4px;
 }
 
 .m-area.m-top.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
-	transform: translateX(50px);
-	border-radius: 4px 0 4px 0;
+	transform: translateX(5px);
+	border-radius: 4px;
 }
 
+/*#endregion */
 
+/*#region Comparison Toolbar TopRight */
 
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel.opened > button{
+	float:right;
+	/*z-index: 5000;*/
+}
+
+.m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel.opened > div > .m-control.m-container.m-comparepanel-container{
+	margin-right: -100px;
+	margin-top:40px;
+}
 
 .m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
-	margin-top:32px;
+	margin-top:0px;
 }
 
 .m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
-	transform: translateX(-500px);
-	border-radius: 4px 0 4px 0;
+	transform: translateX(-460px);
+	border-radius: 4px;
 }
 
 .m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
-	transform: translateX(-400px);
-	border-radius: 4px 0 4px 0 ;
+	transform: translateX(-355px);
+	border-radius: 4px;
 }
 
 .m-area.m-top.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
-	transform: translateX(-400px);
-	border-radius: 4px 0 4px 0 ;
+	transform: translateX(-355px);
+	border-radius: 4px;
 }
 
+/*#endregion */
+
+
+/*#region Comparison Toolbar BottomRight */
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel.opened > button{
+	float:right;
+	/*z-index: 5000;*/
+}
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel.opened > div > .m-control.m-container.m-comparepanel-container{
+	margin-right: -100px;
+	margin-top:40px;
+}
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
+	margin-top:0px;
+}
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
+	transform: translateX(-460px);
+	border-radius: 4px;
+}
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
+	transform: translate(-355px,-110px);
+	border-radius: 4px;
+}
+
+.m-area.m-bottom.m-right > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
+	transform: translate(-355px,-105px);
+	border-radius: 4px;
+}
+
+/*#endregion */
+
+/*#region Comparison Toolbar BottomLeft */
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel.opened > button{
+	float:left;
+}
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel.opened > div > .m-control.m-container.m-comparepanel-container{
+	margin-left: -40px;
+	margin-top:40px;
+}
+
+.m-area.m-bottom.m-left {
+	flex-flow: column-reverse;
+}
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls #m-cp-mirrorpanel {
+	margin-top:0px;
+}
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-mirrorpanel{
+	transform: translateX(5px);
+	border-radius: 4px;
+}
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-lyrcompare{
+	transform: translate(5px,-110px);
+	border-radius: 4px;
+}
+
+.m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel .m-panel-controls .m-panel-controls.cp-transparency{
+	transform: translate(5px,-110px);
+	border-radius: 4px;
+}
+
+/*#endregion */
 
 
 .m-comparepanel .activecomparepanelDiv {
