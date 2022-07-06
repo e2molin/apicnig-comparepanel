@@ -7,20 +7,25 @@
 	width: 43px;
 }
 
-/*.m-plugin-comparepanel.opened .m-panel-btn.g-cartografia-flecha-derecha,
-.m-plugin-comparepanel.opened .m-panel-btn.g-cartografia-flecha-izquierda {
-	background-color: white !important;
-	color: #71a7d3 !important;
-}*/
+/* Los elementos dentro del panel comparador aparecen en vertical */
+.m-areas>div.m-area>div.m-panel.m-plugin-comparepanel.orientation-vertical.opened > div.m-panel-controls > div.m-control.m-container.m-comparepanel-container{
+	display:table;
+}
+/* Los elementos dentro del panel comparador aparecen en horizontal */
+.m-areas>div.m-area>div.m-panel.m-plugin-comparepanel.orientation-horizontal.opened > div.m-panel-controls > div.m-control.m-container.m-comparepanel-container{
+	display:flex;
+	/*width: 180px;*/
+}
+
+/* Es necesario definir un min-with en modo collapsible para las posiciones BR y BL, porque se come un botón */
+.m-panel.m-plugin-comparepanel.orientation-horizontal.opened:not(.no-collapsible) {
+	min-width: 200px;
+}
 
 .m-panel-btn.g-cartografia-flecha-izquierda{
 	margin-left:0px;
 }
 
-/* Title and images container */
-.m-control.m-container.m-comparepanel {
-	min-width: 200px;
-}
 
 /* Para Microsoft EDGE*/
 @supports (-ms-ime-align:auto) {

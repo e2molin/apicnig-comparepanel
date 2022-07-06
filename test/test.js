@@ -483,7 +483,6 @@ const mpTOC = new M.plugin.FullTOC({
 
 map.addPlugin(mpTOC);
 
-
 const mpVector = new M.plugin.Vectors({
   position: 'TR',
   collapsed: true,
@@ -493,8 +492,8 @@ const mpVector = new M.plugin.Vectors({
 map.addPlugin(mpVector);
 
 const pluginComparepanel = new Comparepanel({
-  position: 'TL',
-  vertical: true,
+  position: 'TR',
+  vertical: false,
   collapsed: false,
   collapsible: true,
   defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
