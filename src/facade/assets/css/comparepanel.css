@@ -190,6 +190,11 @@ div#m-comparepanel-titulo {
 	border-radius: 4px;
 }
 
+.m-area.m-top.m-right>.m-panel.m-plugin-comparepanel.orientation-vertical .m-panel-controls .m-panel-controls.cp-timeline {
+	transform: translateX(-45px);
+	border-radius: 4px;
+}
+
 /* Paneles flotantes de configuración TR Horizontal*/
 .m-area.m-top.m-right>.m-panel.m-plugin-comparepanel.orientation-horizontal .m-panel-controls .m-panel-controls.cp-mirrorpanel{
 	transform: translate(-330px,50px);
@@ -214,8 +219,6 @@ div#m-comparepanel-titulo {
 	transform: translate(-300px,50px);
 	border-radius: 4px;
 }
-
-
 
 /*#endregion */
 
