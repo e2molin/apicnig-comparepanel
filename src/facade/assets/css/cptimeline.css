@@ -29,6 +29,37 @@
     text-align: center;
 }
 
+
+.m-timeline-container .big-buttom {
+    font-size: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: .75;
+    transition: all .25s ease;
+    color: #404040;
+    outline: none;
+}
+
+.m-timeline-container .big-buttom:hover {
+    color: #71a7d3;
+}
+
+
+.m-timeline-container .big-buttom:disabled {
+    color: #6a6a6a;
+    cursor: default;
+}    
+
+.m-timeline-container.big-buttom.buttom-pressed {
+    color: #71a7d3;
+}
+
+
+
+
+
+
 .div-m-timeline-panel {
     --num: 7;
     --valor: '';
@@ -139,7 +170,7 @@ div#m-timeline-title {
 
 .m-timeline-names {
     display: none;
-    margin: 0 1rem 0.5rem;
+    margin: 1rem 1rem 0.5rem;
     border-top: 1px solid #b0b0b057;
     padding-top: 0.7rem;
     min-height: 17px;
@@ -183,7 +214,7 @@ div#m-timeline-title {
     display: none;
     width: auto;
     position: absolute;
-    top: 4rem;
+    top: 5.5rem;
     left: auto;
     right: 1rem;
 }

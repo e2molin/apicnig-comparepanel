@@ -1,5 +1,10 @@
 <div id="div-contenedor" class="m-timeline-container">
+
+
     <div class="div-m-timeline-panel">
+        <button id="m-timeline-active" class="big-buttom" title="{{translations.activate_spyeye}}"><i class="cp-transparency-icon"></i></button>
+        <button id="m-timeline-deactivate" class="big-buttom" title="{{translations.deactivate_spyeye}}" disabled><i class="cp-deactivateCurtain"></i></button>
+    
         <div class="div-m-timeline-slider">
             <input type="range" min="0" max="100" value="0" step="any" id="input-slider"></input>
             <div class='slider-tags'></div>
@@ -7,6 +12,7 @@
         <div class="m-timeline-names">
             
         </div>
+        <hr/>
         <div class="m-timeline-button">
             <button id="m-timeline-play" class="cp-control-siguiente" title="Start / Stop"></button>
         </div>

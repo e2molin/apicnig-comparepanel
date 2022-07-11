@@ -271,6 +271,7 @@ export default class ComparepanelControl extends M.Control {
     //   plugin.activate();
     // }
     if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'timeline') {
+      consoile.log("Activo Timeline");
       plugin.activate();
     }    
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-' + plugin.name).classList.toggle('hide-panel');
