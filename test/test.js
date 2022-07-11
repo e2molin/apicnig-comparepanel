@@ -66,6 +66,18 @@ const lyrIGNBaseXYZ = new M.layer.XYZ({
   tileGridMaxZoom: 17,
 })
 
+const lyrMTN501EdiWMTS = new M.layer.WMTS({
+  url: 'https://www.ign.es/wmts/primera-edicion-mtn?',
+  name: 'mtn50-edicion1',
+  legend: 'MTN50 1Edi',
+  matrixSet: 'GoogleMapsCompatible',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  format: 'image/jpeg',
+});
+
 const lyrPNOAXYZ =new M.layer.XYZ({
   url: 'https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{-y}.jpeg',
   name: 'PNOA-MA',
@@ -139,7 +151,7 @@ const lyrIGNBaseWMTSTextos = new M.layer.WMTS({
 });
 
 const getWMTSLyrs = () => {
-  return {
+  return new M.plugin.BackImgLayer({
     position: 'TR',
     layerId: 0,
     layerVisibility: true,
@@ -147,26 +159,63 @@ const getWMTSLyrs = () => {
     collapsible: true,
     columnsNumber: 4,
     layerOpts: [
+      // Mapa MTN
+      {
+        id: 'MAPAMTN',
+        preview: 'http://www.ign.es/iberpix/static/media/raster.c7a904f3.png',
+        title: 'Mapa MTN',
+        layers: [lyrCartografiaXYZ],
+      },
+
       {
         id: 'mapa',
-        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqmapa.png',
-        title: 'Mapa IGN',
+        preview: 'http://www.ign.es/iberpix/static/media/mapa.98d45f00.png',
+        title: 'Mapa Vector',
         layers: [lyrIGNBaseWMTS],
       },
       {
         id: 'imagen',
-        preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqimagen.png',
-        title: 'Imagen PNOA',
-        layers: [lyrIGNPNOAWMTS],
+        preview: 'http://www.ign.es/iberpix/static/media/image.44c5b451.png',
+        title: 'Imagen',
+        layers: [lyrPNOAXYZ],
       },
       {
-        id: 'hibridolidar',
-        title: 'Lídar Híbrido',
+        id: 'hibrido',
+        title: 'Imagen Híbrido',
+        preview: 'http://www.ign.es/iberpix/static/media/hibrido.485e957e.png',
+        layers: [lyrPNOAXYZ,lyrIGNBaseWMTSTextos],
+      },
+      // LiDAR
+      {
+        id: 'lidar',
         preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
+        title: 'LiDAR',
+        layers: [lyrLiDARWMTS],
+      },
+      // LiDAR Híbrido
+      {
+        id: 'lidar-hibrido',
+        title: 'LiDAR Híbrido',
+        preview: 'http://www.ign.es/iberpix/static/media/lidar.5aa94e82.png',
         layers: [lyrLiDARWMTS,lyrIGNBaseWMTSTextos],
       },
+      // SIOSE
+      {
+        id: 'SIOSE',
+        preview: 'http://www.ign.es/iberpix/static/media/ocupacion_suelo.ae7c9787.png',
+        title: 'SIOSE',
+        layers: [objWMTSsiose],
+      },
+      //  MTN50 1Edi
+      {
+        id: 'MTN501Edi',
+        preview: 'http://www.ign.es/iberpix/static/media/historicos.78c9c369.png',
+        title: 'MTN50 1Edi',
+        layers: [lyrMTN501EdiWMTS],
+      },
+
     ],
-  };
+  });
 }
 
 // Configuración de las capas de fondo
@@ -178,29 +227,29 @@ const mpBILBasico = new M.plugin.BackImgLayer(
 
 map.addPlugin(mpBILBasico);
 
-// const PNOAlistBaseLayersByString = [
-//   // WMS PNOA Histórico
-//   ['Americano 1956-57', '1956', 'WMS*Americano 1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957'],
-//   ['Interministerial 1973-86', '1983', 'WMS*Interministerial 1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986'],
-//   ['Nacional 1981-86', '1986', 'WMS*Nacional 1981-1986*https://www.ign.es/wms/pnoa-historico*NACIONAL_1981-1986'],
-//   ['OLISTAT', '1998', 'WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT'],
-//   ['SIGPAC', '2003', 'WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC'],
-//   ['PNOA 2004', '2004', 'WMS*PNOA 2004*https://www.ign.es/wms/pnoa-historico*pnoa2004'],
-//   ['PNOA 2005', '2005', 'WMS*PNOA 2005*https://www.ign.es/wms/pnoa-historico*pnoa2005'],
-//   ['PNOA 2006', '2006', 'WMS*PNOA 2006*https://www.ign.es/wms/pnoa-historico*pnoa2006'],
-//   ['PNOA 2007', '2007', 'WMS*PNOA 2007*https://www.ign.es/wms/pnoa-historico*pnoa2007'],
-//   ['PNOA 2008', '2008', 'WMS*PNOA 2008*https://www.ign.es/wms/pnoa-historico*pnoa2008'],
-//   ['PNOA 2009', '2009', 'WMS*PNOA 2009*https://www.ign.es/wms/pnoa-historico*pnoa2009'],
-//   ['PNOA 2010', '2010', 'WMS*PNOA 2010*https://www.ign.es/wms/pnoa-historico*pnoa2010'],
-//   ['PNOA 2011', '2011', 'WMS*PNOA 2011*https://www.ign.es/wms/pnoa-historico*pnoa2011'],
-//   ['PNOA 2012', '2012', 'WMS*PNOA 2012*https://www.ign.es/wms/pnoa-historico*pnoa2012'],
-//   ['PNOA 2013', '2013', 'WMS*PNOA 2013*https://www.ign.es/wms/pnoa-historico*pnoa2013'],
-//   ['PNOA 2014', '2014', 'WMS*PNOA 2014*https://www.ign.es/wms/pnoa-historico*pnoa2014'],
-//   ['PNOA 2015', '2015', 'WMS*PNOA 2015*https://www.ign.es/wms/pnoa-historico*pnoa2015'],
-//   ['PNOA 2016', '2016', 'WMS*PNOA 2016*https://www.ign.es/wms/pnoa-historico*pnoa2016'],
-//   ['PNOA 2017', '2017', 'WMS*PNOA 2017*https://www.ign.es/wms/pnoa-historico*pnoa2017'],
-//   ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],
-// ];
+const PNOAlistBaseLayersByString = [
+  // WMS PNOA Histórico
+  ['Americano 1956-57', '1956', 'WMS*Americano 1956-1957*https://www.ign.es/wms/pnoa-historico*AMS_1956-1957'],
+  ['Interministerial 1973-86', '1983', 'WMS*Interministerial 1973-1986*https://www.ign.es/wms/pnoa-historico*Interministerial_1973-1986'],
+  ['Nacional 1981-86', '1986', 'WMS*Nacional 1981-1986*https://www.ign.es/wms/pnoa-historico*NACIONAL_1981-1986'],
+  ['OLISTAT', '1998', 'WMS*OLISTAT*https://www.ign.es/wms/pnoa-historico*OLISTAT'],
+  ['SIGPAC', '2003', 'WMS*SIGPAC*https://www.ign.es/wms/pnoa-historico*SIGPAC'],
+  ['PNOA 2004', '2004', 'WMS*PNOA 2004*https://www.ign.es/wms/pnoa-historico*pnoa2004'],
+  ['PNOA 2005', '2005', 'WMS*PNOA 2005*https://www.ign.es/wms/pnoa-historico*pnoa2005'],
+  ['PNOA 2006', '2006', 'WMS*PNOA 2006*https://www.ign.es/wms/pnoa-historico*pnoa2006'],
+  ['PNOA 2007', '2007', 'WMS*PNOA 2007*https://www.ign.es/wms/pnoa-historico*pnoa2007'],
+  ['PNOA 2008', '2008', 'WMS*PNOA 2008*https://www.ign.es/wms/pnoa-historico*pnoa2008'],
+  ['PNOA 2009', '2009', 'WMS*PNOA 2009*https://www.ign.es/wms/pnoa-historico*pnoa2009'],
+  ['PNOA 2010', '2010', 'WMS*PNOA 2010*https://www.ign.es/wms/pnoa-historico*pnoa2010'],
+  ['PNOA 2011', '2011', 'WMS*PNOA 2011*https://www.ign.es/wms/pnoa-historico*pnoa2011'],
+  ['PNOA 2012', '2012', 'WMS*PNOA 2012*https://www.ign.es/wms/pnoa-historico*pnoa2012'],
+  ['PNOA 2013', '2013', 'WMS*PNOA 2013*https://www.ign.es/wms/pnoa-historico*pnoa2013'],
+  ['PNOA 2014', '2014', 'WMS*PNOA 2014*https://www.ign.es/wms/pnoa-historico*pnoa2014'],
+  ['PNOA 2015', '2015', 'WMS*PNOA 2015*https://www.ign.es/wms/pnoa-historico*pnoa2015'],
+  ['PNOA 2016', '2016', 'WMS*PNOA 2016*https://www.ign.es/wms/pnoa-historico*pnoa2016'],
+  ['PNOA 2017', '2017', 'WMS*PNOA 2017*https://www.ign.es/wms/pnoa-historico*pnoa2017'],
+  ['PNOA 2018', '2018', 'WMS*PNOA 2018*https://www.ign.es/wms/pnoa-historico*pnoa2018'],
+];
 
 
 const SENTINELlistBaseLayersByString = [
@@ -270,6 +319,7 @@ const pluginComparepanel = new Comparepanel({
   defaultCompareViz: 1,
   baseLayers: SENTINELlistBaseLayersByString,
   /*urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',*/
+  /*lyrsMirrorMinZindex:18,*/
   timelineParams: { 
     animation: true,
   },
