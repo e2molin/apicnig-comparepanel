@@ -38,6 +38,8 @@ Plugin que agrupa los diversos plugins comparadores en una misma herramienta, co
 
 Los modos de comparación de cortina y Spy Eye se aplican siempre al mapa principal. Ahora podemos aplicar uno de estos dos modos de comparación y además acytivar algonmo de los modos de comparación por mapa espejo
 
+
+
 ## Dependencias 👷
 
 - comparepanel.ol.min.js
