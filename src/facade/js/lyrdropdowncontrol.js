@@ -129,6 +129,7 @@ export default class LyrdropdownControl extends M.Control {
         const layerSel = this.map.getLayers().filter((layer) => {
           return layer.name === evt.target.value;
         });
+        console.log(layerSel);
         // Get selected layer from layer array
         this.layerSelected.setVisible(false);
         this.removeEffects();

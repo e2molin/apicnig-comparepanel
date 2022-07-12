@@ -615,9 +615,11 @@ div#m-comparepanel-titulo {
 
 .cp-control-pausa:before { content: "\e901"; }
 .cp-transparency-icon:before { content: "\e900"; }
-.cp-lock-icon:before { 	content: "\e800";	color:red; }
+.cp-lock-icon:before { 	content: "\e801";	color:red; }
 .cp-unlock-icon:before { content: "\f13e"; color:green; }
 .cp-control-siguiente:before { content: "\e828"; }
+.cp-control-loop-on:before { content: "\e816"; }
+.cp-control-loop-off:before { content: "\e816"; color: #71a7d3; }
 .cp-gestion-reloj2:before {	content: "\e920";}
 .cp-gestion-testing:before {	content: "\e816";}
 .cp-icon:before {

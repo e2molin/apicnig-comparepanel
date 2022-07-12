@@ -246,7 +246,10 @@ const SENTINELlistBaseLayersByString = [
     ['Fondo', '2001', 'WMS*Fondo*https://wms-satelites-historicos.idee.es/satelites-historicos*fondo'],
 ];/* 40 capas */
 
-
+/**
+ * Test con 6 capas
+ * 
+ */
 const lyrsTestingTimeline = [
   [
     "NACIONAL 1981-1986",

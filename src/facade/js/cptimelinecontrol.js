@@ -30,6 +30,7 @@ export default class TimelineControl extends M.Control {
     this.animation = options.animation;
     this.speed = options.speed;
     this.intervals = options.intervals;
+    this.runningOnLoop = false;
 
     /**
      * Template
@@ -95,21 +96,52 @@ export default class TimelineControl extends M.Control {
       slider.setAttribute('max', intervals.length - 1);
       slider.addEventListener('input', (e) => this.changeSlider(slider));
       slider.addEventListener('change', (e) => {
-        document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
+        /*document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
         document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
-        document.querySelector('.div-m-timeline-slider').style.setProperty('--opacity', '0');
+        document.querySelector('.div-m-timeline-slider').style.setProperty('--opacity', '0');*/
         clearTimeout(this.running);
         this.running = false;
       });
+
       const play = this.template.querySelector('#m-timeline-play');
       play.addEventListener('click', (e) => {
-        //e.target.classList.remove('cp-control-siguiente');
-        //e.target.classList.add('cp-control-pausa');
         this.running = !this.running;
         if (this.running){
           this.playTimeline(this.running);
         }
       });
+
+      const bigPlay = this.template.querySelector('#m-timeline-active');
+      bigPlay.addEventListener('click', (e) => {
+        this.running = !this.running;
+        if (this.running){
+          this.playTimeline(this.running);
+        }
+      });
+
+      const loopSwich = this.template.querySelector('#m-timeline-loopswich');
+      loopSwich.addEventListener('click', (e) => {
+        this.runningOnLoop = !this.runningOnLoop;
+        if (this.runningOnLoop){
+          this.playTimeline(this.running);
+          e.target.classList.add('cp-control-loop-off');
+          e.target.classList.remove('cp-control-loop-on');
+        }else{
+          e.target.classList.add('cp-control-loop-on');
+          e.target.classList.remove('cp-control-loop-off');
+        }
+      });
+
+      const deActivate = this.template.querySelector('#m-timeline-deactivate');
+      deActivate.addEventListener('click', (e) => {
+        const slider = this.template.querySelector('#input-slider');
+        slider.value = 0;
+        this.changeSlider(slider);
+      });
+
+
+
+
       success(this.template);
 
     });
@@ -290,30 +322,51 @@ export default class TimelineControl extends M.Control {
     if (this.running) {
       document.querySelector('.m-timeline-button button').classList.remove('cp-control-siguiente');
       document.querySelector('.m-timeline-button button').classList.add('cp-control-pausa');
+      document.querySelector('#m-timeline-active i').classList.remove('cp-control-siguiente');
+      document.querySelector('#m-timeline-active i').classList.add('cp-control-pausa');
+
+
 
     }else{
       document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
       document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
+      document.querySelector('#m-timeline-active i').classList.add('cp-control-siguiente');
+      document.querySelector('#m-timeline-active i').classList.remove('cp-control-pausa');
+
       clearTimeout(this.running);
     }
 
     if (!next) {
+      console.log("B3");
       if (step > start && step < end && this.running) {
+        console.log("B1");
         this.running = false;
         return;
       }
       if (step > end) {
+        console.log("B2");
         step = start;
       }
     }
-
+    console.log(step);
     if (step >= end) {
-      slider.value = 0;
-      this.changeSlider(slider);
-      document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
-      document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
-      this.running = false;
-      return;
+      if (!this.runningOnLoop) {
+        console.log("Stop Automático");
+        slider.value = 0;
+        this.changeSlider(slider);
+        document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
+        document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
+        document.querySelector('#m-timeline-active i').classList.add('cp-control-siguiente');
+        document.querySelector('#m-timeline-active i').classList.remove('cp-control-pausa');     
+        this.running = false;
+        return;
+      }else{
+        step = 0;
+        slider.value = 0;
+        this.changeSlider(slider);
+        this.animationFrame = setTimeout((e) => this.playTimeline(true), this.speed * 1000);
+        return;
+      }
     }
 
     if (step < start) {
@@ -324,6 +377,7 @@ export default class TimelineControl extends M.Control {
       return;
     }
     slider.value = parseFloat(slider.value) + 1;
+    console.log(`Muestro ${slider.value}`)
     this.changeSlider(slider);
     this.animationFrame = setTimeout((e) => this.playTimeline(true), this.speed * 1000);
   }
@@ -350,6 +404,7 @@ export default class TimelineControl extends M.Control {
    * @api
    */
   activate() {
+    console.log("activate");
     clearInterval(this.running);
     this.running = false;
     document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
@@ -364,6 +419,7 @@ export default class TimelineControl extends M.Control {
    * @api
    */
   deactivate() {
+    console.log("deactivate");
     try {
       clearInterval(this.running);
       this.running = false;
