@@ -238,6 +238,12 @@ console.table(capas);
 
 NASA * https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+API+for+Developers#expand-WMTS
 
+
+https://vabadus.es/blog/otros/trabajando-con-git-deshacer-un-merge
+https://www.nobledesktop.com/learn/git/git-branches
+https://www.hostinger.es/tutoriales/renombrar-rama-git
+
+
 ## Media Queryes del CSS original
 
 
