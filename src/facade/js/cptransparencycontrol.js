@@ -117,81 +117,71 @@ export default class TransparencyControl extends M.Control {
           this.getImpl().setRadius(this.radius);
         });
 
-      this.template
-        .querySelector("#m-transparency-active")
-        .addEventListener("click", (evt) => {
-          // e2m: evitamos que el mapa principal, sobre el que se activa SpyEye pueda poner sobre él capas
+      this.template.querySelector("#m-transparency-active").addEventListener("click", (evt) => {
+          // No permitimos seleccionar capas en el mirror principal
           document.querySelector("#m-lyrdropdown-selector").value = "none";
-          document.querySelector("#m-lyrdropdown-selector").style.display =
-            "none";
+          document.querySelector("#m-lyrdropdown-selector").style.display = "none";
 
-          // e2m: cuando activamos SpyEye, evitamos que se activen los comparadores de cortina
+          // No permitimos activar el comparador Cortina
           document.querySelector("#m-lyrcompare-vcurtain").disabled = true;
           document.querySelector("#m-lyrcompare-hcurtain").disabled = true;
           document.querySelector("#m-lyrcompare-multicurtain").disabled = true;
           document.querySelector("#m-lyrcompare-deactivate").disabled = true;
 
-          this.template.querySelector("#m-transparency-lock").style.visibility =
-            "visible";
-          this.template.querySelector(
-            "#m-transparency-unlock"
-          ).style.visibility = "hidden";
-          this.activate();
-        });
-      this.template
-        .querySelector("#m-transparency-deactivate")
-        .addEventListener("click", (evt) => {
-          // e2m: volvemos a permitir que el mapa principal pueda poner sobre él capas
-          document.querySelector("#m-lyrdropdown-selector").style.display =
-            "block";
+          // No permitimos activar el Timeline
+          document.querySelector('#m-timeline-active').disabled = true;
+          document.querySelector('#m-timeline-deactivate').disabled = true;
+          document.querySelector('#m-timeline-loopswich').disabled = true;
+          document.querySelector('.div-m-timeline-slider input').disabled = true;
+          
 
-          // e2m: cuando desactivamos SpyEye, permitimos que se activen los comparadores de cortina de nuevo
+          this.template.querySelector("#m-transparency-lock").style.visibility = "visible";
+          this.template.querySelector("#m-transparency-unlock").style.visibility = "hidden";
+          this.activate();
+
+        });
+      this.template.querySelector("#m-transparency-deactivate").addEventListener("click", (evt) => {
+          // Permitimos que el mapa principal pueda poner sobre él capas
+          document.querySelector("#m-lyrdropdown-selector").style.display = "block";
+          document.querySelector('#m-lyrdropdown-selector> option[value="None"]').selected = true;
+
+
+          // Permitimos que se activen los comparadores de cortina de nuevo
           document.querySelector("#m-lyrcompare-vcurtain").disabled = false;
           document.querySelector("#m-lyrcompare-hcurtain").disabled = false;
           document.querySelector("#m-lyrcompare-multicurtain").disabled = false;
           document.querySelector("#m-lyrcompare-deactivate").disabled = false;
 
-          this.template.querySelector("#m-transparency-lock").style.visibility =
-            "hidden";
-          this.template.querySelector(
-            "#m-transparency-unlock"
-          ).style.visibility = "hidden";
+          // Permitimos activar el Timeline
+          document.querySelector('#m-timeline-active').disabled = false;
+          document.querySelector('#m-timeline-deactivate').disabled = false;
+          document.querySelector('#m-timeline-loopswich').disabled = false;
+          document.querySelector('.div-m-timeline-slider input').disabled = false;
+
+          this.template.querySelector("#m-transparency-lock").style.visibility = "hidden";
+          this.template.querySelector("#m-transparency-unlock").style.visibility = "hidden";
 
           this.deactivate();
         });
-      this.template
-        .querySelector("#m-transparency-lock")
-        .addEventListener("click", (evt) => {
-          M.dialog.info(
-            "Mueva el cursor a la zona deseada y pulse Ctrl+Shift+Enter para congelar"
-          );
+      this.template.querySelector("#m-transparency-lock").addEventListener("click", (evt) => {
+          M.dialog.info("Mueva el cursor a la zona deseada y pulse Ctrl+Shift+Enter para congelar");
         });
-      this.template
-        .querySelector("#m-transparency-unlock")
-        .addEventListener("click", (evt) => {
+      this.template.querySelector("#m-transparency-unlock").addEventListener("click", (evt) => {
           this.freeze = !this.freeze;
           this.getImpl().setFreeze(this.freeze);
-          this.template.querySelector("#m-transparency-lock").style.visibility =
-            "visible";
-          this.template.querySelector(
-            "#m-transparency-unlock"
-          ).style.visibility = "hidden";
+          this.template.querySelector("#m-transparency-lock").style.visibility = "visible";
+          this.template.querySelector("#m-transparency-unlock").style.visibility = "hidden";
         });
 
       if (this.layers.length === 0 || this.layers === "") {
         M.dialog.error(getValue("errorLayer"));
       } else {
         if (options !== "") {
-          this.template.querySelector("#m-transparency-lock").style.visibility =
-            "hidden";
-          this.template.querySelector(
-            "#m-transparency-unlock"
-          ).style.visibility = "hidden";
+          this.template.querySelector("#m-transparency-lock").style.visibility = "hidden";
+          this.template.querySelector("#m-transparency-unlock").style.visibility = "hidden";
           this.template.querySelector("select").disabled = true;
           this.template.querySelector("input").disabled = true;
-          this.template
-            .querySelector("select")
-            .addEventListener("change", (evt) => {
+          this.template.querySelector("select").addEventListener("change", (evt) => {
               this.layerSelected.setVisible(false);
               this.removeEffects();
               const layer = this.layers.filter((layer) => {

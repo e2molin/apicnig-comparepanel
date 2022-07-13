@@ -231,11 +231,20 @@ export default class LyrCompareControl extends M.Control {
       this.template.querySelectorAll('button[id^="m-lyrcompare-"]').forEach((button, i) => {
         if (button.id==="m-lyrcompare-deactivate"){
           button.addEventListener('click', evt => {
+            // Permitimos seleccionar capas en el mirror principal
             document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
+            document.querySelector('#m-lyrdropdown-selector> option[value="None"]').selected = true;
 
-            // e2m: permitimos que se activen de nuevo los comparadores de Spy Eye al desactivar las cortinas
+            // Permitimos activar de nuevo el comparador de transparencia
             document.querySelector('#m-transparency-active').disabled = false;
             document.querySelector('#m-transparency-deactivate').disabled = false;
+
+            // Permitimos activar el Timeline
+            document.querySelector('#m-timeline-active').disabled = false;
+            document.querySelector('#m-timeline-deactivate').disabled = false;
+            document.querySelector('#m-timeline-loopswich').disabled = false;
+            document.querySelector('.div-m-timeline-slider input').disabled = false;
+            
 
             this.comparisonMode = 0;
             this.deactivateCurtain();
@@ -244,13 +253,21 @@ export default class LyrCompareControl extends M.Control {
         } else{
           button.addEventListener('click', evt => {
             if (this.comparisonMode === 0) {
+              // No permitimos seleccionar capas en el mirror principal
               document.querySelector('#m-lyrdropdown-selector').value="none";
               document.querySelector('#m-lyrdropdown-selector').style.display = 'none';
 
-              // e2m: evitamos que se activen los comparadores de Spy Eye mientras las cortinas estén activas
+              // No permitimos activar el comparador SpyEye
               document.querySelector('#m-transparency-active').disabled = true;
               document.querySelector('#m-transparency-deactivate').disabled = true;
 
+              // No permitimos activar el Timeline
+              document.querySelector('#m-timeline-active').disabled = true;
+              document.querySelector('#m-timeline-deactivate').disabled = true;
+              document.querySelector('#m-timeline-loopswich').disabled = true;
+              document.querySelector('.div-m-timeline-slider input').disabled = true;
+              
+              
               this.comparisonMode = i + 1;
               this.activateCurtain();
               return;

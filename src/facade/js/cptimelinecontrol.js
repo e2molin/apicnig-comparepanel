@@ -134,19 +134,41 @@ export default class TimelineControl extends M.Control {
 
       const deActivate = this.template.querySelector('#m-timeline-deactivate');
       deActivate.addEventListener('click', (e) => {
+
         const slider = this.template.querySelector('#input-slider');
         slider.value = 0;
         this.changeSlider(slider);
+
+        // Apagamos las capas
+        this.intervals.forEach(interval => {
+          console.log(interval);
+          this.getMapLayer(interval.service).setVisible(false);
+        });
+
+        this.template.querySelector('.m-timeline-names').style.display = 'none';
+        this.template.querySelector('.m-timeline-button').style.display = 'none';
+        this.template.querySelector('.div-m-timeline-slider').style.setProperty('--opacity', '0');
+
+        // Permitimos seleccionar capas en el mirror principal
+        document.querySelector('#m-lyrdropdown-selector').style.display = 'block';
+        document.querySelector('#m-lyrdropdown-selector> option[value="None"]').selected = true;
+
+        // Permitimos activar de nuevo el comparador de transparencia
+        document.querySelector('#m-transparency-active').disabled = false;
+        document.querySelector('#m-transparency-deactivate').disabled = false;
+    
+        // Permitimos activar el comparador Cortina
+        document.querySelector("#m-lyrcompare-vcurtain").disabled = false;
+        document.querySelector("#m-lyrcompare-hcurtain").disabled = false;
+        document.querySelector("#m-lyrcompare-multicurtain").disabled = false;
+        document.querySelector("#m-lyrcompare-deactivate").disabled = false;
+
       });
-
-
-
 
       success(this.template);
 
     });
   }
-
 
   /**
    * Transform StringLayers to Mapea M.Layer
@@ -160,6 +182,7 @@ export default class TimelineControl extends M.Control {
    * @param {string}
    * @return
    */
+
   transformToLayers(layer) {
     let newLayer = null;
     if (!(layer instanceof Object)) {
@@ -197,8 +220,6 @@ export default class TimelineControl extends M.Control {
     }
   }
 
-  
-
   /** This function change layers and show layer name when slider moves
    *
    * @public
@@ -208,15 +229,27 @@ export default class TimelineControl extends M.Control {
    */
   changeSlider(elem) {
     
+    // No permitimos seleccionar capas en el mirror principal
+    document.querySelector('#m-lyrdropdown-selector').value="none";
+    document.querySelector('#m-lyrdropdown-selector').style.display = 'none';
+    // No permitimos activar el comparador SpyEye
+    document.querySelector('#m-transparency-active').disabled = true;
+    document.querySelector('#m-transparency-deactivate').disabled = true;
+    // No permitimos activar el comparador Cortina
+    document.querySelector("#m-lyrcompare-vcurtain").disabled = true;
+    document.querySelector("#m-lyrcompare-hcurtain").disabled = true;
+    document.querySelector("#m-lyrcompare-multicurtain").disabled = true;
+    document.querySelector("#m-lyrcompare-deactivate").disabled = true;
+
     document.querySelector('.div-m-timeline-slider').style.setProperty('--opacity', '0');
     const left = (((elem.value - elem.min) / (elem.max - elem.min)) * ((256 - 5) - 5)) + 5;
     document.querySelector('.div-m-timeline-slider').style.setProperty('--left', left + 'px');
     if(this.animation || this.intervals[0].name !== ''){
       document.querySelector('.m-timeline-names').style.display = 'block';
     }
-    if (this.animation) {
+    /*if (this.animation) {
       document.querySelector('.m-timeline-button').style.display = 'block';
-    }
+    }*/
 
     let step = parseFloat(elem.value);
     this.intervals.forEach((interval) => {
@@ -283,9 +316,9 @@ export default class TimelineControl extends M.Control {
     if(this_.animation || this_.intervals[0].name !== ''){
       html.querySelector('.m-timeline-names').style.display = 'block';
     }
-    if (this_.animation) {
+    /*if (this_.animation) {
       html.querySelector('.m-timeline-button').style.display = 'block';
-    }
+    }*/
 
     let step = parseFloat(slider.value);
     this_.intervals.forEach((interval) => {
@@ -320,38 +353,34 @@ export default class TimelineControl extends M.Control {
     const slider = document.querySelector('#input-slider');
     let step = parseInt(slider.value);
     if (this.running) {
-      document.querySelector('.m-timeline-button button').classList.remove('cp-control-siguiente');
-      document.querySelector('.m-timeline-button button').classList.add('cp-control-pausa');
+      //document.querySelector('.m-timeline-button button').classList.remove('cp-control-siguiente');
+      //document.querySelector('.m-timeline-button button').classList.add('cp-control-pausa');
       document.querySelector('#m-timeline-active i').classList.remove('cp-control-siguiente');
       document.querySelector('#m-timeline-active i').classList.add('cp-control-pausa');
-
-
-
     }else{
-      document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
-      document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
+      //document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
+      //document.querySelector('.m-timeline-button button').classList.remove('cp-control-pausa');
       document.querySelector('#m-timeline-active i').classList.add('cp-control-siguiente');
       document.querySelector('#m-timeline-active i').classList.remove('cp-control-pausa');
-
       clearTimeout(this.running);
     }
 
     if (!next) {
       console.log("B3");
       if (step > start && step < end && this.running) {
-        console.log("B1");
+
         this.running = false;
         return;
       }
       if (step > end) {
-        console.log("B2");
+
         step = start;
       }
     }
-    console.log(step);
+
     if (step >= end) {
       if (!this.runningOnLoop) {
-        console.log("Stop Automático");
+
         slider.value = 0;
         this.changeSlider(slider);
         document.querySelector('.m-timeline-button button').classList.add('cp-control-siguiente');
