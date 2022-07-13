@@ -311,7 +311,7 @@ const mpVector = new M.plugin.Vectors({
 map.addPlugin(mpVector);
 
 const pluginComparepanel = new Comparepanel({
-  position: 'TR',
+  position: 'BL',
   vertical: true,
   collapsed: false,
   collapsible: true,

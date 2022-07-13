@@ -331,12 +331,12 @@ div#m-comparepanel-titulo {
 }
 
 .m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel.orientation-vertical .m-panel-controls .m-panel-controls.cp-lyrcompare{
-	transform: translate(310px,-110px);
+	transform: translate(310px,-150px);
 	border-radius: 4px;
 }
 
 .m-area.m-bottom.m-left > div.m-panel.m-plugin-comparepanel.orientation-vertical .m-panel-controls .m-panel-controls.cp-transparency{
-	transform: translate(310px,-110px);
+	transform: translate(310px,-135px);
 	border-radius: 4px;
 }
 
