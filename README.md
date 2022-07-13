@@ -84,6 +84,7 @@ Los modos de comparación de cortina y Spy Eye se aplican siempre al mapa princi
   - 'curtain': Comparador de paneles móviles.
   - 'timeline': Comprador de línea del tiempo.
   - 'spyeye': Comparador de zona o puntual.
+  - 'none': no arranca ninguno de los comparadores. Es equivalente a arrancar como  *defaultCompareMode='mirror'* &  *defaultCompareViz=0*.
 
 - **defaultCompareViz**: ajustamos el modo de visualizaciónuna vea seleccionado el comparador.
 

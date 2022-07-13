@@ -315,9 +315,9 @@ const pluginComparepanel = new Comparepanel({
   vertical: true,
   collapsed: false,
   collapsible: true,
-  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye
+  defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye - none
   defaultCompareViz: 1,
-  baseLayers: SENTINELlistBaseLayersByString,
+  baseLayers: PNOAlistBaseLayersByString,
   /*urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',*/
   /*lyrsMirrorMinZindex:18,*/
   timelineParams: { 
