@@ -233,6 +233,10 @@ console.table(capas);
 
 * ¿Cómo se puede conocer la versión de la API con la que trabajo? : No se puede. Quizás se implemente en próximas peticiones. Ahora la única solución actualmente sería pasar la versión como parámetro del plugin.
 
+### Git
+* https://www.nobledesktop.com/learn/git/git-branches
+* https://vabadus.es/blog/otros/trabajando-con-git-deshacer-un-merge
+* https://desarrolloweb.com/articulos/trabajar-ramas-git.html
 
 ## Servicios de prueba
 
