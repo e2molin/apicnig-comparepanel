@@ -42,6 +42,7 @@ export default class ComparepanelControl extends M.Control {
     this.previousComparisonMode = "";
     this.actualComparisonMode = "";
     this.urlCover =  options.urlCover;
+    this.lyrsMirrorMinZindex= options.lyrsMirrorMinZindex;
 
     this.baseLayers.forEach(e => this.layers.push(e[2]));
     this.params = [options.mirrorpanelParams, options.timelineParams, options.lyrcompareParams, options.transparencyParams];
@@ -50,9 +51,11 @@ export default class ComparepanelControl extends M.Control {
     });
 
     options.mirrorpanelParams.defaultBaseLyrs = this.layers;
+    options.mirrorpanelParams.lyrsMirrorMinZindex = this.lyrsMirrorMinZindex;
     options.timelineParams.intervals = this.baseLayers;         //e2m: TimeLine needs this.baseLayers with the time param
     options.lyrcompareParams.layers = this.layers;
     options.transparencyParams.layers = this.layers;
+
 
     // e2m: extraemos de las definiciones de capa los nombres de todas las capas
     this.allLayersName = this.layers.map((lyrDef) => {
@@ -109,6 +112,7 @@ export default class ComparepanelControl extends M.Control {
   }
 
   addComparators(map) {
+    
     this.plugins.forEach((p, index) => {
       map.addPlugin(p);
       this.panels.push(p.panel_._element);
@@ -125,7 +129,7 @@ export default class ComparepanelControl extends M.Control {
     if (this.urlCover!==''){
       this.loadCoverPNOALyr();
     }
-    
+
 
     this.onMoveEnd((evt) => {
       
@@ -147,32 +151,32 @@ export default class ComparepanelControl extends M.Control {
       if (p.name==='mirrorpanel'){
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
           this.deactivateAndActivateMirrorPanel(p);
-          console.log("1");
         }); 
 
       } else if (p.name==='lyrcompare'){
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
-          console.log(`2:${this.actualComparisonMode}//${p.name}`);
           this.deactivateAndActivateOtherModes(p);
         });        
       } else {
         this.template.querySelector('#m-cp-' + p.name + ' .cp-button').addEventListener('click', (e) => {
-          console.log(`2:${this.actualComparisonMode}//${p.name}`);
           this.deactivateAndActivateOtherModes(p);
-          
         });
       }
     });
 
     // e2m: eventos del botón de texto
     this.template.querySelector('#m-cp-testing-btn').addEventListener('click', (e) => {
+      /*
       console.log(`actualComparisonMode: ${this.actualComparisonMode}`);
       console.log(this.map.getMapImpl().getLayers());
       this.plugins.forEach(p => {
         console.log(p.name);
       });
+      */
       this.map.getMapImpl().getLayers().forEach(lyr=>{
+        /* eslint-disable */
         console.log(lyr.getSource().key_);
+        /* eslint-enable */
       })
     });
 
@@ -181,7 +185,9 @@ export default class ComparepanelControl extends M.Control {
   setComparatorsDefaultStyle(){
 
     if ((this.defaultComparisonMode==='mirrorpanel') && (this.defaultComparisonViz===0)) {
+      /* eslint-disable */
       console.log("Modo defecto");
+      /* eslint-enable */
     }else{
       //this.template.querySelector('#m-cp-' + this.defaultComparisonMode + ' .cp-' + this.defaultComparisonMode).classList.toggle('hide-panel');  // Muestro panel
       //this.template.querySelector('#m-cp-' + this.defaultComparisonMode + ' .cp-button').classList.toggle('active');                             // Añado scolor botón CamparePanel
@@ -241,7 +247,6 @@ export default class ComparepanelControl extends M.Control {
 
 
   deactivateAndActivateOtherModesDeprecated(plugin) {
-    console.log(`deactivateAndActivateOtherModes: ${plugin.name}`);
     this.actualComparisonMode = plugin.name;
     if (plugin.name === 'mirrorpanel') return;
     
@@ -260,14 +265,12 @@ export default class ComparepanelControl extends M.Control {
     //     p.deactivate();
     //   }
     // });
-    console.log("5");
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.toggle('active');
     // if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'transparency') {
     //   console.log("3");
     //   plugin.activate();
     // }
     if (this.template.querySelector('#m-cp-' + plugin.name + ' .cp-button').classList.contains('active') && plugin.name === 'timeline') {
-      console.log("4");
       plugin.activate();
     }    
     this.template.querySelector('#m-cp-' + plugin.name + ' .cp-' + plugin.name).classList.toggle('hide-panel');
@@ -316,23 +319,13 @@ export default class ComparepanelControl extends M.Control {
 
   getCobertura(evt) {
     const olMap = this.map.getMapImpl();
-    //const extent = olMap.getView().calculateExtent(olMap.getSize());
     let pixelCentral = olMap.getPixelFromCoordinate(olMap.getView().getCenter());
     let lyrAvailable = [];
-    //console.log(pixelCentral);
     olMap.forEachFeatureAtPixel(pixelCentral, function (feature, layer) {
-      //console.log(feature);
-      //console.log(layer);    
       if (feature.get('layerkey') !== undefined) {
         lyrAvailable.push(feature.get('layerkey'));
       }
     });
-    console.log(this.urlCover);
-    console.log(lyrAvailable);
-    console.log(this.layers);
-
-  // this.allLayersName
-
 
     this.mirrorpanel.manageLyrAvailable(lyrAvailable);
     this.lyrcompare.manageLyrAvailable(lyrAvailable);

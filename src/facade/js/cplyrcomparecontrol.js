@@ -424,11 +424,9 @@ export default class LyrCompareControl extends M.Control {
    * @api stable
    */
   activateCurtain() {
-    console.log("Activate Curtain 2A");
     this.activeDefault();
     this.getImpl().effectSelectedCurtain(this.layerSelectedA, this.layerSelectedB, this.layerSelectedC, this.layerSelectedD, this.opacityVal, this.staticDivision, this.comparisonMode);
     this.updateControls();
-    console.log("Activate Curtain 2B");
   }
 
   /**
@@ -522,7 +520,9 @@ export default class LyrCompareControl extends M.Control {
         dropDownContainer.options[iOpt].disabled = !lyrList.includes(dropDownContainer.options[iOpt].value);
       }
     } catch (error) {
-      console.log(error);
+          /* eslint-disable */
+          console.log(error);
+          /* eslint-enable */
     }
   }
 

@@ -101,7 +101,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     /* eslint-disable */
     if (!(layers instanceof Array)) layers = [layers];
     /* eslint-enable */
-    console.log(layers);
     for (let i = 0; i < layers.length; i += 1) {
        //e2m: deprecated. Esto no se usa ¿? 
       const l = { layer: layers[i] };
@@ -155,7 +154,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       } 
     } else if (e && e instanceof Array) {
       this.pos = e;
-      console.log("El valor de E es un Array");
     } else {
       /* eslint-disable */
       e = [-10000000, -10000000];

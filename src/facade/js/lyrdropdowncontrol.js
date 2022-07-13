@@ -64,6 +64,13 @@ export default class LyrdropdownControl extends M.Control {
     this.layerSelected = null;
 
     /**
+     * Nivel mínimo en el que empiezan a cargarse las capas
+     * @public
+     * @type { integer }
+     */
+     this.lyrsMirrorMinZindex = values.lyrsMirrorMinZindex;
+
+    /**
      * Template
      * @public
      * @type { HTMLElement }
@@ -103,7 +110,6 @@ export default class LyrdropdownControl extends M.Control {
           },
         };
       }
-
       //e2m: config a helper in Handlebars for embedding conditionals in template
       Handlebars.registerHelper('ifCond', (v1, v2, options) => {
         return v1 === v2 ? options.fn(this) : options.inverse(this);
@@ -120,15 +126,12 @@ export default class LyrdropdownControl extends M.Control {
 
       //Events on template component
       this.template.querySelector('#m-lyrdropdown-selector').addEventListener('change', (evt) => {
-        console.log("Entro:" + evt.target.value);
         const layerSel = this.map.getLayers().filter((layer) => {
           return layer.name === evt.target.value;
         });
         // Get selected layer from layer array
-        console.log(this.layerSelected);
         this.layerSelected.setVisible(false);
         this.removeEffects();
-        console.table(this.getImpl().map.getImpl().getLayers());
         if (layerSel.length === 0){
           /**
            * Se ha seleccionado la opción de eliminar capa
@@ -185,7 +188,9 @@ export default class LyrdropdownControl extends M.Control {
         this.template.querySelector('#m-lyrdropdown-selector').disabled = true;
       }
     } catch (error) {
-      console.error(error);
+          /* eslint-disable */
+          console.log(error);
+          /* eslint-enable */
     }
 
   }
@@ -210,7 +215,6 @@ export default class LyrdropdownControl extends M.Control {
    * @api stable
    */
   removeEffects() {
-    console.log('removeEffects');
     this.getImpl().removeEffects();
   }
 
@@ -307,7 +311,7 @@ export default class LyrdropdownControl extends M.Control {
 
         newLayer.displayInLayerSwitcher = false;
         newLayer.setVisible(false);
-        //newLayer.setZIndex(100);
+        newLayer.setZIndex(this.lyrsMirrorMinZindex);/* Establezco un zIndex a partir del cual se cargan las capas*/
         return newLayer;
       } else {
         this.layers.remove(layer);

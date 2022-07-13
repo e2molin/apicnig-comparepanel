@@ -114,7 +114,7 @@ export default class Comparepanel extends M.Plugin {
      * Posible values: mirror | curtain | spyeye | timeline
      * @type {String}
      */
-     const defaultCompareModes = ['mirror', 'curtain', 'spyeye', 'timeline'];
+     const defaultCompareModes = ['mirror', 'curtain', 'spyeye', 'timeline', 'none'];
      this.defaultCompareMode = defaultCompareModes.includes(options.defaultCompareMode) ? options.defaultCompareMode : 'mirror';
 
     /**
@@ -150,6 +150,15 @@ export default class Comparepanel extends M.Plugin {
      * @type {URLLike}
      */
     this.urlCoberturas_ = options.urlcoberturas || '';
+
+    /**
+     * Nivel mínimo en el que empiezan a cargarse las capas
+     * Value: number in range 10 - 1000
+     * @type {number}
+     * @public
+     */
+     this.lyrsMirrorMinZindex = options.lyrsMirrorMinZindex;
+     if (this.lyrsMirrorMinZindex === undefined) this.lyrsMirrorMinZindex = 100;
 
     /**
      * mirrorpanelParams
@@ -220,10 +229,15 @@ export default class Comparepanel extends M.Plugin {
     this.mirrorpanelParams.modeViz = this.mirrorpanelParams.modeViz || {};
     this.mirrorpanelParams.modeViz = (this.defaultCompareMode === 'mirror' ? this.defaultCompareViz : 0);
 
+    if (this.defaultCompareMode==='none'){
+      this.defaultCompareMode = 'mirror';
+      this.defaultCompareViz = 0;
+    }
+
+
     // e2m: ponemos el arraqnue del visualizador mirror a cero por defecto
     this.lyrcompareParams.comparisonMode = this.lyrcompareParams.comparisonMode || {};
     this.lyrcompareParams.comparisonMode = (this.defaultCompareMode === 'curtain' ? this.defaultCompareViz : 0);
-
     this.control_ = new ComparepanelControl({
       baseLayers: this.baseLayers,
       mirrorpanelParams: this.mirrorpanelParams,
@@ -233,18 +247,19 @@ export default class Comparepanel extends M.Plugin {
       defaultComparisonMode: this.COMP_PLUGIN_NAMES[this.defaultCompareMode],
       defaultComparisonViz: this.defaultCompareViz,
       position: this.position,
-      urlCover: this.urlCoberturas_
+      urlCover: this.urlCoberturas_,
+      lyrsMirrorMinZindex: this.lyrsMirrorMinZindex
     });
 
     this.controls_.push(this.control_);
     this.map_ = map;
 
     this.panel_ = new M.ui.Panel('panelComparepanel', {
+      position: M.ui.position[this.position],
       collapsible: this.collapsible,
       collapsed: this.collapsed,
-      position: M.ui.position[this.position],
       className: this.className,
-      collapsedButtonClass: 'cp-icon-comparepanel',//cp-icon
+      collapsedButtonClass: 'cp-icon-comparepanel',
       tooltip: this.tooltip_,
     });
 
