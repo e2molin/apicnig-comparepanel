@@ -166,13 +166,6 @@ export default class ComparepanelControl extends M.Control {
 
     // e2m: eventos del botón de texto
     this.template.querySelector('#m-cp-testing-btn').addEventListener('click', (e) => {
-      /*
-      console.log(`actualComparisonMode: ${this.actualComparisonMode}`);
-      console.log(this.map.getMapImpl().getLayers());
-      this.plugins.forEach(p => {
-        console.log(p.name);
-      });
-      */
       this.map.getMapImpl().getLayers().forEach(lyr=>{
         /* eslint-disable */
         console.log(lyr.getSource().key_);

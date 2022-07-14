@@ -1,12 +1,147 @@
 /**
  * @module M/control/CompareMirrorpanel
  */
-
 import MirrorpanelImplControl from 'impl/cpmirrorpanel';
 import template from 'templates/cpmirrorpanel';
 import { getValue } from './i18n/language';
 import Lyrdropdown from './lyrdropdown';  //e2m: reference LayerDropDown control
 
+const objWMTSsiose = new M.layer.WMTS({
+  url: "https://servicios.idee.es/wmts/ocupacion-suelo",
+  name: "LC.LandCoverSurfaces",
+  matrixSet: "GoogleMapsCompatible",
+  legend: "CORINE / SIOSE",
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  format: 'image/png',
+});
+
+const objWMTSMTN501Edi = new M.layer.WMTS({
+  url: 'https://www.ign.es/wmts/primera-edicion-mtn?',
+  name: 'mtn50-edicion1',
+  legend: 'MTN50 1Edi',
+  matrixSet: 'GoogleMapsCompatible',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  format: 'image/jpeg',
+});
+
+const objWMTSMapa = new M.layer.WMTS({
+  url: 'https://www.ign.es/wmts/mapa-raster',
+  name: 'MTN',
+  matrixSet: 'GoogleMapsCompatible',
+  legend: 'Mapa MTN',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  format: 'image/jpeg',
+});
+
+const objWMTSLidar = new M.layer.WMTS({
+  url: 'https://wmts-mapa-lidar.idee.es/lidar',
+  name: 'EL.GridCoverageDSM',
+  matrixSet: 'GoogleMapsCompatible',
+  legend: 'Modelo Digital de Superficies LiDAR',
+  transparent: true,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: false,
+  format: 'image/png',
+});
+
+const objTMSIGNBase = new M.layer.XYZ({
+  url: 'https://tms-ign-base.idee.es/1.0.0/IGNBaseTodo/{z}/{x}/{-y}.jpeg',
+  projection: 'EPSG:3857',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  maxZoom: 19,
+});
+
+const objTMSPNOA = new M.layer.XYZ({
+  url: 'https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{-y}.jpeg',
+  projection: 'EPSG:3857',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  maxZoom: 19,
+});
+
+const objTMSIGNBaseSoloTextos = new M.layer.XYZ({
+  url: 'https://tms-ign-base.idee.es/1.0.0/IGNBaseOrto/{z}/{x}/{-y}.png',
+  projection: 'EPSG:3857',
+  transparent: false,
+  displayInLayerSwitcher: false,
+  queryable: false,
+  visible: true,
+  maxZoom: 19,
+});
+
+const BASE_LAYERS_CONFIG = {
+  position: 'TR',
+  collapsible: true,
+  collapsed: true,
+  layerId: 0,
+  layerVisibility: true,
+  columnsNumber: 4,
+  layerOpts: [
+    {
+      id: 'MAPAMTN',
+      preview: 'https://i.ibb.co/cL76yjr/raster.png',
+      title: 'Mapa MTN',
+      layers: [objWMTSMapa],
+    },
+    {
+      id: 'mapa',
+      preview: 'https://i.ibb.co/DfPrChV/mapa.png',
+      title: 'Callejero',
+      layers: [objTMSIGNBase],
+    },
+    {
+      id: 'imagen',
+      preview: 'https://i.ibb.co/SKn17Yn/image.png',
+      title: 'Imagen',
+      layers: [objTMSPNOA],
+    },
+    {
+      id: 'hibrido',
+      title: 'Híbrido',
+      preview: 'https://i.ibb.co/N6jfqwz/hibrido.png',
+      layers: [objTMSPNOA,objTMSIGNBaseSoloTextos],
+    },
+    {
+      id: 'lidar',
+      preview: 'https://componentes.ign.es/api-core/plugins/backimglayer/images/svqlidar.png',
+      title: 'LiDAR',
+      layers: [objWMTSLidar],
+    },
+    {
+      id: 'lidar-hibrido',
+      title: 'LiDAR híbrido',
+      preview: 'https://i.ibb.co/TYZcmkz/lidar.png',
+      layers: [objWMTSLidar,objTMSIGNBaseSoloTextos],
+    },
+    {
+      id: 'SIOSE',
+      preview: 'https://i.ibb.co/g34dLwz/siose.jpg',
+      title: 'SIOSE',
+      layers: [objWMTSsiose],
+    },
+    {
+      id: 'MTN501Edi',
+      preview: 'https://i.ibb.co/gPNp5g7/mtn501-Edi.jpg',
+      title: 'MTN50 1Edi',
+      layers: [objWMTSMTN501Edi],
+    },
+  ]
+};
 export default class CompareMirrorpanel extends M.Control {
   /**
    * @classdesc
@@ -414,14 +549,30 @@ export default class CompareMirrorpanel extends M.Control {
             });
           }
           if (itemPlug.metadata_.name === "backimglayer") {
+
+            /**
+             * Nota de Jesús: OJO!!
+             * El problema del backimglayer venía porque se usaban los mismos objetos capa en ambos mapas y eso provocaba los errores.
+             * Se ha sacado una versión específica para el comparador_pnoa con esa definición de capas fija.
+             * Las siguientes líneas se han comentado para subir al plugin. 
+             * 
+             * ToDO:
+             * Lo ideal sería que se le pasara por parámetro como antiguamente, pero como era una cosa urgente he optado por eso por ahora.
+             * En el iberpixcompare como todavía se usaba la configuración antigua en la que se le metían las capas por parámetro no daba ese error.
+             * Para un futuro lo ideal sería eso, meterlas por parámetro. No le borres nada por si hay que volver a compilar versión con algún cambio.
+             * 
+             * 
+             */
+            // Para el Comparador PNOA descomentar las dos siguientes líneas y comentar la tercera y comentar la definición posterior
+            //BASE_LAYERS_CONFIG.layerId = mapLyr === 'A' ? 0 : mapLyr === 'B' ? 1 : mapLyr == 'C' ? 2 : 3,
+            //pluginBackImgLayer4map = new M.plugin.BackImgLayer(BASE_LAYERS_CONFIG);
+            
             pluginBackImgLayer4map = new M.plugin.BackImgLayer({
-              //layerId: itemPlug.layerId,
               layerId: mapLyr === 'A' ? 0 : mapLyr === 'B' ? 1 : mapLyr == 'C' ? 2 : 3,
               layerVisibility:  itemPlug.layerVisibility,
               columnsNumber: itemPlug.columnsNumber,
               layerOpts: itemPlug.layerOpts
             });
-            //pluginBackImgLayer4map = new M.plugin.BackImgLayer(this.backImgLayersConfig);
           }
 
         }

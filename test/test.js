@@ -2,27 +2,6 @@ import Comparepanel from 'facade/comparepanel';
 
 M.language.setLang('es');//Español
 
-/*
-const customBGLids = ['cartomtn','imagen','hibrido','mapa'];
-const customBGLtitles = ['Carto','Imagen','Mixto','Mapa'];
-const customBGLlayers = [
-          'WMTS*https://www.ign.es/wmts/mapa-raster?*MTN*GoogleMapsCompatible*MTN*true*image/jpeg*false*false*true',        
-          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*false*image/jpeg*false*false*true',
-          'WMTS*https://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*GoogleMapsCompatible*imagen*true*image/jpeg*false*false*true' + '+' +
-          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseOrto*GoogleMapsCompatible*Callejero*true*image/png*false*false*true',
-          'WMTS*https://www.ign.es/wmts/ign-base?*IGNBaseTodo*GoogleMapsCompatible*base*false*image/jpeg*false*false*true',        
-        ];
-
-const customBGLoptions = customBGLids.map((id, index) => {
-  return {
-    id,
-    title: customBGLtitles[index],
-    layers: customBGLlayers[index].split('+'),
-  };
-});
-
-M.config('backgroundlayers', customBGLoptions);
-*/
 const map = M.map({
   container: 'mapjs',
   center: {
