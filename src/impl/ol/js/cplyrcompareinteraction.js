@@ -352,7 +352,6 @@ export default class LyrcompareInteraction extends ol.interaction.Pointer {
         tr =  ol.render.getRenderPixel(e, [widthClip, 0]);
         br =  ol.render.getRenderPixel(e, [widthClip, heightClip]);
         bl =  ol.render.getRenderPixel(e, [0, heightClip]);
-        // console.log(`Mapa A: TopLeft:${tl} - TopRight:${tr} - BottomRight:${br} - BottomLeft:${bl}`);
       }
     }
     if (tl!==undefined){

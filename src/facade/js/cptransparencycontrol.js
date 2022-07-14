@@ -347,7 +347,6 @@ export default class TransparencyControl extends M.Control {
       if (!(layer instanceof Object)) {
         if (layer.indexOf("*") >= 0) {
           const urlLayer = layer.split("*");
-          // console.log(urlLayer);
           if (urlLayer[0].toUpperCase() === "WMS") {
             newLayer = new M.layer.WMS({
               url: urlLayer[2],

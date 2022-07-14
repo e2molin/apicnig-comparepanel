@@ -168,7 +168,6 @@ export default class Lyrdropdown extends M.Plugin {
     if (this.control_.template === null){
       return;
     }
-    //console.log(this.control_.template);
     try {
       let optionLyrs = null;
       optionLyrs = this.control_.template.querySelector('#m-lyrdropdown-selector');

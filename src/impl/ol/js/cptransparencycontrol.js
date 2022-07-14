@@ -36,9 +36,6 @@ export default class TransparencyControl extends M.impl.Control {
 
     layers.setVisible(true);
     layers.setZIndex(5000);
-    //console.log(this.olMap);
-    //console.log(M);
-    //console.log(this.freezePosition);
     this.transparentInteraction_ = new TransparentInteraction({
       radius,
       freeze,

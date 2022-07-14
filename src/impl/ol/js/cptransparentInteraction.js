@@ -143,14 +143,9 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setPosition(e) {
 
-    //const pointerPos = ol.render.getRenderPixel(e, [this.pos[0]],this.pos[1]);
-
-    //console.log(ol.render.getRenderPixel(e, e.pixel));
     if (e.pixel) {
-      //console.log(e.pixel);
       if (this.freeze===false){
         this.pos = e.pixel;
-        //this.pos = ol.render.getRenderPixel(e,[e.pixel[0],e.pixel[1]]);
       } 
     } else if (e && e instanceof Array) {
       this.pos = e;
