@@ -320,9 +320,9 @@ const pluginComparepanel = new Comparepanel({
   baseLayers: SENTINELlistBaseLayersByString,
   /*urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',*/
   lyrsMirrorMinZindex:100,
-  timelineParams: { 
+  /*timelineParams: { 
     animation: true,
-  },
+  },*/
   transparencyParams: { 
     radius: 100, 
   },

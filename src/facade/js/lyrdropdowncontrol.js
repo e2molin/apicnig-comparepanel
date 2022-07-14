@@ -142,6 +142,7 @@ export default class LyrdropdownControl extends M.Control {
         }
 
         this.layerSelected = layerSel[0];
+        this.layerSelected.setZIndex(this.lyrsMirrorMinZindex);
         this.getImpl().setLayer(this.layerSelected);
       });
 
