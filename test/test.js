@@ -311,15 +311,15 @@ const mpVector = new M.plugin.Vectors({
 map.addPlugin(mpVector);
 
 const pluginComparepanel = new Comparepanel({
-  position: 'BL',
-  vertical: true,
+  position: 'TL',
+  vertical: false,
   collapsed: false,
   collapsible: true,
   defaultCompareMode: 'mirror',// mirror - curtain - timeline - spyeye - none
   defaultCompareViz: 1,
-  baseLayers: PNOAlistBaseLayersByString,
+  baseLayers: SENTINELlistBaseLayersByString,
   /*urlcoberturas: 'https://projects.develmap.com/apicnig/pnoahisto/coberturas.geojson',*/
-  /*lyrsMirrorMinZindex:18,*/
+  lyrsMirrorMinZindex:100,
   timelineParams: { 
     animation: true,
   },
